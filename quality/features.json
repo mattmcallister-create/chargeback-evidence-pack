@@ -1,8 +1,8 @@
 {
   "_meta": {
     "version": "1.0",
-    "last_updated": "2026-03-30",
-    "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3."
+    "last_updated": "2026-03-31",
+    "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3. UX acceptance criteria added in Phase 3."
   },
   "features": [
     {
@@ -32,7 +32,7 @@
         "If email already registered: error alert 'An account with this email already exists'",
         "Password mismatch: inline error on confirm password field",
         "Password under 8 chars: inline error 'Password must be at least 8 characters'",
-        "Terms of Service and Privacy Policy links present in form footer"
+        "Form is accessible — all fields have labels and keyboard navigation works"
       ]
     },
     {
@@ -54,537 +54,12 @@
       "notes": "Use Supabase session. Error message must not reveal whether email or password is wrong.",
       "ux_acceptance": [
         "Login form renders with email and password fields",
-        "'Forgot your password?' link present below password field",
-        "Invalid credentials: error alert 'Email or password is incorrect'",
-        "Successful login redirects to /dashboard",
-        "Submit button shows loading state and disables during request",
-        "Already logged-in user is redirected directly to /dashboard"
-      ]
-    },
-    {
-      "id": "AUTH-003",
-      "category": "Authentication",
-      "description": "User can reset password via email",
-      "steps": [
-        "Navigate to /login",
-        "Click Forgot password",
-        "Enter email address",
-        "Click Send reset link",
-        "Follow link in email",
-        "Enter new password"
-      ],
-      "passes": [
-        "Reset email sent if account exists (silent if not)",
-        "Reset link expires after 1 hour",
-        "New password accepted and user logged in"
-      ],
-      "status": "pending",
-      "notes": "Silent behavior on non-existent email prevents account enumeration.",
-      "ux_acceptance": [
-        "Password reset link accessible from login page",
-        "Reset email form shows email field with submit CTA",
-        "Success state shows 'Check your email for reset instructions' confirmation",
-        "Invalid email format shows inline validation error"
-      ]
-    },
-    {
-      "id": "PACK-001",
-      "category": "Dispute Pack Creation",
-      "description": "User can create a new dispute pack with basic metadata",
-      "steps": [
-        "Click New Dispute Pack from dashboard",
-        "Enter dispute amount",
-        "Enter response deadline date",
-        "Enter cardholder name (optional)",
-        "Enter last 4 digits of card (optional)",
-        "Enter Stripe dispute ID (optional)",
-        "Click Continue"
-      ],
-      "passes": [
-        "Pack record created in database with status Draft",
-        "Deadline visible on pack card in dashboard",
-        "All fields validated (amount is numeric, date is in the future)",
-        "Pack ID generated and stored"
-      ],
-      "status": "pending",
-      "notes": "Stripe dispute ID is optional but should be validated as a Stripe dispute ID format if provided (ch_xxx or dp_xxx).",
-      "ux_acceptance": [
-        "Step 1 form renders with all 5 fields: dispute amount, cardholder name, card last 4, Stripe dispute ID (optional), response deadline",
-        "Dispute amount field enforces numeric input with currency formatting",
-        "Deadline field uses date picker and validates that date is in the future",
-        "Required fields show inline error messages before advancing to step 2",
-        "Progress bar at top shows step 1 of 5",
-        "Deadline field includes explanatory help text about the Stripe response deadline"
-      ]
-    },
-    {
-      "id": "PACK-002",
-      "category": "Dispute Pack Creation",
-      "description": "User can select a dispute reason category",
-      "steps": [
-        "After creating pack metadata, view category selection screen",
-        "Select one of: Fraudulent, Product Not Received, Product Not as Described, Subscription Cancelled, Duplicate Charge, Credit Not Processed"
-      ],
-      "passes": [
-        "Category stored on pack record",
-        "Category-specific intake form displayed immediately after selection",
-        "Category-specific evidence checklist previewed in sidebar or below form",
-        "User cannot proceed without selecting a category"
-      ],
-      "status": "pending",
-      "notes": "This is MAGIC MOMENT #1: category selection must immediately reveal the specific evidence checklist. This is the aha moment.",
-      "ux_acceptance": [
-        "6 dispute category cards render in 2-column grid",
-        "Selecting a category highlights the card with brand-800 border",
-        "Evidence checklist panel appears immediately below selection without page reload (Magic Moment #1)",
-        "'Here is exactly what you need for [Category]' heading shown on checklist",
-        "'Not sure which category?' help link present",
-        "User cannot advance to step 3 without a category selected"
-      ]
-    },
-    {
-      "id": "PACK-003",
-      "category": "Dispute Pack Creation",
-      "description": "User answers category-specific intake questionnaire",
-      "steps": [
-        "View intake questions specific to selected dispute category",
-        "Answer all required fields",
-        "Answer optional fields where applicable",
-        "Click Save and Continue"
-      ],
-      "passes": [
-        "All required fields validated before proceeding",
-        "Answers stored to database",
-        "Partial answers auto-saved on blur/change",
-        "User can go back and edit answers before generation",
-        "No open-ended text prompts — all fields are structured (dropdowns, checkboxes, date pickers, short inputs)"
-      ],
-      "status": "pending",
-      "notes": "MAGIC MOMENT #2: after answering 2-3 questions, show a partial narrative preview forming in real time. This demonstrates value before payment.",
-      "ux_acceptance": [
-        "Intake questions rendered match the selected dispute category",
-        "'Your answers are saved' indicator appears after each question is answered (debounced 500ms)",
-        "Narrative preview panel shows and updates as questions are answered (Magic Moment #2)",
-        "'Your rebuttal narrative is taking shape' label shown on preview panel",
-        "'Question X of Y' progress indicator shown",
-        "All required questions must be answered before advancing to step 4"
-      ]
-    },
-    {
-      "id": "PACK-004",
-      "category": "Dispute Pack Creation",
-      "description": "User can upload and label exhibits",
-      "steps": [
-        "View exhibit upload section",
-        "Upload file (PDF, PNG, JPG accepted; max 10MB per file; max 20 files)",
-        "Enter label for each exhibit (e.g., Exhibit A: Order Confirmation)",
-        "Reorder exhibits via drag-and-drop",
-        "Delete exhibit before generation"
-      ],
-      "passes": [
-        "Files uploaded to Supabase Storage",
-        "File type and size validated before upload",
-        "Labels required before proceeding to generation",
-        "File list persists on page refresh",
-        "Rejected file types show clear error"
-      ],
-      "status": "pending",
-      "notes": "Storage uses signed URLs. Files never publicly accessible. Max 20 exhibits enforced server-side.",
-      "ux_acceptance": [
-        "File upload zone renders with 2px dashed border and drag-and-drop support",
-        "File limits shown before upload: 'PDF, PNG, JPG — max 10MB per file, 20 files max'",
-        "Uploaded files appear as labeled chips with filename, label field, and remove button",
-        "Evidence checklist checkboxes present — user marks which items are uploaded",
-        "File too large (>10MB): inline error shown per file",
-        "Non-accepted file type: inline error shown per file"
-      ]
-    },
-    {
-      "id": "PACK-005",
-      "category": "Dispute Pack Creation",
-      "description": "Evidence gap detection warns user of missing critical exhibits",
-      "steps": [
-        "Complete intake form",
-        "View pre-generation checklist review screen",
-        "System flags any critical evidence items that are missing based on category"
-      ],
-      "passes": [
-        "Missing critical items shown with clear warning (not blocking — user can proceed)",
-        "Warning message explains why each item matters",
-        "User can acknowledge and proceed or go back to upload"
-      ],
-      "status": "pending",
-      "notes": "Gap detection is a key anti-commodity feature. Must be category-specific. Non-blocking by design — merchant may legitimately lack some evidence.",
-      "ux_acceptance": [
-        "Alert (warning) appears when a critical evidence item is not uploaded",
-        "Alert specifies the exact missing item by name",
-        "User can proceed past the warning to step 5 — warning does not hard-block",
-        "Gap detection runs before PDF generation on step 5 review screen",
-        "All missing critical items listed in review step before generation"
-      ]
-    },
-    {
-      "id": "PAY-001",
-      "category": "Payments",
-      "description": "User is gated at pack generation with a payment requirement",
-      "steps": [
-        "Click Generate Pack",
-        "If no pack credits available, redirected to payment selection",
-        "Select Single Pack ($39) or 3-Pack Bundle ($99)",
-        "Click Buy Now"
-      ],
-      "passes": [
-        "Stripe Checkout session created server-side",
-        "User redirected to Stripe-hosted Checkout",
-        "No payment info stored in app database",
-        "Stripe publishable key used client-side only"
-      ],
-      "status": "pending",
-      "notes": "Payment gate must be server-side enforced. Client-side credit checks are for UX only. Server re-validates credits on generation request.",
-      "ux_acceptance": [
-        "Generate button shows 'Buy and Generate — $39' when user has no pack credits",
-        "'1 pack credit available' badge shown next to generate button when credit exists",
-        "Clicking 'Buy and Generate' redirects to Stripe Checkout",
-        "Pack credit badge updates correctly after successful payment webhook",
-        "Stripe badge visible on step 5 payment CTA area"
-      ]
-    },
-    {
-      "id": "PAY-002",
-      "category": "Payments",
-      "description": "Stripe webhook provisions pack credit after successful payment",
-      "steps": [
-        "Complete payment on Stripe Checkout",
-        "Stripe fires checkout.session.completed webhook",
-        "Server verifies webhook signature with STRIPE_WEBHOOK_SECRET",
-        "Server provisions 1 or 3 pack credits to user account",
-        "User redirected to dashboard with credit available"
-      ],
-      "passes": [
-        "Webhook signature verified using raw body (not parsed JSON)",
-        "Idempotency key prevents duplicate credit grant on webhook retry",
-        "Credit visible in dashboard immediately after redirect",
-        "Failed webhook delivery logged and alertable"
-      ],
-      "status": "pending",
-      "notes": "CRITICAL: Raw body required for Stripe signature verification. Never use parsed req.body. Use stripe.webhooks.constructEvent(rawBody, sig, secret).",
-      "ux_acceptance": [
-        "Pack credit balance increments by purchased amount after Stripe webhook fires",
-        "Dashboard pack credit indicator reflects updated balance",
-        "Payment success: user returns to pack flow with credit available",
-        "No manual refresh required — credit visible immediately on return from Stripe"
-      ]
-    },
-    {
-      "id": "PAY-003",
-      "category": "Payments",
-      "description": "Pack credit is consumed on PDF generation",
-      "steps": [
-        "User has 1+ pack credits",
-        "User clicks Generate Pack (with all required fields completed)",
-        "Server atomically checks credit, deducts 1, begins generation"
-      ],
-      "passes": [
-        "Credit deducted before generation begins (not after)",
-        "If generation fails, credit is restored",
-        "Credit count updated in UI after generation",
-        "Double-generation prevented (idempotency on pack generation request)"
-      ],
-      "status": "pending",
-      "notes": "Atomic deduction prevents race condition where user triggers two simultaneous generations.",
-      "ux_acceptance": [
-        "Pack credit balance decrements by 1 on successful PDF generation",
-        "Credit balance shown correctly before and after generation",
-        "If generation fails: credit is NOT decremented — this is explicitly confirmed to user",
-        "Generation failure alert states: 'Your answers were saved. Your pack credit was not consumed.'"
-      ]
-    },
-    {
-      "id": "GEN-001",
-      "category": "Pack Generation",
-      "description": "AI generates category-specific rebuttal narrative from intake answers",
-      "steps": [
-        "System calls OpenAI GPT-4o with category-specific prompt and sanitized merchant answers",
-        "Narrative generated server-side",
-        "Narrative stored to database"
-      ],
-      "passes": [
-        "Narrative is professional, third-person dispute language",
-        "Narrative does not contain guaranteed win language",
-        "Narrative references specific intake answers (not generic boilerplate)",
-        "Narrative does not exceed 600 words",
-        "Generation completes within 30 seconds"
-      ],
-      "status": "pending",
-      "notes": "API key never exposed client-side. Prompt is category-specific, not open-ended. Output must be reviewed in QA for each category before launch.",
-      "ux_acceptance": [
-        "Generation loading state shows animated brand-700 progress bar",
-        "Step indicators shown: 'Analyzing answers → Generating narrative → Assembling exhibits → Building PDF'",
-        "'This takes about 20–30 seconds.' message displayed during generation",
-        "User remains on the same page — no auto-navigation during generation",
-        "Download button appears and page updates when generation completes",
-        "No-guarantee disclosure shown alongside generated narrative content"
-      ]
-    },
-    {
-      "id": "GEN-002",
-      "category": "Pack Generation",
-      "description": "PDF assembled with correct structure and labeling",
-      "steps": [
-        "After narrative generation, system assembles PDF",
-        "PDF structure: Cover page → Category checklist (checked/unchecked) → Rebuttal narrative → Labeled exhibits in order"
-      ],
-      "passes": [
-        "Cover page shows: merchant name, dispute amount, dispute category, response deadline, generation date",
-        "Checklist shows all category evidence items with checkmark if uploaded, empty if missing",
-        "Narrative section clearly labeled",
-        "Each exhibit labeled with merchant-provided label (Exhibit A, B, etc.)",
-        "PDF passes basic readability check (no truncated text, no overlapping elements)",
-        "PDF file size under 20MB"
-      ],
-      "status": "pending",
-      "notes": "MAGIC MOMENT #3: The first open of this PDF must look like a lawyer produced it. Visual quality is non-negotiable.",
-      "ux_acceptance": [
-        "Generated PDF contains: cover page, evidence checklist, rebuttal narrative, labeled exhibits in correct order",
-        "Download link initiates file download with correct MIME type (application/pdf)",
-        "PDF filename is meaningful: e.g., 'dispute-pack-[id].pdf'",
-        "PDF Preview screen shows page count and file size"
-      ]
-    },
-    {
-      "id": "GEN-003",
-      "category": "Pack Generation",
-      "description": "Generated PDF available for download for 72 hours",
-      "steps": [
-        "After generation, PDF stored in Supabase Storage",
-        "expires_at set to now + 72 hours on pack record",
-        "User sees countdown timer on pack card",
-        "User clicks Download"
-      ],
-      "passes": [
-        "Download returns signed URL valid for download session only",
-        "Expired packs show Expired status with option to regenerate",
-        "Expired files deleted from storage by background job",
-        "User warned at generation time that pack expires in 72 hours"
-      ],
-      "status": "pending",
-      "notes": "Retention policy: 72h for files, 90d for intake answers. Both purged on account deletion.",
-      "ux_acceptance": [
-        "Retention countdown visible on PDF Preview screen: 'Available until [date + time]'",
-        "Alert (warning) on PDF Preview: 'This file will be deleted on [datetime]. Download before then.'",
-        "Expired pack shows Alert (error): 'This pack has expired. Re-generate to get a new PDF.'",
-        "Re-generate button shown on expired pack — does not require re-entering answers",
-        "Pack status badge updates to 'expired' automatically after window passes"
-      ]
-    },
-    {
-      "id": "DEADLINE-001",
-      "category": "Deadline Tracking",
-      "description": "Each pack shows response deadline with visual urgency",
-      "steps": [
-        "View dashboard",
-        "See list of dispute packs with deadlines"
-      ],
-      "passes": [
-        "Deadline shown on every pack card",
-        "Packs with deadline within 7 days shown with yellow warning indicator",
-        "Packs with deadline within 48 hours shown with red urgent indicator",
-        "Expired deadlines shown with grey Missed indicator",
-        "Packs sorted by deadline proximity by default"
-      ],
-      "status": "pending",
-      "notes": "No email reminders in v1. Visual indicators only. Email reminders are v2.",
-      "ux_acceptance": [
-        "Deadline renders in default slate color when more than 7 days away",
-        "Deadline renders in amber-600 when 7 days or fewer remain",
-        "Deadline renders in red-600 when 48 hours or fewer remain",
-        "This urgency coloring applies consistently on dashboard list, pack detail, and stat cards",
-        "Deadline countdown label shown: e.g., '3 days left' or '18 hours left'"
-      ]
-    },
-    {
-      "id": "DEADLINE-002",
-      "category": "Deadline Tracking",
-      "description": "User can manually mark a pack as Submitted",
-      "steps": [
-        "View pack detail page",
-        "Click Mark as Submitted",
-        "Confirm"
-      ],
-      "passes": [
-        "Pack status updated to Submitted",
-        "Submitted date stored",
-        "Pack no longer shows deadline urgency indicators",
-        "Status visible on dashboard"
-      ],
-      "status": "pending",
-      "notes": "No automatic submission integration in v1. Manual only.",
-      "ux_acceptance": [
-        "'Mark as Submitted' button present on Pack Detail and PDF Preview screens",
-        "Clicking button updates pack status badge to 'submitted' immediately",
-        "Submitted packs show submission date in pack detail",
-        "Submitted status is reflected on dashboard list view"
-      ]
-    },
-    {
-      "id": "TRUST-001",
-      "category": "Trust and Safety",
-      "description": "No guaranteed win language appears anywhere in the product",
-      "steps": [
-        "Review all UI copy, error messages, email templates, PDF output",
-        "Search for: win, guarantee, guaranteed, promise, certain, definitely, assured"
-      ],
-      "passes": [
-        "Zero instances of guaranteed win language found",
-        "All outcome-related language uses: strongest possible, best shot, submission-ready, complete evidence",
-        "PDF cover page includes disclaimer: This pack is prepared to support your dispute response. Card network decisions are final and cannot be guaranteed."
-      ],
-      "status": "pending",
-      "notes": "This is a legal and trust requirement. Failure here is a launch blocker.",
-      "ux_acceptance": [
-        "No-guarantee disclosure renders on Step 5 of new pack flow",
-        "No-guarantee disclosure renders on Pack Detail generate section",
-        "No-guarantee disclosure renders on PDF Preview page",
-        "No 'win', 'guaranteed', or outcome-promising language appears on any rendered screen",
-        "Disclosure text: 'AI-generated narrative is based on your answers. Final submission decisions are yours.'"
-      ]
-    },
-    {
-      "id": "TRUST-002",
-      "category": "Trust and Safety",
-      "description": "Retention policy disclosed clearly to users",
-      "steps": [
-        "View generation confirmation screen",
-        "View account settings",
-        "View privacy policy"
-      ],
-      "passes": [
-        "Generation screen shows: Your pack will be available to download for 72 hours. After that, your uploaded files are permanently deleted.",
-        "Account settings shows intake answer retention: Your answers are retained for 90 days to allow re-generation.",
-        "Privacy policy accurately describes retention policy"
-      ],
-      "status": "pending",
-      "notes": "Users uploading sensitive business documents need explicit data handling disclosure.",
-      "ux_acceptance": [
-        "Data retention notice visible on every exhibit upload screen: 'Files deleted 72 hours after download'",
-        "Retention notice on PDF Preview with specific deletion datetime",
-        "Stripe badge shown on all payment-adjacent screens (Step 5, Billing tab)",
-        "'Payments secured by Stripe' label present near purchase CTAs",
-        "Billing tab states: 'Your payment details are managed securely by Stripe. We do not store card data.'"
-      ]
-    },
-    {
-      "id": "TRUST-003",
-      "category": "Trust and Safety",
-      "description": "Stripe webhook verified with signature before any action",
-      "steps": [
-        "Stripe sends webhook to /api/webhooks/stripe",
-        "Server reads raw body",
-        "Server calls stripe.webhooks.constructEvent(rawBody, sig, STRIPE_WEBHOOK_SECRET)"
-      ],
-      "passes": [
-        "Invalid signatures return 400 and take no action",
-        "Valid signatures proceed to provisioning",
-        "Webhook handler does not use parsed JSON body for signature verification",
-        "STRIPE_WEBHOOK_SECRET set via environment variable, never hardcoded"
-      ],
-      "status": "pending",
-      "notes": "CRITICAL security requirement. Failure here means payments can be spoofed.",
-      "ux_acceptance": [
-        "Successful payment returns user to pack flow with credit showing as available",
-        "Failed payment returns user to step 5 with Alert (error): 'Payment was not completed. Your answers are saved.'",
-        "No credit is provisioned without a successful payment confirmation"
-      ]
-    },
-    {
-      "id": "ONBOARD-001",
-      "category": "Onboarding Magic Moments",
-      "description": "Category selection immediately reveals specific evidence checklist (Magic Moment #1)",
-      "steps": [
-        "User selects dispute category",
-        "Evidence checklist for that category appears without page reload",
-        "Checklist shows specific document names, not generic items"
-      ],
-      "passes": [
-        "Checklist visible within 300ms of category selection",
-        "Checklist items are specific to category (e.g., AVS/CVV match for Fraudulent, not generic)",
-        "User reaction: Oh, it knows exactly what I need",
-        "Checklist updates if user changes category selection"
-      ],
-      "status": "pending",
-      "notes": "This is the primary aha moment. If this feels slow or generic, the product feels like a template. Must feel instant and specific.",
-      "ux_acceptance": [
-        "Evidence checklist appears immediately on category selection without page reload",
-        "'Here is exactly what you need for [Category Name]' heading renders above checklist",
-        "Checklist items match the selected category's evidence requirements from the evidence matrix",
-        "Checklist distinction between required and optional items is visually clear"
-      ]
-    },
-    {
-      "id": "ONBOARD-002",
-      "category": "Onboarding Magic Moments",
-      "description": "Partial narrative preview forms as user answers intake questions (Magic Moment #2)",
-      "steps": [
-        "User answers first 2-3 intake questions",
-  "_meta": {
-    "version": "1.0",
-    "last_updated": "2026-03-30",
-    "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3."
-  },
-  "features": [
-    {
-      "id": "AUTH-001",
-      "category": "Authentication",
-      "description": "User can create an account with email and password",
-      "steps": [
-        "Navigate to /signup",
-        "Enter valid email address",
-        "Enter password meeting minimum requirements (8+ chars)",
-        "Click Create Account",
-        "Confirm email via verification link"
-      ],
-      "passes": [
-        "Account created in Supabase Auth",
-        "Verification email sent",
-        "User redirected to dashboard after verification",
-        "No duplicate account can be created with same email"
-      ],
-      "status": "pending",
-      "notes": "Must use Supabase Auth. No OAuth in v1.",
-      "ux_acceptance": [
-        "Signup form renders with email, password, and confirm password fields",
-        "All required fields show inline validation errors before form submission",
+        "Invalid credentials show single alert 'Invalid email or password' — no field-level disclosure",
         "Submit button shows loading state and disables to prevent double-submit",
-        "Success state shows email confirmation alert — no auto-navigation",
-        "If email already registered: error alert 'An account with this email already exists'",
-        "Password mismatch: inline error on confirm password field",
-        "Terms of Service and Privacy Policy links present in form footer"
-      ]
-    },
-    {
-      "id": "AUTH-002",
-      "category": "Authentication",
-      "description": "User can log in with email and password",
-      "steps": [
-        "Navigate to /login",
-        "Enter registered email and password",
-        "Click Sign In"
-      ],
-      "passes": [
-        "User is authenticated and redirected to dashboard",
-        "Invalid credentials show error message (not which field is wrong)",
-        "Session persists across browser refresh",
-        "Brute force protection active (rate limiting)"
-      ],
-      "status": "pending",
-      "notes": "Use Supabase session. Error message must not reveal whether email or password is wrong.",
-      "ux_acceptance": [
-        "Login form renders with email and password fields",
-        "'Forgot your password?' link present below password field",
-        "Invalid credentials: error alert 'Email or password is incorrect'",
-        "Successful login redirects to /dashboard",
-        "Submit button shows loading state and disables during request",
-        "Already logged-in user is redirected directly to /dashboard"
+        "Successful login redirects to dashboard within 2 seconds",
+        "Forgot password link is visible and navigates to password reset flow",
+        "Empty fields trigger inline validation message before network request",
+        "Auth token is stored securely (httpOnly cookie or equivalent) — not in localStorage"
       ]
     },
     {
@@ -607,10 +82,13 @@
       "status": "pending",
       "notes": "Silent behavior on non-existent email prevents account enumeration.",
       "ux_acceptance": [
-        "Password reset link accessible from login page",
-        "Reset email form shows email field with submit CTA",
-        "Success state shows 'Check your email for reset instructions' confirmation",
-        "Invalid email format shows inline validation error"
+        "'Continue with Google' button renders on both login and signup pages",
+        "Clicking opens Google OAuth consent screen",
+        "New Google users are created in the system and redirected to onboarding",
+        "Returning Google users are redirected to dashboard",
+        "OAuth error or cancellation shows toast notification — not blank screen",
+        "Button shows loading/spinner state while OAuth flow is in progress",
+        "No duplicate accounts are created if email already exists via email/password"
       ]
     },
     {
@@ -635,12 +113,13 @@
       "status": "pending",
       "notes": "Stripe dispute ID is optional but should be validated as a Stripe dispute ID format if provided (ch_xxx or dp_xxx).",
       "ux_acceptance": [
-        "Step 1 form renders with all 5 fields: dispute amount, cardholder name, card last 4, Stripe dispute ID optional, response deadline",
-        "Dispute amount field enforces numeric input with currency formatting",
-        "Deadline field uses date picker and validates that date is in the future",
-        "Required fields show inline error messages before advancing to step 2",
-        "Progress bar at top shows step 1 of 5",
-        "Deadline field includes explanatory help text about the Stripe response deadline"
+        "Dispute category selector renders all 6 category options with icon and label",
+        "Each category card shows a brief description of when to use it",
+        "Selecting a category highlights it visually (border, background, or check mark)",
+        "Only one category can be selected at a time",
+        "Next button is disabled until a category is selected",
+        "Category selection persists if user navigates back to this step",
+        "Category labels use plain language — no Visa/Mastercard jargon exposed to user"
       ]
     },
     {
@@ -660,12 +139,13 @@
       "status": "pending",
       "notes": "This is MAGIC MOMENT #1: category selection must immediately reveal the specific evidence checklist. This is the aha moment.",
       "ux_acceptance": [
-        "6 dispute category cards render in 2-column grid",
-        "Selecting a category highlights the card with brand-800 border",
-        "Evidence checklist panel appears immediately below selection without page reload — Magic Moment 1",
-        "'Here is exactly what you need for [Category]' heading shown on checklist",
-        "'Not sure which category?' help link present",
-        "User cannot advance to step 3 without a category selected"
+        "Transaction detail form renders with: amount, date, card last 4, merchant descriptor",
+        "Amount field accepts numeric input with up to 2 decimal places — rejects letters",
+        "Date field restricts to past dates only (no future dates selectable)",
+        "Card last 4 field enforces exactly 4 numeric digits",
+        "Merchant descriptor field accepts free text up to 100 characters",
+        "All required fields show inline validation errors before step advance",
+        "Partial draft saves automatically so user can return to a started pack"
       ]
     },
     {
@@ -688,12 +168,13 @@
       "status": "pending",
       "notes": "MAGIC MOMENT #2: after answering 2-3 questions, show a partial narrative preview forming in real time. This demonstrates value before payment.",
       "ux_acceptance": [
-        "Intake questions rendered match the selected dispute category",
-        "'Your answers are saved' indicator appears after each question is answered (debounced 500ms)",
-        "Narrative preview panel shows and updates as questions are answered — Magic Moment 2",
-        "'Your rebuttal narrative is taking shape' label shown on preview panel",
-        "'Question X of Y' progress indicator shown",
-        "All required questions must be answered before advancing to step 4"
+        "Upload area renders with clear drag-and-drop zone and 'Browse files' fallback",
+        "Accepted file types: PDF, PNG, JPEG, WEBP — others show unsupported error",
+        "Files over 10MB show inline error 'File too large — max 10MB per file'",
+        "Each uploaded file shows filename, file size, and a remove button",
+        "Multiple files can be uploaded in a single session",
+        "Upload progress indicator is visible during file transfer",
+        "Removed files are not included in the final pack"
       ]
     },
     {
@@ -717,12 +198,12 @@
       "status": "pending",
       "notes": "Storage uses signed URLs. Files never publicly accessible. Max 20 exhibits enforced server-side.",
       "ux_acceptance": [
-        "File upload zone renders with dashed border and drag-and-drop support",
-        "File limits shown before upload: PDF, PNG, JPG — max 10MB per file, 20 files max",
-        "Uploaded files appear as labeled chips with filename, label field, and remove button",
-        "Evidence checklist checkboxes present — user marks which items are uploaded",
-        "File exceeds 10MB: inline error shown per file",
-        "Non-accepted file type: inline error shown per file"
+        "Pack preview renders all submitted evidence sections in final PDF order",
+        "Preview layout matches the generated PDF output accurately",
+        "Each evidence section is clearly labeled by type (e.g. 'Order Confirmation')",
+        "Back button returns to the evidence upload step without data loss",
+        "Generate Pack button is only enabled when all required evidence is present",
+        "Missing required evidence items are highlighted with a warning state"
       ]
     },
     {
@@ -742,11 +223,13 @@
       "status": "pending",
       "notes": "Gap detection is a key anti-commodity feature. Must be category-specific. Non-blocking by design — merchant may legitimately lack some evidence.",
       "ux_acceptance": [
-        "Alert warning appears when a critical evidence item is not uploaded",
-        "Alert specifies the exact missing item by name",
-        "User can proceed past the warning to step 5 — warning does not hard-block",
-        "Gap detection runs on step 5 review screen before generation",
-        "All missing critical items listed in review step before generation CTA"
+        "PDF generation shows an animated progress indicator during assembly",
+        "Generated PDF includes all uploaded evidence in structured order",
+        "PDF includes cover page: dispute category, transaction details, and timestamp",
+        "PDF filename follows pattern: chargeback-pack-[PACK-ID].pdf",
+        "Download button appears only after successful generation",
+        "Error state provides retry option and error description — no silent failure",
+        "Pack is associated with user account for 72-hour access window per PRD"
       ]
     },
     {
@@ -768,10 +251,13 @@
       "status": "pending",
       "notes": "Payment gate must be server-side enforced. Client-side credit checks are for UX only. Server re-validates credits on generation request.",
       "ux_acceptance": [
-        "Generate button shows 'Buy and Generate — $39' when user has no pack credits",
-        "'1 pack credit available' badge shown next to generate button when credit exists",
-        "Clicking 'Buy and Generate' redirects to Stripe Checkout",
-        "Stripe badge visible on step 5 payment CTA area"
+        "Pricing page shows $39/pack price clearly before any payment action",
+        "Checkout flow opens Stripe-hosted or embedded payment form",
+        "Order summary in checkout reads: '1 Chargeback Evidence Pack — $39'",
+        "Credit card fields use Stripe Elements with inline validation",
+        "Submit button shows loading state and disables to prevent duplicate charges",
+        "Successful payment redirects to pack creation or confirmation screen",
+        "Failed payment displays Stripe error message (e.g., 'Your card was declined')"
       ]
     },
     {
@@ -794,9 +280,12 @@
       "status": "pending",
       "notes": "CRITICAL: Raw body required for Stripe signature verification. Never use parsed req.body. Use stripe.webhooks.constructEvent(rawBody, sig, secret).",
       "ux_acceptance": [
-        "Pack credit balance increments after Stripe webhook fires",
-        "Dashboard pack credit indicator reflects updated balance without page refresh",
-        "Payment success: user returns to pack flow with credit available immediately"
+        "Confirmation screen renders immediately after successful Stripe payment",
+        "Confirmation shows: pack ID, amount paid, and user email",
+        "Transactional receipt email is sent to user's registered email address",
+        "Prominent CTA to proceed to pack creation or download is visible",
+        "Refreshing the confirmation page does not trigger a second charge",
+        "Back navigation from confirmation does not re-open payment form"
       ]
     },
     {
@@ -817,9 +306,12 @@
       "status": "pending",
       "notes": "Atomic deduction prevents race condition where user triggers two simultaneous generations.",
       "ux_acceptance": [
-        "Pack credit balance decrements by 1 on successful PDF generation",
-        "If generation fails: credit is NOT decremented",
-        "Generation failure alert states: 'Your answers were saved. Your pack credit was not consumed.'"
+        "Refund policy is visible on the pricing page and in checkout flow",
+        "Refund policy page exists at /refund with content matching PRD terms",
+        "Refund request link is accessible from the account or billing settings page",
+        "Refund form requires: pack ID and reason for refund",
+        "Submission of refund request shows immediate confirmation message",
+        "Refund eligibility window matches PRD policy (no guarantees language used)"
       ]
     },
     {
@@ -841,12 +333,13 @@
       "status": "pending",
       "notes": "API key never exposed client-side. Prompt is category-specific, not open-ended. Output must be reviewed in QA for each category before launch.",
       "ux_acceptance": [
-        "Generation loading state shows animated progress bar",
-        "Step indicators shown: Analyzing answers, Generating narrative, Assembling exhibits, Building PDF",
-        "'This takes about 20-30 seconds.' message displayed during generation",
-        "User remains on same page — no auto-navigation during generation",
-        "Download button appears when generation completes",
-        "No-guarantee disclosure shown alongside generated narrative content"
+        "AI-generated narrative section is included in the PDF for all 6 dispute categories",
+        "Narrative is category-specific — not generic boilerplate text",
+        "Narrative references the specific transaction details entered by the user",
+        "Tone is formal and professional — 'submission-grade' per brand guidelines",
+        "Narrative is under 300 words per section",
+        "No placeholder text, template tokens, or bracket-style variables appear in output",
+        "Narrative generation completes within 30 seconds or shows progress indicator"
       ]
     },
     {
@@ -868,10 +361,12 @@
       "status": "pending",
       "notes": "MAGIC MOMENT #3: The first open of this PDF must look like a lawyer produced it. Visual quality is non-negotiable.",
       "ux_acceptance": [
-        "Generated PDF contains: cover page, evidence checklist, rebuttal narrative, labeled exhibits in correct order",
-        "Download link initiates file download with correct MIME type (application/pdf)",
-        "PDF filename is meaningful, e.g. dispute-pack-[id].pdf",
-        "PDF Preview screen shows page count and file size"
+        "Each of the 6 dispute categories renders a distinct PDF template layout",
+        "Template includes category-specific evidence checklist on the cover or intro page",
+        "Required evidence items are visually distinguished from optional items",
+        "Template structure aligns with relevant Visa/Mastercard reason code requirements",
+        "Page order follows: cover → narrative → evidence exhibits → declaration",
+        "Template renders correctly for packs with 1 exhibit and packs with 10+ exhibits"
       ]
     },
     {
@@ -893,11 +388,12 @@
       "status": "pending",
       "notes": "Retention policy: 72h for files, 90d for intake answers. Both purged on account deletion.",
       "ux_acceptance": [
-        "Retention countdown visible on PDF Preview: 'Available until [date + time]'",
-        "Alert warning on PDF Preview: 'This file will be deleted on [datetime]. Download before then.'",
-        "Expired pack shows Alert error: 'This pack has expired. Re-generate to get a new PDF.'",
-        "Re-generate button shown on expired pack without requiring re-entry of answers",
-        "Pack status badge updates to 'expired' automatically after window passes"
+        "Final PDF is a single downloadable file combining all sections",
+        "PDF file size is under 10MB for typical evidence packs",
+        "PDF opens without errors in Chrome, macOS Preview, and Adobe Acrobat",
+        "PDF metadata includes app name and UTC generation timestamp",
+        "Pages are numbered sequentially starting from page 1",
+        "PDF passes basic accessibility check (text is selectable, not image-only)"
       ]
     },
     {
@@ -918,11 +414,12 @@
       "status": "pending",
       "notes": "No email reminders in v1. Visual indicators only. Email reminders are v2.",
       "ux_acceptance": [
-        "Deadline renders in default slate color when more than 7 days away",
-        "Deadline renders in amber-600 when 7 days or fewer remain",
-        "Deadline renders in red-600 when 48 hours or fewer remain",
-        "Urgency coloring applies consistently on dashboard list, pack detail, and stat cards",
-        "Deadline countdown label shown: e.g. '3 days left' or '18 hours left'"
+        "Dispute window tracker shows days remaining prominently during pack creation",
+        "Calculation is based on the transaction date entered by the user",
+        "Color coding: green for more than 14 days, amber for 7–14 days, red for fewer than 7",
+        "Red/urgent state displays an additional CTA to proceed immediately",
+        "Deadline calculation uses the standard 120-day chargeback dispute window",
+        "Tracker is visible on the dashboard for all in-progress and completed packs"
       ]
     },
     {
@@ -943,10 +440,12 @@
       "status": "pending",
       "notes": "No automatic submission integration in v1. Manual only.",
       "ux_acceptance": [
-        "'Mark as Submitted' button present on Pack Detail and PDF Preview screens",
-        "Clicking button updates pack status badge to 'submitted' immediately",
-        "Submitted packs show submission date in pack detail",
-        "Submitted status is reflected on dashboard list view"
+        "Email reminder is sent automatically when 14 days remain in the dispute window",
+        "Second email reminder is sent when 7 days remain",
+        "Dashboard notification badge increments for unread deadline alerts",
+        "Notification links directly to the relevant pack",
+        "User can disable deadline reminders from account settings",
+        "Reminders are not sent for packs that have already been downloaded"
       ]
     },
     {
@@ -965,11 +464,12 @@
       "status": "pending",
       "notes": "This is a legal and trust requirement. Failure here is a launch blocker.",
       "ux_acceptance": [
-        "No-guarantee disclosure renders on Step 5 of new pack flow",
-        "No-guarantee disclosure renders on Pack Detail generate section",
-        "No-guarantee disclosure renders on PDF Preview page",
-        "No win, guaranteed, or outcome-promising language appears on any rendered screen",
-        "Disclosure text: 'AI-generated narrative is based on your answers. Final submission decisions are yours.'"
+        "Evidence checklist renders per dispute category with all relevant item types",
+        "Each checklist item shows required or optional status clearly",
+        "Items are checked off automatically when corresponding evidence is uploaded",
+        "Progress indicator shows count of completed vs total required items",
+        "Checklist state persists across browser sessions",
+        "Incomplete required items block pack generation with a visible warning"
       ]
     },
     {
@@ -989,11 +489,11 @@
       "status": "pending",
       "notes": "Users uploading sensitive business documents need explicit data handling disclosure.",
       "ux_acceptance": [
-        "Data retention notice visible on every exhibit upload screen: 'Files deleted 72 hours after download'",
-        "Retention notice on PDF Preview with specific deletion datetime",
-        "Stripe badge shown on all payment-adjacent screens",
-        "'Payments secured by Stripe' label present near purchase CTAs",
-        "Billing tab states: 'Your payment details are managed securely by Stripe. We do not store card data.'"
+        "Pack cover page displays the mapped Visa/Mastercard reason code for the category",
+        "Reason code is shown alongside a plain-language description",
+        "Reason codes match current Visa and Mastercard dispute reason code schema",
+        "User-facing label uses plain language — raw reason code is in parentheses",
+        "Reason code mapping is reviewable before pack generation"
       ]
     },
     {
@@ -1014,9 +514,11 @@
       "status": "pending",
       "notes": "CRITICAL security requirement. Failure here means payments can be spoofed.",
       "ux_acceptance": [
-        "Successful payment returns user to pack flow with credit showing as available",
-        "Failed payment returns user to step 5 with Alert error: 'Payment was not completed. Your answers are saved.'",
-        "No credit is provisioned without a confirmed successful payment"
+        "Declaration page appears as the final page of every generated pack",
+        "Declaration includes: merchant name, dispute category, pack ID, and generation date",
+        "Language is formal and professional — no 'guarantee' or 'win' claims per brand guidelines",
+        "Declaration is styled as a formal document section, not conversational text",
+        "Declaration is not editable by the user"
       ]
     },
     {
@@ -1037,10 +539,11 @@
       "status": "pending",
       "notes": "This is the primary aha moment. If this feels slow or generic, the product feels like a template. Must feel instant and specific.",
       "ux_acceptance": [
-        "Evidence checklist appears immediately on category selection without page reload",
-        "'Here is exactly what you need for [Category Name]' heading renders above checklist",
-        "Checklist items match the selected category's evidence requirements from evidence matrix",
-        "Checklist distinction between required and optional items is visually clear"
+        "First-time users see a welcome screen after completing email confirmation",
+        "Welcome screen explains the 3-step process: describe, upload, download",
+        "Primary CTA on welcome screen is 'Create Your First Pack'",
+        "Welcome screen is suppressed for returning users who have previously logged in",
+        "Welcome screen does not display on subsequent logins"
       ]
     },
     {
@@ -1061,10 +564,13 @@
       "status": "pending",
       "notes": "This demonstrates value before payment. Critical for conversion. Can be pre-generated client-side from a template for speed — does not need to call AI.",
       "ux_acceptance": [
-        "Narrative preview panel is visible during Step 3 intake questionnaire",
-        "Preview panel updates within 500ms of each question being answered",
-        "'Your rebuttal narrative is taking shape' label is shown on the preview panel",
-        "On mobile, preview is accessible via a 'Show preview' toggle collapsed by default"
+        "Intake wizard renders with a visible step indicator showing current and total steps",
+        "Step 1 presents dispute category selection (all 6 options)",
+        "Step 2 presents transaction detail fields",
+        "Step 3 presents evidence upload interface",
+        "Back button on all steps returns to previous step without data loss",
+        "User answers first 2-3 intake questions before being prompted to pay",
+        "Progress is saved so users can return to an incomplete intake session"
       ]
     },
     {
@@ -1088,11 +594,13 @@
       "status": "pending",
       "notes": "This is the moment that justifies $39 and drives word-of-mouth. Visual quality is non-negotiable. QA must review actual PDF output before launch.",
       "ux_acceptance": [
-        "Downloaded PDF has a professional cover page with pack title, dispute category, and date",
-        "Exhibits are labeled with sequential exhibit numbers: Exhibit A, B, C...",
-        "PDF typography and layout matches the quality bar of a professional legal document",
-        "File size is reasonable for the content (under 10MB for typical packs)"
+        "FAQ page exists at /faq and renders accordion-style sections",
+        "Each accordion item expands on click and collapses on second click",
+        "FAQ covers at minimum: 'What is a chargeback?', 'How long does this take?', 'What file types are accepted?'",
+        "Help icon or link is accessible from all app screens (sidebar or header)",
+        "Clicking help from within a specific pack step links to the relevant FAQ section",
+        "FAQ page is accessible without login"
       ]
     }
   ]
-        }
+}
