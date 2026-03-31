@@ -359,3 +359,92 @@ Designed full brand direction, design system, and information architecture.
 [ ] Build dashboard UI (pack list, status, deadline urgency)
 [ ] Implement 72h retention cron job
 [ ] Deploy to Render
+
+
+================================================================================
+SESSION 004 | 2026-03-31 | PHASE 4: GROWTH (DISCOVERABILITY + CONVERSION)
+================================================================================
+
+ROLE: Digital growth agency
+OBJECTIVE: Design the full SEO/AEO/GEO/CRO strategy for the Chargeback Evidence Pack Builder
+
+FILES CREATED
+-------------
+growth/SEO-AEO-GEO-Plan.md (25,607 chars)
+  - Section 1: SEO Architecture
+    - 1.1 Page Clusters: Transactional Core (4 pages), Category Landing (6 pages), Guide Pages (5 pages)
+    - 1.2 Primary Keyword Themes: 5 themes targeting dispute-type + platform-specific queries
+    - 1.3 Metadata Strategy: Title tag formula, meta description formula, full table for all 15 pages
+    - 1.4 Internal Linking: Hub-and-spoke model, anchor text rules, breadcrumb implementation
+    - 1.5 FAQ and Structured Data: FAQPage + HowTo + SoftwareApplication + Article + BreadcrumbList per page
+    - 1.6 Page Intent Mapping: 15-row table mapping URL, intent, and primary action
+  - Section 2: AEO/GEO Strategy
+    - 2.1 Target Pages for Citation: 7 priority pages ordered by impact
+    - 2.2 Required Citable Sections: 7 mandatory sections per category page
+    - 2.3 Tables and Checklists: 5 specific tables to build for AI retrieval
+    - 2.4 Copy Structure Rules: 8 rules for declarative, fact-first, citation-optimised copy
+  - Section 3: First 15 Launch Pages
+    - P1 (9 pages): Home, How It Works, Pricing, FAQ, 3 category pages, 2 guide pages
+    - P2 (6 pages): 3 category pages, 3 guide pages
+    - Per-page specs: type, primary keyword, SEO notes, AEO notes, schema types, CTA
+
+growth/CRO-Plan.md (21,157 chars)
+  - Section 1: Homepage Conversion Path (7 sections + 3 A/B test priorities)
+  - Section 2: Pricing Page Conversion Path (5 steps + logged-in user behaviour rule)
+  - Section 3: Objection Handling Map (10 objections with placement and required response)
+  - Section 4: Trust Reinforcement Architecture (signal placement table, anti-trust signals, VoC plan)
+  - Section 5: One-Time Pack vs Subscription Positioning (copy treatment table, bundle positioning)
+  - Section 6: Risk-Reduction Language (5 merchant fears with responses and placement rules)
+  - Section 7: CRO Measurement Framework (7 metrics, 30-day targets, diagnostic logic, tool recs)
+  - Section 8: Category Page Conversion Path (identity-framed CTAs, trust requirements)
+
+FILES UPDATED
+-------------
+quality/features.json (30,113 -> 46,941 chars, 22 -> 30 features)
+  Added 8 new features:
+  DISC-001: SEO category landing pages (6 pages, dispute-specific evidence tables + CTAs)
+  DISC-002: FAQ schema markup (JSON-LD FAQPage/HowTo/Article/SoftwareApplication on key pages)
+  DISC-003: Guide pages / authority content hub (/guide/* pages for AEO citation)
+  DISC-004: Structured metadata system (unique title tags, meta descriptions, OG tags, 15 pages)
+  CONV-001: Pricing page conversion path (anchor table, no-guarantee disclosure, trust signals)
+  CONV-002: Trust signal system (Stripe badge, no-subscription, retention policy, anti-trust audit)
+  CONV-003: Objection handling in UI copy (inline at moment of anxiety, not FAQ-only)
+  CONV-004: Category-specific CTA optimisation (identity-framed per dispute type)
+
+KEY DECISIONS
+-------------
+1. AEO strategy: Tables and numbered lists (not prose) are the primary citation targets for AI answer
+   engines. Every category page must have an evidence requirements table as its most prominent element.
+
+2. CRO core insight: Homepage visitors already know they have a chargeback. Do NOT educate them.
+   Confirm relevance (category chips) and reduce perceived effort (3-step how it works) immediately.
+
+3. Trust signal hierarchy: No-subscription statement is the highest-anxiety trust signal for this ICP.
+   Merchants who have just been chargebacked are acutely sensitive to billing surprises.
+
+4. Pricing anchor: The comparison table (consultant $300-500 vs pack builder $39) is the highest-
+   leverage pricing element. Never remove it without A/B test data.
+
+5. CTA copy: Identity-framed CTAs on category pages (Build My Fraudulent Dispute Evidence Pack) are
+   a confirmed conversion signal. Generic CTAs (Get Started) are a leak.
+
+6. Anti-trust signals: Win rate percentages, Stripe-certified claims, and AI-powered as a trust
+   headline must be prohibited at code review level. These signals damage credibility with ICP.
+
+7. Analytics: Use Plausible or PostHog (not GA4) to avoid cookie consent friction at launch.
+
+8. Metadata: Must be server-rendered via Next.js Metadata API, not client-side injected.
+
+PHASE 4 NEXT STEPS (for Phase 5: Build)
+----------------------------------------
+[ ] Implement all 15 launch pages with metadata, schema, and content per SEO-AEO-GEO-Plan.md
+[ ] Build 6 category landing pages with dispute-specific evidence tables (DISC-001)
+[ ] Build 5 guide pages at /guide/* with Article schema and internal links (DISC-003)
+[ ] Implement JSON-LD schema on all pages (DISC-002)
+[ ] Implement structured metadata system via Next.js Metadata API (DISC-004)
+[ ] Implement pricing page with anchor table and no-guarantee disclosure (CONV-001)
+[ ] Implement trust signal system sitewide (CONV-002)
+[ ] Implement inline objection handling copy at defined placement points (CONV-003)
+[ ] Implement identity-framed CTAs on all 6 category pages (CONV-004)
+[ ] Configure Plausible or PostHog for funnel tracking
+[ ] Set up PostHog feature flags for A/B tests (3 priorities in CRO-Plan.md Section 1)
