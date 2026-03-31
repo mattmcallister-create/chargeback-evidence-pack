@@ -3,7 +3,7 @@
     "version": "1.0",
     "last_updated": "2026-03-31",
     "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3. UX acceptance criteria added in Phase 3.",
-    "total_features": 30
+    "total_features": 34
   },
   "features": [
     {
@@ -845,6 +845,148 @@
         "Secondary CTA is visually subordinate to primary CTA (smaller, outlined, or text link style)",
         "CTA copy is consistent: the exact same dispute type label appears in the hero, mid-page, and bottom CTA"
       ]
+    },
+    {
+      "id": "ARCH-001",
+      "category": "Infrastructure",
+      "description": "Webhook events are stored with a unique event_id to guarantee idempotency — duplicate Stripe webhook deliveries cannot grant credits twice.",
+      "steps": [
+        "Stripe delivers checkout.session.completed webhook to /api/webhooks/stripe",
+        "Server attempts INSERT into webhook_events table with the Stripe event_id (UNIQUE constraint)",
+        "If INSERT succeeds, proceed to grant credits via add_credits() RPC",
+        "If INSERT fails with unique violation, credits were already granted — return 200 without re-processing",
+        "Webhook returns 200 in both cases to prevent Stripe from retrying"
+      ],
+      "passes": [
+        {
+          "id": "ARCH-001-P001",
+          "status": "pending",
+          "description": "First delivery of checkout.session.completed grants correct credit quantity"
+        },
+        {
+          "id": "ARCH-001-P002",
+          "status": "pending",
+          "description": "Duplicate delivery of same event_id does not grant additional credits"
+        },
+        {
+          "id": "ARCH-001-P003",
+          "status": "pending",
+          "description": "Webhook returns 200 on duplicate delivery (no Stripe retry triggered)"
+        }
+      ],
+      "decision_ref": "DEC-009",
+      "notes": "The webhook_events table has a UNIQUE constraint on event_id. The INSERT itself is the idempotency guard — no separate SELECT-then-INSERT pattern needed."
+    },
+    {
+      "id": "ARCH-002",
+      "category": "Infrastructure",
+      "description": "An hourly retention cron job deletes files from Supabase Storage for packs that have passed their 72-hour expiry window.",
+      "steps": [
+        "cron-job.org calls POST /api/cron/retention with Authorization: Bearer CRON_SECRET header",
+        "Route validates CRON_SECRET — returns 401 if invalid",
+        "Query packs where status != 'expired' AND expires_at < now()",
+        "For each expired pack (batch of 100): delete all files from pack-exhibits and pack-pdfs buckets",
+        "Update pack status to 'expired' in database",
+        "Return count of packs processed"
+      ],
+      "passes": [
+        {
+          "id": "ARCH-002-P001",
+          "status": "pending",
+          "description": "Route rejects requests with invalid or missing CRON_SECRET"
+        },
+        {
+          "id": "ARCH-002-P002",
+          "status": "pending",
+          "description": "Files are deleted from both storage buckets for expired packs"
+        },
+        {
+          "id": "ARCH-002-P003",
+          "status": "pending",
+          "description": "Pack status is updated to 'expired' after file deletion"
+        },
+        {
+          "id": "ARCH-002-P004",
+          "status": "pending",
+          "description": "Non-expired packs are not affected by the retention job"
+        }
+      ],
+      "decision_ref": "DEC-019",
+      "notes": "A companion daily job (POST /api/cron/purge-answers) nulls intake_answers for packs older than 90 days. Both jobs use the same CRON_SECRET validation pattern."
+    },
+    {
+      "id": "ARCH-003",
+      "category": "Infrastructure",
+      "description": "Credit deduction and restoration happen via SECURITY DEFINER Postgres functions — never via raw UPDATE from application code — ensuring atomic, RLS-bypassing credit operations.",
+      "steps": [
+        "On generate request: server calls deduct_credit(user_id) RPC via supabaseAdmin client",
+        "deduct_credit() atomically decrements credits WHERE credits > 0 — raises exception if insufficient",
+        "If generation succeeds: credit stays deducted, pack status set to 'generated'",
+        "If generation fails: server calls restore_credit(user_id) RPC to return the credit",
+        "restore_credit() sets credit_restored = true on pack_generations to prevent double-restore",
+        "On purchase: webhook calls add_credits(user_id, quantity) RPC to grant credits"
+      ],
+      "passes": [
+        {
+          "id": "ARCH-003-P001",
+          "status": "pending",
+          "description": "deduct_credit() fails with error when user has 0 credits — generation is blocked"
+        },
+        {
+          "id": "ARCH-003-P002",
+          "status": "pending",
+          "description": "Credit is restored exactly once on generation failure (credit_restored flag prevents double restore)"
+        },
+        {
+          "id": "ARCH-003-P003",
+          "status": "pending",
+          "description": "add_credits() correctly increments credits on first purchase and subsequent purchases"
+        },
+        {
+          "id": "ARCH-003-P004",
+          "status": "pending",
+          "description": "Credits cannot go below 0 (CHECK constraint on user_credits.credits)"
+        }
+      ],
+      "decision_ref": "DEC-012",
+      "notes": "SECURITY DEFINER functions bypass RLS and run as the function owner. This is intentional — credit operations must succeed regardless of the calling user's RLS context. Functions are defined with SECURITY DEFINER and owned by postgres."
+    },
+    {
+      "id": "ARCH-004",
+      "category": "Infrastructure",
+      "description": "PDF downloads are served via short-lived signed URLs issued by the server — never via direct storage paths — ensuring ownership validation happens on every download.",
+      "steps": [
+        "User clicks download button — client calls GET /api/packs/[packId]/download",
+        "Server authenticates request via Supabase Auth JWT",
+        "Server queries pack record and verifies pack.user_id === authenticated user ID",
+        "Server generates a 15-minute signed URL for the PDF in pack-pdfs bucket via service role client",
+        "Signed URL is returned to client (never the raw storage path)",
+        "Client redirects browser to signed URL — Supabase Storage serves the file directly"
+      ],
+      "passes": [
+        {
+          "id": "ARCH-004-P001",
+          "status": "pending",
+          "description": "Authenticated owner can download their PDF via the signed URL"
+        },
+        {
+          "id": "ARCH-004-P002",
+          "status": "pending",
+          "description": "Authenticated user cannot download another user's PDF (IDOR check)"
+        },
+        {
+          "id": "ARCH-004-P003",
+          "status": "pending",
+          "description": "Unauthenticated request to download endpoint returns 401"
+        },
+        {
+          "id": "ARCH-004-P004",
+          "status": "pending",
+          "description": "Signed URL expires after 15 minutes — reuse after expiry returns 400 from Supabase Storage"
+        }
+      ],
+      "decision_ref": "DEC-014",
+      "notes": "The pack-pdfs bucket has no public access. Signed URLs are the only valid download mechanism. Raw storage paths are never exposed to the client."
     }
   ]
 }
