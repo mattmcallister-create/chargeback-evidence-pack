@@ -202,3 +202,61 @@ This file is append-only. Do not delete past decisions. Mark superseded decision
 - **Rationale:** Single source of truth prevents drift between product spec, DB schema, and UI. Evidence gap detection rules feed directly into `evidence_gaps` generation output. Win/lose conditions inform `win_assessment` calibration.
 - **Consequences:** Any new dispute category requires atomic updates to: evidence-matrix.md, the DB CHECK constraint, prompt templates, and intake UI.
 - **Alternatives Rejected:** Hardcoding categories in DB schema only (creates drift), defining in UI code only (loses traceability).
+
+
+---
+
+## Phase 3 Architecture Decisions (Session 005)
+
+**DEC-017**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** What authentication method should be used for user accounts?
+- **Decision:** Email/password auth via Supabase Auth built-in. Standard signup/login flow. Password reset via email (Supabase handles).
+- **Rationale:** Most reliable login method — no email dependency per login session. Supabase Auth built-in means zero custom auth code. Matches B2B merchant expectations (they expect to set a password for a business tool).
+- **Consequences:** Users must remember a password. One-time email required for password reset (acceptable). No passwordless convenience.
+- **Alternatives Rejected:** Magic link (email delivery required on every login — any email outage locks all users out), Stripe-linked account creation (complex webhook-to-account flow, race conditions at registration, no clear recovery path).
+
+---
+
+**DEC-018**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** How should transactional and auth email be delivered?
+- **Decision:** Two-provider approach: (1) Supabase built-in SMTP for auth flows (email verification, password reset — triggered by Supabase automatically). (2) Resend free tier (100/day) for transactional emails (purchase confirmation only in V1).
+- **Rationale:** Supabase handles auth emails natively with no extra setup. Resend provides reliable delivery for business emails with a simple Node.js SDK. Both free tiers are more than sufficient for V1 volume.
+- **Consequences:** Two email providers in env vars (RESEND_API_KEY). Auth email templates are Supabase-managed. Resend usage must stay under 100/day on free tier.
+- **Alternatives Rejected:** Single Resend provider for all email (requires custom auth email templates replacing Supabase defaults), SendGrid (higher complexity, no meaningful free tier), Postmark (no free tier), Mailgun (complex setup).
+
+---
+
+**DEC-019**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** How should scheduled background jobs run?
+- **Decision:** cron-job.org (free external cron service) calls secured Next.js API routes at `/api/cron/*` with `Authorization: Bearer CRON_SECRET` header. Two jobs: retention (hourly, deletes expired pack files from storage) and purge-answers (daily, nulls intake_answers older than 90 days).
+- **Rationale:** Render free tier has no built-in cron. External cron is simpler than Supabase pg_cron (Postgres-only, harder to test, requires extension). API route cron is testable via curl, observable in Sentry, and version-controlled. cron-job.org is free and reliable.
+- **Consequences:** CRON_SECRET env var required. API routes must validate CRON_SECRET before executing. External dependency on cron-job.org availability.
+- **Alternatives Rejected:** Supabase pg_cron (Postgres extension required, logic in SQL not TypeScript, harder to test end-to-end), separate Render cron worker (second service, additional cost, deployment complexity), Vercel cron (not using Vercel).
+
+---
+
+**DEC-020**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** How should application errors and uptime be monitored?
+- **Decision:** Sentry (`@sentry/nextjs`) free tier (5K errors/month) for error capture with source maps. UptimeRobot free tier for uptime monitoring on `/api/admin/health` endpoint. OpenAI cost monitored via usage dashboard with $5/day email alert.
+- **Rationale:** Sentry is the standard Next.js error monitoring integration. UptimeRobot provides email alerts on downtime with 5-minute check intervals. Both free tiers are adequate for V1 volume. Health endpoint provides a single observable signal for uptime tools.
+- **Consequences:** SENTRY_DSN and NEXT_PUBLIC_SENTRY_DSN env vars required. Health endpoint must return 200 when DB connection is healthy. Sentry error budget is 5K/month — must not let uncaught errors run unchecked.
+- **Alternatives Rejected:** Datadog (expensive at scale), LogRocket (frontend-session focused, not server errors), Honeybadger (less Next.js-native), no monitoring (blind to production errors and outages).
+
+---
+
+**DEC-021**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** Should the application be a unified monolith or split into separate services?
+- **Decision:** Option A — unified monolith. Single Next.js App Router service deployed to Render + Supabase (Auth + Postgres + Storage). Puppeteer runs in the same Node.js process. One codebase, one deploy target, one provider relationship. Full spec in `docs/ARCHITECTURE.md`.
+- **Rationale:** Minimum viable operational surface for a solo founder. No cross-service JWT passing, no inter-service latency, no second deploy pipeline. Chromium memory overhead (~300MB) is acceptable given Render RAM headroom. Every component speaks directly to Supabase.
+- **Consequences:** Chromium adds ~300MB to Render instance memory. PDF generation is async in Node.js (not a separate worker thread) — must not block the event loop synchronously. Monitor Render memory usage as PDF queue grows.
+- **Alternatives Rejected:** Option B — split services (Next.js + separate Express PDF worker + Neon Postgres + AWS S3): two services, cross-service JWT passing, S3 IAM complexity, two deploy targets, added latency, no measurable user benefit at V1 volume.
