@@ -2,7 +2,8 @@
   "_meta": {
     "version": "1.0",
     "last_updated": "2026-03-31",
-    "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3. UX acceptance criteria added in Phase 3."
+    "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3. UX acceptance criteria added in Phase 3.",
+    "total_features": 30
   },
   "features": [
     {
@@ -600,6 +601,249 @@
         "Help icon or link is accessible from all app screens (sidebar or header)",
         "Clicking help from within a specific pack step links to the relevant FAQ section",
         "FAQ page is accessible without login"
+      ]
+    },
+    {
+      "id": "DISC-001",
+      "category": "Discoverability",
+      "description": "SEO category landing pages exist for all 6 dispute types with full evidence requirements, structured tables, and conversion CTAs",
+      "steps": [
+        "Navigate to /chargeback/fraudulent",
+        "Navigate to /chargeback/subscription-cancelled",
+        "Navigate to /chargeback/product-not-received",
+        "Navigate to /chargeback/product-not-as-described",
+        "Navigate to /chargeback/duplicate-charge",
+        "Navigate to /chargeback/credit-not-processed",
+        "Verify each page has a definition paragraph, evidence requirements table, what card networks look for, common reasons disputes are lost, narrative structure guidance, FAQ section, and a category-specific CTA"
+      ],
+      "passes": [
+        "All 6 category pages return HTTP 200",
+        "Each page has a unique title tag matching the formula: [Dispute Type] Chargeback Evidence Requirements | Chargeback Evidence Pack Builder",
+        "Each page has a unique meta description under 160 characters",
+        "Evidence requirements table is present and populated with dispute-specific fields",
+        "CTA button copy names the specific dispute type (not generic Get Started)",
+        "No-guarantee statement is present on each page",
+        "Price ($39) is disclosed before the CTA",
+        "No-subscription line is present near the CTA"
+      ],
+      "status": "pending",
+      "notes": "Six pages total. Each page serves a specific SEO keyword cluster. Evidence requirements must match Visa/Mastercard/Amex guidelines. See growth/SEO-AEO-GEO-Plan.md Section 3 for per-page specs.",
+      "ux_acceptance": [
+        "Category chip for the current page is visually active/selected in the category navigation strip",
+        "Evidence requirements table renders with correct columns: Evidence Item, Required or Supplementary, Notes",
+        "CTA button is identity-framed: Build My [Dispute Type] Evidence Pack",
+        "No-guarantee statement renders as inline paragraph, not a footnote or tooltip",
+        "Price is visible above the fold or within first scroll on desktop",
+        "Page passes Core Web Vitals (LCP under 2.5s, CLS under 0.1) on mobile"
+      ]
+    },
+    {
+      "id": "DISC-002",
+      "category": "Discoverability",
+      "description": "FAQ schema markup (JSON-LD FAQPage) is implemented on FAQ page, pricing page, how-it-works page, and all category landing pages",
+      "steps": [
+        "Navigate to /faq and inspect page source for JSON-LD FAQPage schema",
+        "Navigate to /pricing and inspect for FAQPage or HowTo schema",
+        "Navigate to /how-it-works and inspect for HowTo schema",
+        "Navigate to each of the 6 category pages and inspect for FAQPage schema",
+        "Validate schema using Google Rich Results Test"
+      ],
+      "passes": [
+        "JSON-LD script tag with @type FAQPage is present on /faq",
+        "Each FAQ question and answer on /faq is represented in the schema",
+        "HowTo schema is present on /how-it-works with correct steps",
+        "SoftwareApplication schema is present on homepage with name, applicationCategory, and offers fields",
+        "BreadcrumbList schema is present on all category and guide pages",
+        "Google Rich Results Test returns no errors for any page",
+        "Schema does not contain fabricated review counts or unverifiable ratings"
+      ],
+      "status": "pending",
+      "notes": "Schema types by page: Home = SoftwareApplication + FAQPage, How It Works = HowTo, Pricing = FAQPage, FAQ = FAQPage, Category pages = FAQPage + BreadcrumbList, Guide pages = Article + BreadcrumbList. See growth/SEO-AEO-GEO-Plan.md Section 1.5.",
+      "ux_acceptance": [
+        "No visible change to page UI from schema addition",
+        "JSON-LD is injected in the document head, not inline in the body",
+        "Schema validates without errors in Google Rich Results Test",
+        "FAQ entries in schema exactly match FAQ entries visible on the page (no schema-stuffing)"
+      ]
+    },
+    {
+      "id": "DISC-003",
+      "category": "Discoverability",
+      "description": "Guide pages exist at /guide/* providing authority content optimised for AEO citation and long-tail SEO",
+      "steps": [
+        "Navigate to /guide/chargeback-rebuttal-letter",
+        "Navigate to /guide/stripe-chargeback-response",
+        "Navigate to /guide/chargeback-evidence-requirements",
+        "Navigate to /guide/chargeback-reason-codes",
+        "Navigate to /guide/chargeback-deadlines",
+        "Verify each guide has a definition anchor, structured tables or numbered lists, FAQ section, and a contextual CTA within the first 300 words"
+      ],
+      "passes": [
+        "All 5 guide pages return HTTP 200",
+        "Each guide has a unique title tag and meta description",
+        "Article JSON-LD schema is present with datePublished and dateModified fields",
+        "At least one table or numbered list is present on each guide page (required for AEO citation)",
+        "A contextual CTA appears within the first 300 words of each guide",
+        "Each guide links internally to at least two category landing pages",
+        "Guide pages do not make outcome guarantees or legal claims"
+      ],
+      "status": "pending",
+      "notes": "Five guide pages in P1 and P2. These pages are optimised for answer engine citation: declarative fact-first copy, H2/H3 headings phrased as questions, tables not images, year-dated titles. See growth/SEO-AEO-GEO-Plan.md Section 2.",
+      "ux_acceptance": [
+        "Guide pages use the same header, footer, and navigation as marketing pages",
+        "Tables render correctly on mobile (horizontal scroll or responsive layout, not overflow-hidden)",
+        "Contextual CTA within first 300 words is visually distinct from body text (button or highlighted block)",
+        "Internal links to category pages are present and functional",
+        "datePublished year appears in the page title or subtitle (e.g. 2026 Chargeback Rebuttal Letter Guide)"
+      ]
+    },
+    {
+      "id": "DISC-004",
+      "category": "Discoverability",
+      "description": "Structured metadata system is implemented: unique title tags, meta descriptions, and OG tags for all 15 launch pages",
+      "steps": [
+        "Inspect page source of all 15 launch pages for title, meta description, og:title, og:description, og:image",
+        "Verify title tags follow the formula defined in growth/SEO-AEO-GEO-Plan.md Section 1.3",
+        "Verify meta descriptions are under 160 characters and contain a primary keyword",
+        "Verify OG image is set and resolves to a real image URL",
+        "Test with a link unfurl tool (e.g. opengraph.xyz) to confirm social sharing renders correctly"
+      ],
+      "passes": [
+        "All 15 pages have unique title tags (no duplicates)",
+        "All 15 pages have unique meta descriptions under 160 characters",
+        "All 15 pages have og:title, og:description, og:image, og:url",
+        "No title tag exceeds 60 characters",
+        "OG image resolves and renders in social share preview",
+        "Canonical URLs are set on all pages",
+        "No noindex meta tag is present on any intended-to-rank page"
+      ],
+      "status": "pending",
+      "notes": "Metadata must be server-rendered (not client-side JS injection) to be reliably crawled. In Next.js, use the Metadata API in layout.tsx and page.tsx files. See growth/SEO-AEO-GEO-Plan.md Section 1.3 for the full per-page metadata table.",
+      "ux_acceptance": [
+        "Title and meta description are not visible in the page UI (head-only)",
+        "Browser tab shows the correct page title for each of the 15 pages",
+        "Social share preview (OG) renders the correct title, description, and image when URL is shared in Slack or Twitter"
+      ]
+    },
+    {
+      "id": "CONV-001",
+      "category": "Conversion",
+      "description": "Pricing page implements the full CRO conversion path: anchor table, feature list, no-guarantee disclosure, and a single purchase CTA with trust signals",
+      "steps": [
+        "Navigate to /pricing",
+        "Verify the comparison anchor table (consultant vs DIY vs pack builder) is present",
+        "Verify the feature list describes outcomes, not technical implementation",
+        "Verify the no-guarantee disclosure is a prominent paragraph, not a footnote",
+        "Verify the CTA button reads Build My Evidence Pack - $39",
+        "Verify the trust line below the CTA reads Secure checkout via Stripe. No subscription.",
+        "Verify the 72-hour access policy is disclosed before the purchase CTA",
+        "Verify logged-in users who already have a pack see a different state (not the full purchase flow)"
+      ],
+      "passes": [
+        "Comparison anchor table is visible above the fold or within first scroll on desktop",
+        "CTA button copy includes the price: Build My Evidence Pack - $39",
+        "No-guarantee disclosure appears as a full paragraph before the CTA",
+        "Secure checkout via Stripe and No subscription appear within 200px of the CTA",
+        "72-hour access policy is disclosed on the pricing page before purchase",
+        "Logged-in users with an existing pack see pack access link, not the purchase CTA",
+        "No free trial or freemium language appears anywhere on the page"
+      ],
+      "status": "pending",
+      "notes": "See growth/CRO-Plan.md Section 2 for full step-by-step pricing page conversion path. The anchor table (consultant $300-500 vs pack builder $39) is the highest-leverage pricing element. Do not remove it without A/B test data.",
+      "ux_acceptance": [
+        "Comparison anchor table renders correctly on mobile (not overflowing viewport)",
+        "CTA button is the only primary action on the page (no competing links or secondary CTAs above it)",
+        "No-guarantee disclosure text is visually distinct from surrounding content (different background or border)",
+        "Price ($39) appears in the CTA button label, not only in surrounding text",
+        "Page does not show any subscription pricing language or trial offer UI"
+      ]
+    },
+    {
+      "id": "CONV-002",
+      "category": "Conversion",
+      "description": "Trust signal system is implemented across all marketing pages with correct placement, accurate claims, and no prohibited signals",
+      "steps": [
+        "Verify Stripe badge (Built for Stripe) is present on homepage, pricing page, and all category pages",
+        "Verify no-subscription statement appears within 200px of every purchase CTA sitewide",
+        "Verify no-guarantee disclosure is present on pricing page and FAQ",
+        "Verify 72-hour retention policy is disclosed on pricing page and post-purchase confirmation",
+        "Verify evidence format sourcing statement appears on category pages",
+        "Audit all pages for prohibited trust signals: win rates, guaranteed results, AI-powered as primary trust, Stripe-certified, unverifiable review counts"
+      ],
+      "passes": [
+        "Stripe badge is present on homepage hero, pricing page, and all 6 category pages",
+        "No-subscription statement appears near every CTA that leads to purchase",
+        "No page contains the phrases: guaranteed win, win rate, Stripe-certified, Stripe-approved, or AI-powered as a trust headline",
+        "No fabricated review counts or star ratings are present at launch",
+        "No-guarantee disclosure is present as a prominent paragraph on pricing and FAQ pages",
+        "Retention policy (72-hour access) is disclosed before purchase"
+      ],
+      "status": "pending",
+      "notes": "Trust architecture is detailed in growth/CRO-Plan.md Section 4. Anti-trust signals list must be enforced at code review. The no-subscription signal is the highest-anxiety trust point for this ICP (merchants who have just been hit with an unexpected chargeback).",
+      "ux_acceptance": [
+        "Stripe badge renders as an image (not text) and links to Stripes partner/built-on page if applicable",
+        "No-subscription statement is plain text, not hidden in a tooltip or collapsed section",
+        "Trust signals do not add more than 200ms to page load (images are optimised, not blockers)",
+        "On mobile, trust signals remain visible and are not pushed below the fold by layout reflow"
+      ]
+    },
+    {
+      "id": "CONV-003",
+      "category": "Conversion",
+      "description": "Objection handling copy is implemented inline at the exact moment each objection arises in the user journey, not only in the FAQ",
+      "steps": [
+        "Homepage: verify the 3-item objection strip is present between the trust block and the final CTA",
+        "Pricing page: verify the no-guarantee objection is handled as a paragraph, not a tooltip",
+        "Builder step 1: verify the file privacy objection is handled with inline helper text",
+        "Builder step 2: verify the missing evidence objection is handled with inline helper text",
+        "Category pages: verify the failed-previous-response objection is addressed in the intro paragraph",
+        "Everywhere a price is shown: verify the one-time-payment objection is handled with the no-subscription trust line"
+      ],
+      "passes": [
+        "Homepage objection strip contains responses to: guarantee question, price-for-small-dispute, ChatGPT alternative",
+        "Pricing page no-guarantee paragraph is present and matches approved copy from growth/CRO-Plan.md Section 3",
+        "Builder file upload step has inline text: Files are used only to generate your pack and are not stored after your session ends",
+        "Builder evidence step has inline text confirming critical vs supplementary evidence distinction",
+        "Category page intro paragraph addresses the failed-previous-response objection",
+        "No-subscription line appears within 200px of every price mention"
+      ],
+      "status": "pending",
+      "notes": "10-objection handling map is in growth/CRO-Plan.md Section 3. Each objection has a defined placement. Do not consolidate all objection handling into the FAQ page - the objection must be handled at the moment of anxiety, not on a separate page.",
+      "ux_acceptance": [
+        "Objection strip on homepage is a horizontal 3-item layout on desktop, stacked vertically on mobile",
+        "Inline builder help text does not obscure form fields or block primary actions",
+        "Objection responses are 1-2 sentences maximum: scannable, not paragraph-length",
+        "Objection copy matches the approved phrasing in growth/CRO-Plan.md Section 3 exactly"
+      ]
+    },
+    {
+      "id": "CONV-004",
+      "category": "Conversion",
+      "description": "All CTAs on category landing pages are identity-framed and dispute-type-specific, not generic",
+      "steps": [
+        "Navigate to each of the 6 category landing pages",
+        "Verify the primary CTA button names the specific dispute type",
+        "Verify a secondary CTA (See what is included in a pack) links to the pricing page",
+        "Verify the final CTA at the bottom of the page matches the primary CTA copy",
+        "Verify no category page uses generic CTA copy: Get Started, Learn More, Try It, or Sign Up"
+      ],
+      "passes": [
+        "Fraudulent page CTA reads: Build My Fraudulent Dispute Evidence Pack",
+        "Subscription Cancelled page CTA reads: Build My Subscription Cancellation Evidence Pack",
+        "Product Not Received page CTA reads: Build My Product Not Received Evidence Pack",
+        "Product Not as Described page CTA reads: Build My Product Not as Described Evidence Pack",
+        "Duplicate Charge page CTA reads: Build My Duplicate Charge Evidence Pack",
+        "Credit Not Processed page CTA reads: Build My Credit Not Processed Evidence Pack",
+        "Secondary CTA See what is included in a pack ($39) is present after the evidence table",
+        "Final CTA at page bottom matches primary CTA copy exactly"
+      ],
+      "status": "pending",
+      "notes": "Identity-framed CTAs are the highest-leverage CTA optimisation on category pages. Generic CTAs (Get Started) on category pages are a confirmed conversion leak. See growth/CRO-Plan.md Section 8. CTA copy is fixed - do not change without A/B test data.",
+      "ux_acceptance": [
+        "CTA button width accommodates the full dispute-type-specific label without truncation on mobile",
+        "Primary CTA is visually prominent: full-width on mobile, centred with clear contrast on desktop",
+        "Secondary CTA is visually subordinate to primary CTA (smaller, outlined, or text link style)",
+        "CTA copy is consistent: the exact same dispute type label appears in the hero, mid-page, and bottom CTA"
       ]
     }
   ]
