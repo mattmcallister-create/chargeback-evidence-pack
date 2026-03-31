@@ -448,3 +448,101 @@ PHASE 4 NEXT STEPS (for Phase 5: Build)
 [ ] Implement identity-framed CTAs on all 6 category pages (CONV-004)
 [ ] Configure Plausible or PostHog for funnel tracking
 [ ] Set up PostHog feature flags for A/B tests (3 priorities in CRO-Plan.md Section 1)
+
+
+======================================================
+SESSION 005 — 2026-03-31
+Task: Architecture Design — define full technical architecture for v1
+Agent: Claude (Sonnet)
+======================================================
+
+## WHAT WAS READ
+- product/PRD.md (tech stack, pricing, retention policy, workflows)
+- product/Decisions.md (DEC-001 through DEC-016, confirmed prior architecture decisions)
+- ops/runbook.md (env vars, webhook operations, retention job specs, incident response)
+- quality/features.json (30 features across AUTH, CORE, GEN, STRIPE, FILE, DISC, CONV categories)
+
+## WHAT WAS CREATED
+
+### docs/ARCHITECTURE.md (NEW — 16 sections, ~33KB)
+Full authoritative architecture reference for v1. Sections:
+1. System Overview (ASCII diagram — single Render service)
+2. Architecture Options (Option A monolith chosen, Option B split rejected)
+3. Auth Model Decision (email/password chosen, comparison table)
+4. Data Model (7 tables with full SQL + 3 SECURITY DEFINER functions)
+5. API Routes (full table — auth, packs, exhibits, generation, download, payments, webhooks, billing, cron, admin)
+6. Background Jobs (retention hourly + purge-answers daily via cron-job.org)
+7. Generation Pipeline (async 202 pattern — credit deduct → OpenAI → Puppeteer → upload → mark generated)
+8. Storage Model (2 private Supabase buckets, signed URLs, path convention)
+9. Access Model (triple layer: JWT + RLS + explicit server ownership check)
+10. File and Exhibit Limits (20 files, 10MB each, PDF/PNG/JPEG, 2000 char intake fields)
+11. Retention and Deletion Flow (72h files, 90d intake answers, cascade account deletion)
+12. Stripe Billing Architecture (state machine, checkout flow, full TypeScript webhook handler, Customer Portal)
+13. Logging and Monitoring (Sentry, UptimeRobot, log format, OpenAI cost alerts)
+14. Security Considerations (risk/mitigation table — 9 threat vectors)
+15. Environment Variables (complete list including RESEND_API_KEY, CRON_SECRET)
+16. Key Operational Decisions Summary (cross-reference table DEC-001 through DEC-021)
+
+## DECISIONS MADE (appended to product/Decisions.md)
+
+DEC-017: Auth model → Email/password (Supabase Auth built-in). Rejected: magic link (login
+         lockout on email outage), Stripe-linked (complex webhook-to-account flow).
+
+DEC-018: Email delivery → Supabase built-in SMTP for auth flows + Resend free tier (100/day)
+         for transactional email (purchase confirmation only in V1).
+
+DEC-019: Background jobs → cron-job.org (external cron) hits secured API routes at
+         /api/cron/* with Authorization: Bearer CRON_SECRET. Two jobs: retention (hourly)
+         + purge-answers (daily).
+
+DEC-020: Error monitoring → Sentry @sentry/nextjs free tier (5K errors/month) + UptimeRobot
+         on /api/admin/health. OpenAI cost monitored via dashboard with $5/day alert.
+
+DEC-021: Architecture option → Option A (unified monolith). Single Next.js + Supabase +
+         Puppeteer on Render. One codebase, one deploy. Rejected Option B (split services).
+
+## FEATURES ADDED (quality/features.json — 30 → 34 total)
+
+ARCH-001: Webhook event idempotency — webhook_events table with UNIQUE event_id prevents
+          duplicate credit grants on Stripe webhook retries.
+
+ARCH-002: Retention cron job — hourly job deletes files from both storage buckets for
+          expired packs, secured with CRON_SECRET.
+
+ARCH-003: Credit deduction/restoration via SECURITY DEFINER Postgres functions — deduct_credit(),
+          restore_credit(), add_credits() — atomic, RLS-bypassing, never raw UPDATE.
+
+ARCH-004: Signed URL download system — 15-min server-issued signed URLs, ownership validated
+          on every download, raw storage paths never exposed.
+
+## KEY ARCHITECTURAL DECISIONS
+
+1. Monolith-first: Single Render service. No microservices at V1 volume. Chromium (+300MB
+   memory) is acceptable — simpler than a separate PDF worker service.
+
+2. Triple-layer access: Supabase Auth JWT (who you are) + RLS (table-level rules) +
+   explicit server-side ownership check (belt-and-suspenders on every API route).
+
+3. SECURITY DEFINER functions: Credits are never mutated via raw UPDATE from application code.
+   All credit operations go through Postgres functions owned by postgres user. This ensures
+   atomicity and prevents RLS bypass attacks on user_credits table.
+
+4. Async 202 generation: POST /generate returns immediately with 202. Client polls
+   /generate/status every 3 seconds. Prevents connection timeout on slow Puppeteer renders.
+
+5. Idempotent webhooks: INSERT-before-grant pattern using UNIQUE(event_id) on webhook_events.
+   No SELECT-then-INSERT race condition. Duplicate webhooks return 200 silently.
+
+6. Signed URLs only: pack-pdfs bucket is server-write-only. No client can read the bucket
+   directly. 15-minute signed URLs are the only valid download mechanism.
+
+SESSION 005 NEXT STEPS (Phase 6: Build)
+-----------------------------------------
+[ ] Scaffold Next.js 14 App Router project with Supabase, Stripe, Sentry dependencies
+[ ] Create Supabase schema (7 tables + 3 SECURITY DEFINER functions + RLS policies)
+[ ] Implement all API routes per ARCHITECTURE.md Section 5
+[ ] Build generation pipeline (credit deduct → OpenAI → Puppeteer → upload → 202/poll)
+[ ] Implement Stripe Checkout + webhook handler with idempotency guard
+[ ] Configure cron-job.org jobs hitting /api/cron/retention and /api/cron/purge-answers
+[ ] Wire up Sentry and UptimeRobot monitoring
+[ ] Verify all 34 features against testplan.md acceptance criteria
