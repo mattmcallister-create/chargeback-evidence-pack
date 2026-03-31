@@ -1,0 +1,201 @@
+CLAUDE PROGRESS LOG — Chargeback Evidence Pack Builder
+=======================================================
+This file is the source of truth for task continuity across sessions.
+Future tasks must read this file first. Do not summarize — preserve full history.
+
+Format: append new entries at the bottom. Never delete past entries.
+
+=======================================================
+SESSION 001 — 2026-03-30
+Task: Initialize operating harness + product sharpening pass
+Agent: Claude (Sonnet)
+=======================================================
+
+## WHAT WAS FOUND
+
+Repository: mattmcallister-create/chargeback-evidence-pack (GitHub, private)
+State at session start: COMPLETELY EMPTY — no files, no branches, no commits.
+No prior work existed. This session bootstrapped everything from scratch.
+
+## WHAT WAS CREATED
+
+All files created and committed to main branch via GitHub web editor:
+
+FILE 1: product/PRD.md
+  - Full v1 Product Requirements Document
+  - Covers: product promise, ICP, jobs to be done, v1 workflows, non-goals
+  - Includes: retention policy (72h files, 90d intake answers)
+  - Includes: tech stack, pricing, launch success criteria, open questions
+  - Status: COMMITTED
+
+FILE 2: product/Positioning.md
+  - Full positioning document WITH sharpening pass already applied
+  - Covers: ICP with psychographic signal, pain analysis, value proposition
+  - Includes: 10 commodity risks with countermeasures (Task 2 of sharpening prompt)
+  - Includes: evidence assembly moat analysis (Task 3)
+  - Includes: homepage headline options A-E with recommended H1/H2 (Task 6)
+  - Includes: objection handling table (Task 6)
+  - Includes: pricing psychology framing (Task 6)
+  - Includes: trust positioning dos/don'ts (Task 6)
+  - Includes: anti-commodity messaging (kill phrases vs power phrases)
+  - Status: COMMITTED
+
+FILE 3: product/Decisions.md
+  - Append-only architecture and product decision log
+  - DEC-001: Hosting → Render
+  - DEC-002: Billing → Stripe Checkout + Webhooks (webhook-driven provisioning)
+  - DEC-003: Retention → 72h files, 90d answers
+  - DEC-004: No free tier in v1
+  - DEC-005: OpenAI GPT-4o for narrative, server-side, structured prompts
+  - DEC-006: PDF generation method TBD (pdf-lib vs Puppeteer)
+  - DEC-007: Product category framing → "evidence assembly platform" not "AI letter writer"
+  - DEC-008: 3 onboarding magic moments defined (Task 4 of sharpening prompt)
+    * Magic Moment 1: Category selection → instant specific checklist reveal
+    * Magic Moment 2: 2-3 questions answered → partial narrative preview
+    * Magic Moment 3: PDF download → looks like a lawyer produced it
+  - DEC-009: Stripe least-privilege key separation
+  - DEC-010: Pricing model → $39 per pack, $99 for 3-pack bundle
+  - Status: COMMITTED
+
+FILE 4: quality/features.json
+  - Structured acceptance criteria for all v1 features
+  - 21 feature entries across categories:
+    * Authentication (AUTH-001 to AUTH-003)
+    * Dispute Pack Creation (PACK-001 to PACK-005)
+    * Payments (PAY-001 to PAY-003)
+    * Pack Generation (GEN-001 to GEN-003)
+    * Deadline Tracking (DEADLINE-001 to DEADLINE-002)
+    * Trust and Safety (TRUST-001 to TRUST-003)
+    * Onboarding Magic Moments (ONBOARD-001 to ONBOARD-003)
+  - Each entry has: id, category, description, steps, passes, status, notes
+  - All status fields set to "pending" (pre-build)
+  - Status: COMMITTED
+
+FILE 5: quality/testplan.md
+  - Comprehensive test plan covering all risk areas
+  - Pre-launch mandatory checklist (security, payments, PDF, retention, core flow)
+  - Unit test suite definitions (evidence-matrix, prompts, stripe, packs)
+  - Integration test suite definitions (webhook, generation, storage)
+  - E2E test suite definitions (Playwright/Cypress)
+  - Manual QA checklist (onboarding moments, copy review, edge cases, cross-browser)
+  - Staging environment requirements
+  - Known test gaps with risk levels
+  - Status: COMMITTED
+
+FILE 6: quality/buglog.md
+  - Append-only bug tracking log
+  - Bug entry format defined
+  - Severity definitions (Critical/High/Medium/Low)
+  - No bugs yet (pre-build phase)
+  - Pre-build triage notes: 6 known risk areas flagged for early testing
+    * Stripe webhook raw body handling (Critical risk)
+    * Supabase Storage RLS policies (Security risk)
+    * PDF generation on Render free tier (Performance risk)
+    * CodeMirror/Monaco tab handling
+    * Concurrent pack generation (Race condition risk)
+    * File upload race condition
+  - Status: COMMITTED
+
+FILE 7: ops/runbook.md
+  - Operations runbook with service overview table
+  - All required environment variables listed and categorized by security level
+  - Staging deploy process
+  - Production launch checklist (pre-launch gate)
+  - Stripe webhook operations (testing, failure handling, idempotency)
+  - File retention operations (cron job, failure handling)
+  - Incident response with P0/P1/P2/P3 severity levels
+  - Post-launch monitoring checklist (daily/weekly)
+  - Admin SQL snippets (add credit, force expire, check balance)
+  - Contact and escalation table
+  - Status: COMMITTED
+
+FILE 8: claude-progress.txt (this file)
+  - This session's full task record
+  - Status: COMMITTING NOW
+
+## SHARPENING WORK COMPLETED
+
+The second prompt (Challenge and Sharpen the Product) was merged INTO the harness
+files rather than creating a separate pass. This was intentional: the harness files
+are now the sharpened versions, not initial drafts. Specifically:
+
+- Positioning.md contains ALL 10 commodity risks + countermeasures (DEC-007 level)
+- Positioning.md contains the full moat analysis vs generic AI and templates
+- Positioning.md contains the 3 onboarding magic moments (also captured in DEC-008)
+- Positioning.md contains all homepage headline options with recommendation
+- Positioning.md contains objection handling, pricing psychology, trust positioning
+- PRD.md was written in its sharpened form (not generic AI tool framing)
+- features.json includes ONBOARD-001/002/003 acceptance criteria for magic moments
+- Decisions.md DEC-007 locks the anti-commodity framing as a product decision
+
+## KEY DECISIONS MADE THIS SESSION
+
+1. Product category: "dispute evidence assembly platform" NOT "AI rebuttal letter writer"
+   This is the anti-commodity core. Locked in DEC-007.
+
+2. Moat is NOT the AI narrative. The moat is structured intake + category-mapped
+   evidence logic + formatted PDF output. The narrative is a feature; the pack is the product.
+
+3. Three magic moments are non-negotiable engineering priorities in v1:
+   - Category → instant specific checklist (< 300ms, specific not generic)
+   - Answers → partial narrative preview (after question 2, professional language)
+   - PDF download → looks like a lawyer produced it (visual quality non-negotiable)
+
+4. No guaranteed win language anywhere. This is both a legal requirement and a
+   trust signal. Kill phrases documented in Positioning.md.
+
+5. 72-hour file retention is firm. Minimum data liability. Explicit user disclosure required.
+
+## WHAT IS NEXT
+
+PHASE 2: Architecture (do not start implementation yet)
+
+Required before build starts:
+- [ ] Resolve DEC-006: choose pdf-lib vs Puppeteer vs react-pdf for PDF generation
+      Test PDF visual quality for all 3 options against the "looks like a lawyer" bar
+      Recommend: react-pdf for component-based control, or Puppeteer for HTML→PDF fidelity
+- [ ] Design database schema (packs, pack_exhibits, user_credits, pack_generations tables)
+- [ ] Design Supabase Storage bucket structure and RLS policies
+- [ ] Design API route structure (/api/webhooks/stripe, /api/generate, /api/packs/*)
+- [ ] Create product/evidence-matrix.md with full evidence mapping for all 6 categories
+- [ ] Confirm OpenAI prompt structure for each of 6 dispute categories (sample outputs)
+- [ ] Set up Render + Supabase + Stripe accounts and test mode configuration
+
+PHASE 3: Build (after architecture is approved)
+- Build in this order: Auth → Pack creation UI → Evidence intake → Payment flow → Generation → PDF → Deadline UI → Polish
+
+PHASE 4: Test
+- Execute test plan from quality/testplan.md
+- Fill in quality/buglog.md
+
+PHASE 5: Launch
+
+## WARNINGS FOR NEXT SESSION
+
+1. Do NOT start coding before resolving DEC-006 (PDF generation method)
+2. Do NOT build custom billing UI — Stripe Checkout + Customer Portal only (DEC-002)
+3. Do NOT add "guaranteed win" language anywhere under any circumstances
+4. Do NOT disable body parsing on ALL routes — only on /api/webhooks/stripe
+5. The onboarding magic moments (DEC-008) are engineering P0s, not nice-to-haves
+6. Read product/Decisions.md before making any architectural choices
+
+## REPO STATE AT END OF SESSION
+
+Commits: 8
+Files: 8
+Branches: main only
+CI: none configured yet
+Deployments: none
+
+Directory structure:
+  product/
+    PRD.md
+    Positioning.md
+    Decisions.md
+  quality/
+    features.json
+    testplan.md
+    buglog.md
+  ops/
+    runbook.md
+  claude-progress.txt (this file)
