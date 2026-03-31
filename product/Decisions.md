@@ -132,3 +132,73 @@ This file is append-only. Do not delete past decisions. Mark superseded decision
 - **Rationale:** Episodic pricing matches episodic use (merchants don't have disputes every month). $39 is anchored against $300–$500 lawyer letter cost. Bundle encourages larger purchase from buyers who anticipate future disputes.
 - **Consequences:** No recurring revenue in v1. Must convert on each dispute event. May introduce subscription for high-frequency users in v2.
 - **Alternatives Rejected:** Monthly subscription (wrong fit for episodic use), annual plan (too much commitment for unknown product), free + premium (adds complexity, signals low value).
+
+---
+
+## Phase 2 — Architecture Decisions
+
+---
+
+**DEC-011**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** Which PDF generation library should we use?
+- **Decision:** Puppeteer (headless Chrome, HTML/CSS → PDF)
+- **Rationale:** Render is always-on; no cold start penalty. HTML/CSS → PDF gives maximum design control. Most likely path to "looks like a lawyer produced it." Template changes require only HTML/CSS edits.
+- **Consequences:** Server requires Chromium binary. Render plan must support the memory footprint. Not suitable for serverless/edge deployment.
+- **Alternatives Rejected:** pdf-lib (pure JS but limited layout control), react-pdf (JSX-based, stronger typing but harder to achieve design fidelity).
+
+---
+
+**DEC-012**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** What is the Postgres database schema for the dispute pack lifecycle?
+- **Decision:** 7-table schema: `profiles`, `user_credits`, `webhook_events`, `packs`, `pack_exhibits`, `pack_generations`, `pack_deadlines`. Full schema in `architecture/db-schema.md`.
+- **Rationale:** Atomic credit deduction via `deduct_credit()` SECURITY DEFINER function prevents race conditions. `webhook_events` UNIQUE `event_id` ensures Stripe webhook idempotency. `pack_generations` audit table preserves cost and credit restoration history. Separate `pack_deadlines` allows dismissal without mutating the pack record.
+- **Consequences:** Migration must run in the order specified in db-schema.md. `deduct_credit()` and `restore_credit()` must be called server-side only.
+- **Alternatives Rejected:** Single credits column on profiles (no audit trail), inline idempotency check without dedicated table (fragile).
+
+---
+
+**DEC-013**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** What is the API route structure and async generation pattern?
+- **Decision:** Next.js App Router API routes as documented in `architecture/api-routes.md`. Generation is async (202 Accepted); client polls every 3 seconds. `/api/webhooks/stripe` must have body parsing disabled (`export const dynamic = 'force-dynamic'`).
+- **Rationale:** Polling is simpler than WebSockets for v1. Raw body required for Stripe signature verification. 202 Accepted cleanly separates submission from completion.
+- **Consequences:** Client must implement a polling loop. If generation exceeds 30s OpenAI timeout, pack status is set to `failed` and credit is restored via `restore_credit()`.
+- **Alternatives Rejected:** WebSockets (over-engineered for v1), synchronous generation endpoint (blocks connection, timeout risk).
+
+---
+
+**DEC-014**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** How should Supabase Storage buckets be structured and secured?
+- **Decision:** Two private buckets: `pack-exhibits` (10MB, user-uploadable) and `pack-pdfs` (50MB, server-write only). Path convention: `{bucket}/{user_id}/{pack_id}/...`. RLS policies enforce user_id ownership. Full spec in `architecture/storage-rls.md`.
+- **Rationale:** Separate buckets allow different size limits and MIME type whitelists. No client INSERT on `pack-pdfs` prevents injecting arbitrary PDFs. Path-based RLS is the Supabase-recommended pattern. `SUPABASE_SERVICE_ROLE_KEY` server-side only.
+- **Consequences:** PDF downloads require server-generated signed URLs (15-min expiry). Client cannot directly upload to pack-pdfs.
+- **Alternatives Rejected:** Single bucket (harder to enforce size/MIME limits per type), public bucket (exposes files without auth).
+
+---
+
+**DEC-015**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** What is the OpenAI prompt architecture for dispute narrative generation?
+- **Decision:** GPT-4o with shared system prompt + per-category user prompt templates. JSON output via `response_format: { type: 'json_object' }`. Temperature 0.3, max_tokens 1000, 30s timeout. Full spec in `architecture/openai-prompts.md`.
+- **Rationale:** Shared system prompt enforces no-win-guarantee guardrails across all categories. Temperature 0.3 reduces hallucination risk. Structured JSON (`GenerationResult` interface) enables reliable downstream processing. `win_assessment` surfaces honest signal without guaranteeing outcome.
+- **Consequences:** Prompt templates use `{{variable}}` handlebars notation; runtime substitution must happen before API call. `evidence_gaps` array must be surfaced in UI if non-empty.
+- **Alternatives Rejected:** Unstructured text output (fragile parsing), temperature 1.0 (too much hallucination risk), per-request system prompt (loses consistency guarantees).
+
+---
+
+**DEC-016**
+- **Date:** 2026-03-31
+- **Status:** Decided
+- **Question:** What is the authoritative source of truth for supported dispute categories and evidence requirements?
+- **Decision:** `product/evidence-matrix.md` is the authoritative reference. Category slug values in `packs.dispute_category` CHECK constraint must match slugs defined in the matrix. Intake question bank in the matrix defines all UI questions.
+- **Rationale:** Single source of truth prevents drift between product spec, DB schema, and UI. Evidence gap detection rules feed directly into `evidence_gaps` generation output. Win/lose conditions inform `win_assessment` calibration.
+- **Consequences:** Any new dispute category requires atomic updates to: evidence-matrix.md, the DB CHECK constraint, prompt templates, and intake UI.
+- **Alternatives Rejected:** Hardcoding categories in DB schema only (creates drift), defining in UI code only (loses traceability).
