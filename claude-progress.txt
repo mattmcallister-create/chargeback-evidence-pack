@@ -199,3 +199,87 @@ Directory structure:
   ops/
     runbook.md
   claude-progress.txt (this file)
+
+================================================================================
+SESSION 002 — PHASE 2: ARCHITECTURE
+================================================================================
+Date: 2026-03-31
+Status: COMPLETE
+
+PHASE 2 CHECKLIST:
+
+[x] Resolve DEC-006: PDF generation method
+    Decision: Puppeteer. Render is always-on, HTML/CSS gives highest quality.
+    Documented in product/Decisions.md as DEC-011.
+
+[x] Design database schema
+    7 tables: profiles, user_credits, webhook_events, packs, pack_exhibits,
+    pack_generations, pack_deadlines.
+    Atomic credit deduction via deduct_credit() SECURITY DEFINER function.
+    Idempotency via webhook_events.event_id UNIQUE constraint.
+    File: architecture/db-schema.md
+
+[x] Design Supabase Storage bucket structure and RLS policies
+    Two private buckets: pack-exhibits (10MB) and pack-pdfs (50MB, server-only).
+    Path-based RLS. Signed URLs for downloads (15-min expiry).
+    File: architecture/storage-rls.md
+
+[x] Design API route structure
+    Next.js App Router. Async generation (202 + polling). Webhook raw body.
+    Rate limiting: 3 generations/hour/user.
+    File: architecture/api-routes.md
+
+[x] Create product/evidence-matrix.md
+    6 dispute categories with Stripe/Visa/MC reason codes, intake questions,
+    evidence checklists, gap detection rules, narrative structure, win/lose
+    conditions. Exhibit labeling A-H. Full intake question bank.
+    File: product/evidence-matrix.md
+
+[x] Confirm OpenAI prompt structure for all 6 categories
+    GPT-4o. Shared system prompt + per-category user templates.
+    JSON output (GenerationResult interface). temp=0.3, max_tokens=1000.
+    Sample narratives. Guardrails table.
+    File: architecture/openai-prompts.md
+
+[x] Update product/Decisions.md
+    Added DEC-011 through DEC-016 (Phase 2 architecture decisions).
+
+[x] Update claude-progress.txt (this entry)
+
+FILES CREATED THIS SESSION:
+  product/evidence-matrix.md
+  architecture/db-schema.md
+  architecture/api-routes.md
+  architecture/storage-rls.md
+  architecture/openai-prompts.md
+
+FILES UPDATED THIS SESSION:
+  product/Decisions.md (DEC-011 through DEC-016 appended)
+  claude-progress.txt (this entry)
+
+KEY DECISIONS MADE:
+  DEC-011: Puppeteer for PDF generation
+  DEC-012: 7-table DB schema finalized
+  DEC-013: API route structure + async polling pattern
+  DEC-014: Storage bucket structure + RLS
+  DEC-015: OpenAI prompt architecture (GPT-4o, temp=0.3, JSON output)
+  DEC-016: evidence-matrix.md as authoritative runtime data source
+
+================================================================================
+PHASE 3 CHECKLIST (next session):
+================================================================================
+
+[ ] Scaffold Next.js project (create-next-app with TypeScript + Tailwind)
+[ ] Install and configure Supabase client (browser + server)
+[ ] Implement Supabase Auth (email magic link or OAuth)
+[ ] Run DB migrations from architecture/db-schema.md
+[ ] Create Supabase Storage buckets from architecture/storage-rls.md
+[ ] Scaffold API route structure from architecture/api-routes.md
+[ ] Implement /api/webhooks/stripe with raw body + signature verification
+[ ] Implement credit purchase flow (Stripe Checkout)
+[ ] Implement pack creation (intake form, exhibit upload)
+[ ] Implement pack generation endpoint (OpenAI + Puppeteer)
+[ ] Implement PDF download with signed URLs
+[ ] Build dashboard UI (pack list, status polling)
+[ ] Implement 72h retention cron job
+[ ] Deploy to Render
