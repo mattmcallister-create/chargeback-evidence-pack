@@ -1,0 +1,199 @@
+# Test Plan — Chargeback Evidence Pack Builder v1
+**Version:** 1.0
+**Last Updated:** 2026-03-30
+**Status:** Pre-build (acceptance criteria defined; tests to be written during build)
+
+---
+
+## 1. Testing Philosophy
+
+This product handles financial transactions and sensitive merchant documents. Testing is not optional.
+
+**Priority order:**
+1. Security (webhook verification, auth, access control)
+2. Payment correctness (no free packs, no double-charges, no duplicate credits)
+3. PDF output quality (the core product deliverable)
+4. Acceptance criteria from features.json
+5. UX and edge cases
+
+**Test types used:**
+- Unit tests (business logic, prompt construction, evidence mapping)
+- Integration tests (Stripe webhook, Supabase operations, file storage)
+- End-to-end tests (full pack creation flow, payment flow, PDF download)
+- Manual QA (PDF visual quality, onboarding magic moments, copy review)
+- Security tests (webhook spoofing, auth bypass attempts, file access)
+
+---
+
+## 2. Pre-Launch Mandatory Test Checklist
+
+These items must all pass before any production traffic. Failing any one is a launch blocker.
+
+### 2.1 Security
+- [ ] Stripe webhook with invalid signature returns 400 and takes no action
+- [ ] Stripe webhook with valid signature processes correctly
+- [ ] Webhook handler uses raw body for signature verification (not parsed JSON)
+- [ ] STRIPE_WEBHOOK_SECRET is not hardcoded anywhere in codebase
+- [ ] Unauthenticated user cannot access any /app/* routes
+- [ ] User A cannot view, edit, or download packs belonging to User B
+- [ ] Exhibit files are not publicly accessible via direct URL
+- [ ] Supabase Storage rules enforce per-user isolation
+- [ ] No Stripe secret key exposed in client-side code or browser network tab
+- [ ] API keys not present in any git commit (scan with git-secrets or equivalent)
+
+### 2.2 Payment Correctness
+- [ ] User with 0 credits cannot generate a pack (server enforces, not just UI)
+- [ ] Paying $39 provisions exactly 1 credit (not 0, not 2)
+- [ ] Paying $99 provisions exactly 3 credits
+- [ ] Duplicate webhook delivery does not provision duplicate credits (idempotency)
+- [ ] Failed generation returns credit to user
+- [ ] User with 1 credit who generates a pack ends with 0 credits
+- [ ] Stripe Checkout creates session server-side with correct price ID
+- [ ] No payment amount can be modified client-side
+
+### 2.3 PDF Output Quality
+- [ ] PDF generates successfully for all 6 dispute categories
+- [ ] PDF cover page contains: merchant name, dispute amount, category, deadline, generation date
+- [ ] PDF checklist section shows correct items for category with checked/unchecked state
+- [ ] PDF narrative section contains merchant-specific content (not boilerplate)
+- [ ] PDF exhibits section contains all uploaded files in correct order with labels
+- [ ] PDF contains no "guaranteed win" language
+- [ ] PDF contains disclaimer about card network decisions
+- [ ] PDF file opens without error in: Adobe Reader, macOS Preview, Chrome PDF viewer
+- [ ] PDF under 20MB for typical pack (4-6 exhibits)
+- [ ] PDF visual quality passes "looks like a lawyer made it" test (manual QA)
+
+### 2.4 Data Retention
+- [ ] Files deleted from storage after 72 hours (test with shortened expiry in staging)
+- [ ] Intake answers retained for 90 days
+- [ ] Expired packs show correct status in UI
+- [ ] Re-generation from retained answers produces new PDF
+
+### 2.5 Core Flow
+- [ ] New user can complete full flow: signup → create pack → pay → generate → download
+- [ ] Pack deadline deadline visible on dashboard
+- [ ] Category selection immediately shows specific checklist (< 300ms)
+- [ ] Partial narrative preview appears after 2 questions answered
+- [ ] All 6 dispute categories have complete intake questionnaires
+- [ ] Evidence gap detection fires for missing critical items
+- [ ] User can mark pack as Submitted
+
+---
+
+## 3. Test Suites (To Be Written)
+
+### 3.1 Unit Tests
+
+**File: `lib/evidence-matrix.test.ts`**
+- getChecklistForCategory(category) returns correct items for each of 6 categories
+- getChecklistForCategory with invalid category throws error
+- isEvidenceComplete(category, uploadedItems) returns correct gap analysis
+
+**File: `lib/prompts.test.ts`**
+- buildNarrativePrompt(category, answers) returns prompt with all answer fields interpolated
+- buildNarrativePrompt does not include guaranteed win language in prompt or instructions
+- buildNarrativePrompt handles missing optional fields gracefully
+
+**File: `lib/stripe.test.ts`**
+- verifyWebhookSignature(rawBody, sig, secret) returns event for valid signature
+- verifyWebhookSignature throws for invalid signature
+- getCreditsForProduct(priceId) returns 1 for single pack, 3 for bundle
+- getCreditsForProduct throws for unknown price ID
+
+**File: `lib/packs.test.ts`**
+- createPack(userId, metadata) creates record with Draft status
+- deductCredit(userId) is atomic and fails if credits = 0
+- restoreCredit(userId) increments on generation failure
+- setPdfExpiry(packId) sets expires_at to now + 72h
+
+### 3.2 Integration Tests
+
+**File: `tests/integration/webhook.test.ts`**
+- POST /api/webhooks/stripe with valid checkout.session.completed provisions correct credits
+- POST /api/webhooks/stripe with invalid signature returns 400
+- POST /api/webhooks/stripe with duplicate event ID is idempotent
+
+**File: `tests/integration/generation.test.ts`**
+- POST /api/generate with valid pack ID and credit generates PDF and stores it
+- POST /api/generate with 0 credits returns 402
+- POST /api/generate with another user's pack ID returns 403
+- POST /api/generate failure restores credit
+
+**File: `tests/integration/storage.test.ts`**
+- uploadExhibit(userId, packId, file) stores file in correct path
+- getSignedUrl(userId, packId, filename) returns time-limited URL
+- deletePackFiles(packId) removes all files for pack
+
+### 3.3 End-to-End Tests (Playwright or Cypress)
+
+**File: `tests/e2e/auth.test.ts`**
+- Signup → email verification → login → dashboard
+- Login with wrong password shows error without revealing field
+- Password reset flow
+
+**File: `tests/e2e/pack-creation.test.ts`**
+- Full pack creation: metadata → category → intake → exhibits → preview
+- Category change updates checklist instantly
+- Partial save on blur
+
+**File: `tests/e2e/payment.test.ts`**
+- Stripe test mode: $39 purchase → webhook → credit visible → generate → download
+- Stripe test mode: $99 purchase → 3 credits visible
+- Blocked generation with 0 credits
+
+**File: `tests/e2e/pdf-output.test.ts`**
+- Download PDF for each of 6 categories
+- Verify PDF structure programmatically (page count, section presence)
+
+---
+
+## 4. Manual QA Checklist (Pre-Launch)
+
+Run by a human reviewer against staging environment.
+
+### 4.1 Onboarding Magic Moments
+- [ ] Category selection → checklist reveal feels instant and specific (not generic)
+- [ ] After 2 intake questions → partial narrative preview is visible and professional
+- [ ] PDF download → opened PDF looks like a lawyer produced it
+
+### 4.2 Copy and Trust Review
+- [ ] No guaranteed win language anywhere in UI, emails, or PDF
+- [ ] Retention policy disclosure visible at generation time
+- [ ] Pricing clearly shown before any payment step
+- [ ] No dark patterns at checkout (no pre-selected upgrades, no surprise fees)
+- [ ] Stripe "Powered by Stripe" badge visible at checkout
+
+### 4.3 Edge Case Review
+- [ ] Upload rejected file type shows friendly error
+- [ ] Upload oversized file shows friendly error
+- [ ] Missing required intake field shows specific validation error
+- [ ] Expired pack shows clear UI status with re-generate option
+- [ ] User with no packs sees useful empty state on dashboard
+
+### 4.4 Cross-Browser / Cross-Device
+- [ ] Chrome desktop
+- [ ] Safari desktop
+- [ ] Chrome mobile (responsive layout)
+- [ ] Firefox desktop
+
+---
+
+## 5. Staging Environment Requirements
+
+Before running tests:
+- Supabase project in staging mode
+- Stripe in test mode (use Stripe test card: 4242 4242 4242 4242)
+- STRIPE_WEBHOOK_SECRET set for test webhook endpoint
+- OpenAI API key with rate limit headroom for test generation
+- File retention job testable with short expiry window (e.g., 5 minutes instead of 72 hours)
+
+---
+
+## 6. Known Test Gaps (To Resolve Before Launch)
+
+| Gap | Risk | Owner | Due |
+|-----|------|-------|-----|
+| PDF visual quality has no automated check | High | QA | Before launch |
+| Network-specific evidence rule accuracy not tested | Medium | PM/QA | Before launch |
+| Rate limiting on webhook endpoint not verified | High | Security | Before launch |
+| File upload virus/malware scanning not implemented | Medium | Arch | v2 |
