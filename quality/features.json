@@ -1,9 +1,9 @@
 {
   "_meta": {
     "version": "1.0",
-    "last_updated": "2026-03-31",
+    "last_updated": "2026-04-01",
     "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3. UX acceptance criteria added in Phase 3.",
-    "total_features": 44
+    "total_features": 56
   },
   "features": [
     {
@@ -1230,6 +1230,313 @@
         "No sanitization applied to original_name before database storage"
       ],
       "status": "not_started"
+    },
+    {
+      "id": "MKTG-001",
+      "category": "Marketing Site",
+      "description": "Home page renders with correct metadata, JSON-LD schema, and all CTAs",
+      "steps": [
+        "Navigate to / in a browser",
+        "Inspect <head> for title, description, canonical, OG tags",
+        "Check page source for JSON-LD SoftwareApplication schema",
+        "Verify hero CTAs link to /signup/ and /how-it-works/",
+        "Verify final CTA links to /signup/"
+      ],
+      "passes": [
+        "Title: 'Submit Chargeback Evidence That Card Networks Accept'",
+        "Meta description present and under 160 chars",
+        "canonical: '/'",
+        "OG title and description match meta tags",
+        "JSON-LD SoftwareApplication schema present with price: 39.00",
+        "Both CTAs in hero link to /signup/ and /how-it-works/",
+        "Category strip 6 links present",
+        "Final CTA links to /signup/"
+      ],
+      "fails": [
+        "Title missing or incorrect",
+        "CTA links to wrong path or missing",
+        "JSON-LD schema absent or malformed"
+      ],
+      "status": "pending",
+      "notes": "Phase 7 — first-pass QA passed against GitHub source. Needs live deploy verify."
+    },
+    {
+      "id": "MKTG-002",
+      "category": "Marketing Site",
+      "description": "How It Works page renders with correct metadata and step walkthrough",
+      "steps": [
+        "Navigate to /how-it-works/",
+        "Inspect <head> for title, description, canonical",
+        "Verify 4 steps are present",
+        "Verify CTA links to /signup/"
+      ],
+      "passes": [
+        "Title includes 'How It Works'",
+        "canonical: '/how-it-works/'",
+        "4 numbered steps rendered",
+        "CTA links to /signup/"
+      ],
+      "fails": [
+        "Page returns 404",
+        "CTA missing or broken"
+      ],
+      "status": "pending",
+      "notes": "Phase 7"
+    },
+    {
+      "id": "MKTG-003",
+      "category": "Marketing Site",
+      "description": "Pricing page renders with correct price, JSON-LD schema, and CTA",
+      "steps": [
+        "Navigate to /pricing/",
+        "Inspect <head> for JSON-LD SoftwareApplication + FAQPage schemas",
+        "Verify $39 single pack price is displayed",
+        "Verify $99 bundle option is displayed",
+        "Verify CTA links to /signup/"
+      ],
+      "passes": [
+        "canonical: '/pricing/'",
+        "SoftwareApplication JSON-LD with price 39.00 present",
+        "FAQPage JSON-LD with at least 3 FAQ items present",
+        "$39 price displayed in card",
+        "$99 bundle option displayed",
+        "CTA links to /signup/"
+      ],
+      "fails": [
+        "Price displayed incorrectly",
+        "JSON-LD schemas absent",
+        "CTA missing"
+      ],
+      "status": "pending",
+      "notes": "Phase 7"
+    },
+    {
+      "id": "MKTG-004",
+      "category": "Marketing Site",
+      "description": "FAQ page renders with accordion groups and correct JSON-LD FAQPage schema",
+      "steps": [
+        "Navigate to /faq/",
+        "Inspect <head> for FAQPage JSON-LD",
+        "Click accordion items to expand answers",
+        "Verify cross-links to /pricing/, /refund/, /how-it-works/"
+      ],
+      "passes": [
+        "canonical: '/faq/'",
+        "FAQPage JSON-LD present with at least 10 questions",
+        "Accordion expands on click",
+        "Cross-links to /pricing/, /refund/, /how-it-works/ present"
+      ],
+      "fails": [
+        "Accordion not interactive",
+        "JSON-LD absent",
+        "Cross-links broken"
+      ],
+      "status": "pending",
+      "notes": "Phase 7"
+    },
+    {
+      "id": "MKTG-005",
+      "category": "Marketing Site",
+      "description": "Login page renders with noindex and form fields (form action stubbed for Phase 9)",
+      "steps": [
+        "Navigate to /login/",
+        "Inspect <head> for robots noindex",
+        "Verify email and password fields present",
+        "Verify 'Forgot password?' links to /forgot-password/",
+        "Verify Terms and Privacy links present"
+      ],
+      "passes": [
+        "robots: noindex, nofollow",
+        "Email input present",
+        "Password input present",
+        "Forgot password link to /forgot-password/ present",
+        "Terms link to /terms/ and Privacy link to /privacy/ in footer note"
+      ],
+      "fails": [
+        "Page is indexed (robots missing noindex)",
+        "Form fields missing",
+        "Legal links absent"
+      ],
+      "status": "pending",
+      "notes": "Phase 7 — form action wired in Phase 9 (Auth)"
+    },
+    {
+      "id": "MKTG-006",
+      "category": "Marketing Site",
+      "description": "Signup page renders with noindex, trust strip, and 3-field form (stubbed for Phase 9)",
+      "steps": [
+        "Navigate to /signup/",
+        "Inspect <head> for robots noindex",
+        "Verify trust nudge strip displays pricing and file deletion info",
+        "Verify email, password, and confirm-password fields present"
+      ],
+      "passes": [
+        "robots: noindex, nofollow",
+        "Trust strip shows '$39 per pack · No subscription · Files deleted after 72 hours'",
+        "Email, password, confirm-password inputs present",
+        "Submit CTA button present"
+      ],
+      "fails": [
+        "Page is indexed",
+        "Trust strip absent",
+        "Form fields missing"
+      ],
+      "status": "pending",
+      "notes": "Phase 7 — form action wired in Phase 9 (Auth)"
+    },
+    {
+      "id": "MKTG-007",
+      "category": "Marketing Site",
+      "description": "Terms of Service page renders with all 13 sections and correct links",
+      "steps": [
+        "Navigate to /terms/",
+        "Verify page has at least 13 sections",
+        "Verify links to /privacy/ and /refund/ present at bottom",
+        "Verify lastUpdated date is displayed"
+      ],
+      "passes": [
+        "canonical: '/terms/'",
+        "13 sections present including Payment Terms, Refund Policy, File Handling",
+        "Not Legal Advice disclaimer present",
+        "No Outcome Guarantee section present",
+        "Links to /privacy/ and /refund/ at bottom",
+        "Last updated date displayed"
+      ],
+      "fails": [
+        "Sections missing",
+        "Cross-links broken"
+      ],
+      "status": "pending",
+      "notes": "Phase 7 — lastUpdated: March 31, 2026"
+    },
+    {
+      "id": "MKTG-008",
+      "category": "Marketing Site",
+      "description": "Privacy Policy page renders with 11 sections including 72-hour file deletion commitment",
+      "steps": [
+        "Navigate to /privacy/",
+        "Verify page has at least 11 sections",
+        "Verify 72-hour file deletion section present",
+        "Verify Stripe mentioned in Payment Data section",
+        "Verify links to /terms/ and /refund/ at bottom"
+      ],
+      "passes": [
+        "canonical: '/privacy/'",
+        "11 sections present",
+        "72-hour file deletion explicitly stated",
+        "Stripe mentioned in payment data section",
+        "Links to /terms/ and /refund/ at bottom"
+      ],
+      "fails": [
+        "File deletion policy absent",
+        "Cross-links broken"
+      ],
+      "status": "pending",
+      "notes": "Phase 7 — lastUpdated: March 31, 2026"
+    },
+    {
+      "id": "MKTG-009",
+      "category": "Marketing Site",
+      "description": "Refund Policy page renders with 30-minute window and chargebacks section",
+      "steps": [
+        "Navigate to /refund/",
+        "Verify 30-minute refund window is stated",
+        "Verify 'no refund after intake' section present",
+        "Verify chargebacks against product section present",
+        "Verify links to /terms/ and /privacy/ at bottom"
+      ],
+      "passes": [
+        "canonical: '/refund/'",
+        "30-minute refund window stated",
+        "No refund after intake started — clearly stated",
+        "Technical issues refund path described",
+        "Chargebacks against product section present",
+        "Links to /terms/, /privacy/, /faq/ at bottom"
+      ],
+      "fails": [
+        "Refund window not stated",
+        "Chargebacks section absent",
+        "Cross-links broken"
+      ],
+      "status": "pending",
+      "notes": "Phase 7 — lastUpdated: March 31, 2026"
+    },
+    {
+      "id": "MKTG-010",
+      "category": "Marketing Site",
+      "description": "robots.ts returns correct crawl directives for all route groups",
+      "steps": [
+        "Navigate to /robots.txt",
+        "Verify Googlebot is allowed",
+        "Verify /dashboard/, /api/, /admin/ are disallowed"
+      ],
+      "passes": [
+        "User-agent: * with Allow: /",
+        "Disallow: /dashboard/",
+        "Disallow: /api/",
+        "Disallow: /admin/",
+        "Sitemap URL present in robots.txt"
+      ],
+      "fails": [
+        "All paths disallowed",
+        "Dashboard or API paths not protected",
+        "Sitemap URL missing"
+      ],
+      "status": "pending",
+      "notes": "Phase 7"
+    },
+    {
+      "id": "MKTG-011",
+      "category": "Marketing Site",
+      "description": "sitemap.ts includes all public marketing pages with correct metadata",
+      "steps": [
+        "Navigate to /sitemap.xml",
+        "Verify all 13 marketing page URLs are present",
+        "Verify home page has priority 1.0",
+        "Verify lastmod dates are present"
+      ],
+      "passes": [
+        "/, /how-it-works/, /pricing/, /faq/ present",
+        "/terms/, /privacy/, /refund/ present",
+        "6 /chargeback/* category URLs present",
+        "Home page priority: 1.0",
+        "lastmod dates present on all URLs",
+        "changeFrequency values set"
+      ],
+      "fails": [
+        "Pages missing from sitemap",
+        "Invalid XML",
+        "Priority values out of range"
+      ],
+      "status": "pending",
+      "notes": "Phase 7"
+    },
+    {
+      "id": "MKTG-012",
+      "category": "Marketing Site",
+      "description": "Nav and Footer components render with correct links across all marketing pages",
+      "steps": [
+        "Navigate to any marketing page",
+        "Verify Nav contains logo, How It Works, Pricing, FAQ links and Build My Pack CTA",
+        "Verify Footer contains three columns: Product, Legal, Company links",
+        "Verify footer copyright text present",
+        "Test hamburger menu on mobile viewport (375px)"
+      ],
+      "passes": [
+        "Nav logo links to /",
+        "Nav: How It Works → /how-it-works/, Pricing → /pricing/, FAQ → /faq/",
+        "Nav CTA 'Build My Evidence Pack' → /signup/",
+        "Footer: Terms → /terms/, Privacy → /privacy/, Refund → /refund/",
+        "Footer: legal disclaimer text present",
+        "Hamburger menu visible at 375px viewport"
+      ],
+      "fails": [
+        "Nav links broken or missing",
+        "Footer legal links absent",
+        "Mobile menu not functioning"
+      ],
+      "status": "pending",
+      "notes": "Phase 7 — mobile menu toggle wired with useState in nav.tsx"
     }
   ]
 }
