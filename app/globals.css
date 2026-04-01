@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS custom properties ─────────────────────────────────────────────── */
+:root {
+  /* Brand */
+  --color-brand-50:  #EFF6FF;
+  --color-brand-100: #DBEAFE;
+  --color-brand-800: #1E3A5F;
+  --color-brand-900: #0F2744;
+
+  /* Typography */
+  --font-inter:       'Inter', system-ui, sans-serif;
+  --font-jetbrains:   'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --section-gap:      6rem;   /* 96px — BrandSystem space-24 */
+  --section-gap-sm:   4rem;   /* 64px — mobile section gap */
+}
+
+/* ─── Base reset & defaults ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-slate-800;
+  font-family: var(--font-inter);
+  line-height: 1.6;
+}
+
+/* ─── Focus ring (accessible) ────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #1D4ED8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Typography helpers ─────────────────────────────────────────────────── */
+.prose-marketing {
+  @apply text-slate-600 leading-relaxed;
+}
+
+.prose-marketing h2 {
+  @apply text-2xl font-semibold text-slate-900 mt-8 mb-3;
+}
+
+.prose-marketing h3 {
+  @apply text-xl font-semibold text-slate-900 mt-6 mb-2;
+}
+
+.prose-marketing p {
+  @apply mb-4;
+}
+
+.prose-marketing ul {
+  @apply list-disc list-inside mb-4 space-y-1;
+}
+
+.prose-marketing ol {
+  @apply list-decimal list-inside mb-4 space-y-1;
+}
+
+.prose-marketing a {
+  @apply text-brand-700 underline underline-offset-2 hover:text-brand-800;
+}
+
+/* ─── Reduced-motion safety ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Marketing section spacing ──────────────────────────────────────────── */
+.section {
+  @apply py-24;
+}
+
+@media (max-width: 768px) {
+  .section {
+    @apply py-16;
+  }
+}
