@@ -260,3 +260,81 @@ This file is append-only. Do not delete past decisions. Mark superseded decision
 - **Rationale:** Minimum viable operational surface for a solo founder. No cross-service JWT passing, no inter-service latency, no second deploy pipeline. Chromium memory overhead (~300MB) is acceptable given Render RAM headroom. Every component speaks directly to Supabase.
 - **Consequences:** Chromium adds ~300MB to Render instance memory. PDF generation is async in Node.js (not a separate worker thread) — must not block the event loop synchronously. Monitor Render memory usage as PDF queue grows.
 - **Alternatives Rejected:** Option B — split services (Next.js + separate Express PDF worker + Neon Postgres + AWS S3): two services, cross-service JWT passing, S3 IAM complexity, two deploy targets, added latency, no measurable user benefit at V1 volume.
+
+
+---
+
+**DEC-022**
+- **Date:** 2026-03-30
+- **Status:** Decided
+- **Question:** Should we run antivirus scanning on uploaded exhibit files at V1?
+- **Decision:** No AV scanning at V1. Validate file type via magic bytes check only.
+- **Rationale:** AV scanning adds 2–5s latency per file, requires a third-party service (added cost and dependency), and the attack surface is limited: files are never served inline — only via signed URLs to the owning user. Magic bytes validation blocks the most likely vector (masquerading file type). Revisit if serving model changes to allow inline rendering.
+- **Consequences:** Malicious file content (e.g., embedded macros in PDFs) passes through the upload gate. Acceptable because files are only downloaded by the authenticated owner, never executed server-side.
+- **Alternatives Rejected:** VirusTotal API (latency, cost, third-party dependency); ClamAV sidecar (infrastructure overhead at V1 scale)
+
+---
+
+**DEC-023**
+- **Date:** 2026-03-30
+- **Status:** Decided
+- **Question:** What Content Security Policy directives should the application send?
+- **Decision:** `default-src 'none'` baseline with explicit allowlist for Stripe (`js.stripe.com`), Supabase (`*.supabase.co`), and Sentry (`*.sentry.io`, `browser.sentry-cdn.com`). No `unsafe-eval`. `unsafe-inline` permitted for styles only.
+- **Rationale:** `default-src 'none'` forces every allowed source to be declared explicitly, preventing unexpected resource loading. Removing `unsafe-eval` blocks eval-based XSS escalation. `unsafe-inline` for styles is low-risk as CSS does not enable JS execution.
+- **Consequences:** Any new external service requires a CSP update before its assets will load. New third-party integrations must be explicitly evaluated and allowlisted.
+- **Alternatives Rejected:** `default-src 'self'` (too permissive); no CSP (leaves XSS fully exploitable)
+
+---
+
+**DEC-024**
+- **Date:** 2026-03-30
+- **Status:** Decided
+- **Question:** How should rate limiting be implemented on auth and generation endpoints?
+- **Decision:** Upstash Redis with `@upstash/ratelimit` sliding window algorithm. Auth endpoints: 10 req / 15 min / IP. Generation endpoint: 5 req / hour / user_id.
+- **Rationale:** Upstash Redis is serverless-compatible (no persistent connection required), has a free tier sufficient for V1, and `@upstash/ratelimit` provides a clean API. Sliding window prevents burst exploitation at boundary conditions vs. fixed window.
+- **Consequences:** Adds `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` to required env vars. Each rate-limited request incurs one additional network hop to Upstash.
+- **Alternatives Rejected:** In-memory rate limiting (lost on redeploy); Render/Vercel built-in (not portable); Cloudflare Workers (over-engineered for current scale)
+
+---
+
+**DEC-025**
+- **Date:** 2026-03-30
+- **Status:** Decided
+- **Question:** How do we prevent Puppeteer from making SSRF requests to internal cloud infrastructure during PDF generation?
+- **Decision:** Enable `page.setRequestInterception(true)` and abort all requests that are not `data:` URI scheme.
+- **Rationale:** Chromium can be directed to fetch internal cloud metadata endpoints (e.g., `169.254.169.254/latest/meta-data/`) via crafted intake field content. Intercepting and aborting all non-`data:` requests is the simplest and most complete mitigation. All exhibit content is already inlined as base64 data URIs before render time.
+- **Consequences:** PDF templates cannot load external images, fonts, or stylesheets at render time — all assets must be inlined at build time.
+- **Alternatives Rejected:** URL allowlist (fragile, cloud metadata endpoint addresses vary by provider); no interception (leaves SSRF open)
+
+---
+
+**DEC-026**
+- **Date:** 2026-03-30
+- **Status:** Decided
+- **Question:** How should Supabase auth tokens be stored on the client?
+- **Decision:** Use `@supabase/ssr` `createServerClient` with `httpOnly: true`, `secure: true`, `sameSite: 'strict'` cookie options. Tokens must never be stored in localStorage.
+- **Rationale:** localStorage is readable by any JavaScript running on the page — XSS immediately exposes the session token. HttpOnly cookies are inaccessible to JavaScript by design. `SameSite=Strict` prevents token exfiltration via cross-site requests.
+- **Consequences:** Session state requires server-side cookie handling. All auth reads must go through server components or API routes — cannot use the Supabase client SDK in pure client components for auth state.
+- **Alternatives Rejected:** Supabase default localStorage (XSS exposes tokens); sessionStorage (same XSS risk as localStorage)
+
+---
+
+**DEC-027**
+- **Date:** 2026-03-30
+- **Status:** Decided
+- **Question:** How should API routes handle and surface errors to callers?
+- **Decision:** All catch blocks send the full error to Sentry via `Sentry.captureException(error)`, then return `{ "error": "internal_error" }` with HTTP 500. No stack traces, error messages, or internal details exposed in API responses.
+- **Rationale:** Verbose error messages leak implementation details (function names, library versions, schema) that assist attackers. Sentry retains the full error internally without exposing it externally. A consistent error format simplifies front-end error handling.
+- **Consequences:** Debugging production issues requires Sentry access. API callers receive minimal error detail — intentional.
+- **Alternatives Rejected:** Returning `error.message` to client (information disclosure); stdout-only logging without Sentry (no alerting or aggregation)
+
+---
+
+**DEC-028**
+- **Date:** 2026-03-30
+- **Status:** Decided
+- **Question:** What events should be audit-logged, and in what format?
+- **Decision:** Structured JSON to stdout. 18 event types covering auth, uploads, pack generation, credit operations, and webhook events. Each entry includes `event`, `user_id`, `pack_id` (where applicable), `timestamp`, and `metadata`. Key events: `auth.login`, `upload.success`, `upload.rejected`, `credits.deducted`, `credits.granted`, `webhook.received`, `webhook.duplicate`, `admin.credit.manual_adjustment`.
+- **Rationale:** Stdout logging integrates with Render log aggregation without additional infrastructure. Structured JSON is queryable. Credit-event coverage provides a forensic trail for billing disputes and fraud investigation. `webhook.duplicate` specifically enables detection of replay attacks in production.
+- **Consequences:** Log volume scales with usage. No log retention policy at V1 — Render retains logs per platform defaults. No search UI unless Render log streaming is configured to an external store.
+- **Alternatives Rejected:** Database audit table (write amplification, RLS policy complexity); no audit logging (blind to security events post-incident)
