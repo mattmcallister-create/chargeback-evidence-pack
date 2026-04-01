@@ -1,0 +1,109 @@
+'use client'
+
+import Link from 'next/link'
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
+
+const navLinks = [
+  { label: 'How It Works', href: '/how-it-works/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'FAQ', href: '/faq/' },
+]
+
+export default function MarketingNav() {
+  const [mobileOpen, setMobileOpen] = useState(false)
+
+  return (
+    <header className="sticky top-0 z-50 bg-brand-900 border-b border-brand-950/40">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+
+          {/* Logo */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 shrink-0"
+            aria-label="Chargeback Evidence Pack Builder — Home"
+          >
+            <span className="text-white font-semibold text-base leading-tight">
+              Chargeback<br />
+              <span className="text-brand-100 font-normal text-sm">Evidence Pack</span>
+            </span>
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+            {navLinks.map(({ label, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-sm text-slate-300 hover:text-white transition-colors duration-150 font-medium"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Desktop actions */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/login/"
+              className="text-sm text-slate-300 hover:text-white font-medium transition-colors duration-150 px-3 py-1.5"
+            >
+              Log In
+            </Link>
+            <Link
+              href="/signup/"
+              className="inline-flex items-center gap-1.5 bg-white text-brand-900 font-semibold text-sm px-4 py-2 rounded-md hover:bg-brand-50 transition-colors duration-150 shadow-sm"
+            >
+              Create Pack
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            type="button"
+            className="md:hidden p-2 text-slate-300 hover:text-white rounded-md"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden bg-brand-900 border-t border-brand-950/40 px-4 pb-4 pt-2 space-y-1">
+          {navLinks.map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className="block py-2.5 text-sm text-slate-300 hover:text-white font-medium border-b border-brand-950/30"
+              onClick={() => setMobileOpen(false)}
+            >
+              {label}
+            </Link>
+          ))}
+          <div className="pt-3 flex flex-col gap-2">
+            <Link
+              href="/login/"
+              className="block text-center py-2.5 text-sm text-slate-300 hover:text-white font-medium border border-white/20 rounded-md"
+              onClick={() => setMobileOpen(false)}
+            >
+              Log In
+            </Link>
+            <Link
+              href="/signup/"
+              className="block text-center py-2.5 bg-white text-brand-900 font-semibold text-sm rounded-md hover:bg-brand-50 transition-colors"
+              onClick={() => setMobileOpen(false)}
+            >
+              Create Pack →
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
+  )
+}
