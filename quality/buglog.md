@@ -1,5 +1,5 @@
 # Bug Log — Chargeback Evidence Pack Builder
-**Last Updated:** 2026-03-30
+**Last Updated:** 2026-04-01
 **Policy:** Do not delete entries. Update status only. Add new bugs at the bottom of the list.
 
 ---
@@ -46,7 +46,7 @@ _No resolved bugs yet._
 
 ## Bug Triage Notes
 
-**Pre-build note (2026-03-30):** This log is initialized as part of the operating harness. Bugs will be logged here as development begins. The following known risk areas should be watched closely during build:
+**Pre-build note (2026-04-01):** This log is initialized as part of the operating harness. Bugs will be logged here as development begins. The following known risk areas should be watched closely during build:
 
 1. **Stripe webhook raw body handling** — Next.js default body parsing will break Stripe signature verification. Must disable body parser on the webhook route. This is a known gotcha and a Critical-level risk if missed.
 
