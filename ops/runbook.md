@@ -205,3 +205,96 @@ WHERE user_id = '[USER_ID]';
 | Supabase Support | supabase.com/dashboard/support | DB/Storage issues |
 | OpenAI Support | platform.openai.com/support | API issues |
 | Render Support | render.com/support | Hosting issues |
+
+
+## 8. Security
+
+_Last Updated:_ 2026-03-30
+
+### 8.1 Pre-Launch Security Checklist
+
+Run this checklist before every production deployment. Each item maps to a known high-risk mistake documented in `security/THREAT-MODEL.md` § 5.
+
+| # | Check | Verification Method | Pass Criteria |
+|---|-------|---------------------|---------------|
+| 1 | Stripe restricted key in Render env | Render → Environment → STRIPE_SECRET_KEY | Value starts with `rk_live_`, not `sk_live_` |
+| 2 | STRIPE_WEBHOOK_SECRET is set | Send tampered event to `/api/webhooks/stripe` | Returns 400 Webhook signature invalid |
+| 3 | SUPABASE_SERVICE_ROLE_KEY not client-accessible | grep for NEXT_PUBLIC_ in .env.production | No result containing SERVICE_ROLE |
+| 4 | RLS enabled on all public tables | SQL: SELECT tablename FROM pg_tables WHERE rowsecurity=false | Returns 0 rows |
+| 5 | Magic bytes validation active | Upload a .txt file renamed to .pdf | Returns 422 Invalid file type |
+| 6 | Verbose errors suppressed | Trigger an intentional 500 in staging | Body is `{"error":"internal_error"}` only |
+| 7 | Webhook route uses request.text() | Code review /app/api/webhooks/stripe/route.ts | No `request.json()` call present |
+| 8 | CRON_SECRET is set | POST /api/cron/expire with no auth header | Returns 401 |
+| 9 | Ownership check on all [packId] routes | Auth as User A; request User B's pack via API | Returns 404 not 403 |
+| 10 | Tokens in HttpOnly cookies, not localStorage | DevTools → Application → Local Storage | No `sb-` prefixed keys |
+
+### 8.2 Environment Variable Security
+
+| Variable | Where Set | Risk if Leaked | Mitigation |
+|----------|-----------|----------------|------------|
+| `STRIPE_SECRET_KEY` | Render env (server only) | Full Stripe account takeover | Use restricted key; rotate immediately if leaked |
+| `STRIPE_WEBHOOK_SECRET` | Render env (server only) | Forged webhooks, free credit grants | Stripe dashboard → Developers → Webhooks → Roll secret |
+| `SUPABASE_SERVICE_ROLE_KEY` | Render env (server only) | Bypasses all RLS — full DB access | Never use NEXT_PUBLIC_ prefix; rotate in Supabase → Settings → API |
+| `SUPABASE_ANON_KEY` | .env.local + NEXT_PUBLIC_ | Anon-tier access only | Acceptable client-side; RLS enforces isolation |
+| `OPENAI_API_KEY` | Render env (server only) | Unlimited API spend | Set spend limits in OpenAI dashboard; rotate monthly |
+| `CRON_SECRET` | Render env (server only) | Unauthorized cron triggers | Rotate Render env + cron job header simultaneously |
+
+**Rules:**
+- Never log env var values, even in debug output
+- Never commit .env.production or .env.local containing real secrets
+- Rotate any key that appears in logs, error messages, or public git history within 1 hour
+
+### 8.3 Security Incident Response
+
+#### Auth Breach (Unauthorized Account Access)
+
+**Indicators:** Login from unexpected geography; user reports access they did not initiate.
+
+1. Disable account: Supabase Auth dashboard → Users → select user → Disable
+2. Invalidate all sessions: `supabaseAdmin.auth.admin.signOut(userId, 'others')`
+3. Review `audit_logs` for `auth.login` events for the affected user in the past 24h
+4. If service role key was involved, rotate `SUPABASE_SERVICE_ROLE_KEY` (§ 8.4)
+5. Notify affected user within 72h (GDPR breach notification requirement)
+6. Document in ops/incidents/YYYY-MM-DD-auth-breach.md
+
+#### Webhook Compromise (Forged or Replayed Events)
+
+**Indicators:** Credits granted without matching Stripe payment; duplicates in `webhook_events` table.
+
+1. Rotate `STRIPE_WEBHOOK_SECRET`: Stripe → Developers → Webhooks → endpoint → Roll secret
+2. Update in Render env → trigger redeploy immediately
+3. Query suspicious events: `SELECT * FROM webhook_events WHERE created_at > now() - interval '24 hours' ORDER BY created_at DESC;`
+4. Reverse fraudulent grants via `update_credits_secure` (negative delta); log as `admin.credit.manual_adjustment`
+5. File Stripe support ticket if forged events originated externally
+
+#### RLS Gap (Data Exposure via Misconfigured Policy)
+
+**Indicators:** User reports seeing another user's data; cross-user query visible in Supabase logs.
+
+1. Run immediately: `SELECT tablename FROM pg_tables WHERE schemaname='public' AND rowsecurity=false;`
+2. For each returned table: `ALTER TABLE <tablename> ENABLE ROW LEVEL SECURITY;`
+3. Verify policies exist: `SELECT tablename, policyname FROM pg_policies WHERE schemaname='public';`
+4. Audit via Supabase → Logs → API logs filtered by affected table name
+5. Assess exposure window: which user IDs could have read which rows, and for how long
+6. Notify affected users within 72h if personal data was accessible
+
+### 8.4 Key Rotation Procedures
+
+#### Rotating STRIPE_WEBHOOK_SECRET
+
+1. Stripe dashboard → Developers → Webhooks → endpoint → Roll secret
+2. Copy new value → Render → Environment → update `STRIPE_WEBHOOK_SECRET` → redeploy
+3. Verify: send test event from Stripe → confirm 200 in delivery log
+
+#### Rotating SUPABASE_SERVICE_ROLE_KEY
+
+1. Supabase → Project Settings → API → Service Role Key → Rotate
+2. Copy new key → Render → Environment → update `SUPABASE_SERVICE_ROLE_KEY` → redeploy
+3. Verify: trigger a pack generation (requires service role for storage write) → confirm success
+
+#### Rotating OPENAI_API_KEY
+
+1. OpenAI → API Keys → Create new secret key
+2. Copy new key → Render → Environment → update `OPENAI_API_KEY` → redeploy
+3. Delete old key in OpenAI dashboard
+4. Verify: trigger a pack generation → confirm AI analysis step completes
