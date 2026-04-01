@@ -546,3 +546,92 @@ SESSION 005 NEXT STEPS (Phase 6: Build)
 [ ] Configure cron-job.org jobs hitting /api/cron/retention and /api/cron/purge-answers
 [ ] Wire up Sentry and UptimeRobot monitoring
 [ ] Verify all 34 features against testplan.md acceptance criteria
+
+
+====================================================
+SESSION 006 — 2026-03-31
+Task: Security — Threat Modeling and Hardening
+Agent: Claude (Sonnet)
+====================================================
+
+## WHAT WAS CREATED
+
+security/THREAT-MODEL.md (NEW — 30,191 chars)
+- Created new security/ folder with full threat model document
+- Section 1: Threat model table — 21 threat rows across 14 asset categories
+  - CRITICAL threats: race condition bypass, webhook replay, forged webhook,
+    RLS disabled, API key bundle leak, over-permissioned Stripe key
+  - HIGH threats: HTML injection/SSRF via Puppeteer, XSS token theft,
+    path traversal, prompt injection
+- Section 2: Secure upload policy — magic bytes validation (PDF/PNG/JPEG),
+  6-step signed upload flow, size limits, filename sanitization (5 rules),
+  no AV scanning rationale (DEC-022), storage permissions, signed URL expiries,
+  retention rules
+- Section 3: Secure app baseline — full CSP (default-src 'none'), 5 additional
+  security headers, CSRF posture, HttpOnly cookie config (TypeScript),
+  session expiry, rate limiting table (Upstash Redis), error redaction pattern
+  (TypeScript), 18-event audit logging schema
+- Section 4: Stripe security — raw body webhook handler (TypeScript),
+  idempotent INSERT guard (23505 error code), 300s replay tolerance,
+  restricted key permissions table
+- Section 5: Top 10 solo-founder security mistakes — each with specific
+  verification method and pass criteria
+- Section 6: Decision cross-reference (DEC-022 through DEC-028)
+
+## WHAT WAS UPDATED
+
+ops/runbook.md (7,098 → 12,581 chars)
+- Added Section 8: Security (pre-launch checklist, env var security,
+  incident response, key rotation procedures)
+- Pre-launch checklist: 10 items with verification methods and pass criteria
+- Env var table: 6 vars with risk-if-leaked and mitigation columns
+- Incident response: auth breach, webhook compromise, RLS gap procedures
+- Key rotation: STRIPE_WEBHOOK_SECRET, SUPABASE_SERVICE_ROLE_KEY, OPENAI_API_KEY
+
+product/Decisions.md (19,419 → 26,201 chars)
+- Added DEC-022 through DEC-028 (7 new decisions)
+- DEC-022: No AV scanning at V1 (magic bytes only)
+- DEC-023: CSP configuration (default-src 'none' + allowlist)
+- DEC-024: Rate limiting via Upstash Redis sliding window
+- DEC-025: Puppeteer request interception (SSRF prevention)
+- DEC-026: HttpOnly cookie session storage via @supabase/ssr
+- DEC-027: Error response redaction pattern
+- DEC-028: Audit logging schema (18 event types, structured JSON to stdout)
+
+quality/features.json (53,771 → 64,774 chars)
+- Added SEC-001 through SEC-010 (10 new security features)
+- total_features updated: 34 → 44
+- SEC-001: Upload magic bytes validation
+- SEC-002: CSP + security headers
+- SEC-003: Rate limiting on auth/generation endpoints
+- SEC-004: Intake answer sanitization before Puppeteer render
+- SEC-005: Puppeteer request interception (block external URLs)
+- SEC-006: HttpOnly cookie session storage
+- SEC-007: RLS coverage verification post-migration
+- SEC-008: Error response redaction in all API routes
+- SEC-009: Audit logging for credit/auth/upload/webhook events
+- SEC-010: Storage path filename sanitization (UUID storage keys)
+
+## KEY TECHNICAL DECISIONS
+
+- Magic bytes validation: server reads first 8 bytes post-upload; never trusts
+  client Content-Type header
+- Webhook idempotency: INSERT with UNIQUE(event_id) as atomic guard;
+  PostgreSQL error code 23505 = silent 200 return (not SELECT-then-INSERT)
+- Puppeteer SSRF: page.setRequestInterception(true) + abort all non-data: URIs
+- HttpOnly cookies: @supabase/ssr createServerClient with httpOnly/secure/strict
+- Stripe webhook: request.text() not request.json() (preserves raw body for HMAC)
+- Error redaction: Sentry.captureException + return {"error":"internal_error"} only
+- Rate limiting: Upstash Redis sliding window (10/15min/IP auth, 5/hr/user generate)
+
+## COMMITS
+
+1. Create THREAT-MODEL.md (security/THREAT-MODEL.md)
+2. Update runbook.md (ops/runbook.md — +Section 8 Security)
+3. Update Decisions.md (product/Decisions.md — +DEC-022 to DEC-028)
+4. Update features.json (quality/features.json — +SEC-001 to SEC-010, 34→44)
+5. Update claude-progress.txt (this entry)
+
+## NEXT SESSION
+
+Session 007: Task 7 — Marketing Site Implementation Sprint
