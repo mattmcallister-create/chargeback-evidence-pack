@@ -3,7 +3,7 @@
     "version": "1.0",
     "last_updated": "2026-03-31",
     "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3. UX acceptance criteria added in Phase 3.",
-    "total_features": 34
+    "total_features": 44
   },
   "features": [
     {
@@ -987,6 +987,249 @@
       ],
       "decision_ref": "DEC-014",
       "notes": "The pack-pdfs bucket has no public access. Signed URLs are the only valid download mechanism. Raw storage paths are never exposed to the client."
+    },
+    {
+      "id": "SEC-001",
+      "category": "Security",
+      "description": "Server validates uploaded file type via magic bytes, not client-provided Content-Type",
+      "steps": [
+        "Upload a file with .pdf extension whose content is actually plain text",
+        "Observe server reads first 8 bytes from storage after upload",
+        "Confirm server checks for PDF magic bytes: 25 50 44 46",
+        "Repeat with .png extension on a JPEG file",
+        "Confirm server checks for PNG magic bytes: 89 50 4E 47"
+      ],
+      "passes": [
+        "File renamed to .pdf but not a PDF is rejected with 422 Invalid file type",
+        "Legitimate PDF passes magic bytes check",
+        "Legitimate PNG passes magic bytes check",
+        "Legitimate JPEG passes magic bytes check",
+        "File with unsupported type (e.g. .docx content) is rejected"
+      ],
+      "fails": [
+        "Server accepts a non-PDF file that has .pdf extension",
+        "Server trusts client-provided Content-Type header without reading file bytes",
+        "Magic bytes check not performed after storage upload"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-002",
+      "category": "Security",
+      "description": "Application sends Content Security Policy and security headers on all responses",
+      "steps": [
+        "Load any page and inspect response headers in browser DevTools Network tab",
+        "Verify Content-Security-Policy header is present",
+        "Verify default-src is 'none'",
+        "Verify Strict-Transport-Security header is present",
+        "Verify X-Frame-Options: DENY is present",
+        "Verify X-Content-Type-Options: nosniff is present"
+      ],
+      "passes": [
+        "CSP header present with default-src 'none'",
+        "script-src allows only 'self', js.stripe.com, browser.sentry-cdn.com",
+        "HSTS header present with max-age >= 31536000",
+        "X-Frame-Options: DENY present",
+        "X-Content-Type-Options: nosniff present",
+        "No unsafe-eval in CSP"
+      ],
+      "fails": [
+        "CSP header absent or set to default-src *",
+        "unsafe-eval present in script-src",
+        "X-Frame-Options missing",
+        "HSTS header absent"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-003",
+      "category": "Security",
+      "description": "Rate limiting enforced on auth and generation endpoints",
+      "steps": [
+        "Send 11 POST requests to /api/auth/login from the same IP within 15 minutes",
+        "Observe response on the 11th request",
+        "Authenticate as a user and send 6 POST requests to /api/packs/[id]/generate within 1 hour",
+        "Observe response on the 6th request"
+      ],
+      "passes": [
+        "11th auth request from same IP within 15 min returns 429 Too Many Requests",
+        "6th generation request within 1 hour for same user returns 429",
+        "Rate limit resets after the window expires",
+        "Requests within limit succeed normally"
+      ],
+      "fails": [
+        "More than 10 auth requests succeed from same IP within 15 minutes",
+        "More than 5 generation requests succeed for same user within 1 hour",
+        "No Retry-After header on 429 response"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-004",
+      "category": "Security",
+      "description": "Intake form answers are sanitized before being rendered in Puppeteer PDF generation",
+      "steps": [
+        "Submit a pack with an intake answer containing <script>alert(1)</script>",
+        "Trigger PDF generation",
+        "Inspect generated PDF for script execution evidence",
+        "Submit intake answer containing an image tag with external URL",
+        "Verify Puppeteer request interception blocks the external fetch"
+      ],
+      "passes": [
+        "Script tags in intake answers do not execute during PDF render",
+        "HTML entities in intake answers are escaped before insertion into PDF template",
+        "External URLs in intake content are blocked by request interception"
+      ],
+      "fails": [
+        "Script tag in intake answer executes JavaScript during PDF render",
+        "External URL in intake answer causes Puppeteer to make a network request",
+        "Raw HTML from intake answer appears unescaped in PDF output"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-005",
+      "category": "Security",
+      "description": "Puppeteer request interception blocks all non-data-URI requests during PDF render",
+      "steps": [
+        "Craft an intake answer containing a reference to an external URL (e.g. http://169.254.169.254/)",
+        "Trigger PDF generation with this intake answer",
+        "Monitor network traffic during generation",
+        "Inspect Puppeteer logs for aborted requests"
+      ],
+      "passes": [
+        "All non-data: URI requests are aborted during PDF render",
+        "PDF generation completes successfully with data: URIs allowed",
+        "No outbound HTTP requests made by Puppeteer to external hosts",
+        "Internal cloud metadata endpoint 169.254.169.254 is unreachable from Puppeteer"
+      ],
+      "fails": [
+        "Puppeteer makes HTTP request to an external URL during PDF render",
+        "Puppeteer fetches from 169.254.169.254 or equivalent metadata endpoint",
+        "Request interception is not enabled"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-006",
+      "category": "Security",
+      "description": "Supabase auth tokens stored in HttpOnly cookies, not localStorage",
+      "steps": [
+        "Log in to the application",
+        "Open browser DevTools → Application → Local Storage → app domain",
+        "Check for keys with sb- prefix",
+        "Open DevTools → Application → Cookies → app domain",
+        "Inspect auth-related cookies for HttpOnly flag"
+      ],
+      "passes": [
+        "No sb- prefixed keys present in localStorage after login",
+        "Auth cookies have HttpOnly flag set",
+        "Auth cookies have Secure flag set",
+        "Auth cookies have SameSite=Strict attribute"
+      ],
+      "fails": [
+        "sb-access-token or sb-refresh-token found in localStorage",
+        "Auth cookies missing HttpOnly flag",
+        "Auth cookies missing Secure flag",
+        "Tokens accessible via document.cookie in browser console"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-007",
+      "category": "Security",
+      "description": "Row Level Security is enabled and verified on all public Supabase tables after migrations",
+      "steps": [
+        "Run migration against a clean database",
+        "Execute SQL: SELECT tablename FROM pg_tables WHERE schemaname='public' AND rowsecurity=false",
+        "Authenticate as User A and attempt to query User B's pack via direct Supabase client call",
+        "Verify RLS policy blocks cross-user data access"
+      ],
+      "passes": [
+        "SQL query returns 0 rows (all tables have RLS enabled)",
+        "User A cannot read User B's packs or exhibits via direct Supabase client",
+        "All public tables have at least one RLS policy defined",
+        "Service role bypasses RLS only when explicitly using service role client"
+      ],
+      "fails": [
+        "Any table returned by the RLS-disabled SQL query",
+        "User A can read or modify User B's data via Supabase client",
+        "RLS enabled but no policies defined (blocks all access)"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-008",
+      "category": "Security",
+      "description": "API routes return only internal_error on unhandled exceptions, with no stack trace or internal detail",
+      "steps": [
+        "Trigger an intentional server error (e.g. pass invalid parameter to a route)",
+        "Inspect the response body",
+        "Inspect response headers for server version or framework info",
+        "Verify Sentry received the full error details"
+      ],
+      "passes": [
+        "Response body is exactly {\"error\":\"internal_error\"} on 500",
+        "No stack trace, function name, or file path in response",
+        "No server version or framework headers exposed",
+        "Sentry dashboard shows full error with stack trace"
+      ],
+      "fails": [
+        "Error message or stack trace visible in API response body",
+        "Error includes database column names or internal function names",
+        "Exception propagates to client with raw JavaScript error"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-009",
+      "category": "Security",
+      "description": "Audit log events emitted for credit operations, auth events, uploads, and webhook processing",
+      "steps": [
+        "Log in and observe stdout logs for auth.login event",
+        "Upload an exhibit file and observe upload.success or upload.rejected event",
+        "Trigger a credit deduction and observe credits.deducted event",
+        "Send a duplicate webhook event and observe webhook.duplicate event",
+        "Verify each log entry includes event, user_id, timestamp, and metadata fields"
+      ],
+      "passes": [
+        "auth.login event emitted on successful login with user_id",
+        "upload.success event emitted with file metadata",
+        "upload.rejected event emitted with rejection reason",
+        "credits.deducted event emitted with pack_id and credit amount",
+        "webhook.duplicate event emitted when event_id already processed",
+        "Each log entry is valid JSON with required fields"
+      ],
+      "fails": [
+        "No log emitted on credit deduction",
+        "No log emitted on rejected upload",
+        "Log entries missing user_id or timestamp",
+        "Duplicate webhook processed without webhook.duplicate log entry"
+      ],
+      "status": "not_started"
+    },
+    {
+      "id": "SEC-010",
+      "category": "Security",
+      "description": "Uploaded files stored under UUID keys; original filenames sanitized and stored only in database",
+      "steps": [
+        "Upload a file with a filename containing path traversal characters (e.g. ../../etc/passwd.pdf)",
+        "Observe the storage key assigned to the file in Supabase Storage",
+        "Check pack_exhibits table for the original_name column value",
+        "Verify the storage path does not contain the original filename"
+      ],
+      "passes": [
+        "Storage key is a UUID (e.g. 3f2a1b4c-...) with no relation to original filename",
+        "Original filename with traversal characters is stored sanitized in original_name column",
+        "File is accessible only via signed URL based on UUID key",
+        "Filename containing ../ does not create unexpected storage paths"
+      ],
+      "fails": [
+        "Storage key includes original filename or path-traversal characters",
+        "File stored at a path that could be predicted from the original filename",
+        "No sanitization applied to original_name before database storage"
+      ],
+      "status": "not_started"
     }
   ]
 }
