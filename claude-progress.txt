@@ -635,3 +635,98 @@ quality/features.json (53,771 → 64,774 chars)
 ## NEXT SESSION
 
 Session 007: Task 7 — Marketing Site Implementation Sprint
+
+
+================================================================================
+SESSION-007 | Phase 7 — Marketing Site Implementation Sprint
+================================================================================
+Date: 2026-04-01
+Duration: ~4 hours (across 3 context window sessions)
+Model: claude-sonnet-4-6
+
+COMPLETED
+---------
+Built and committed the full marketing site (21 files) to main branch:
+
+Config / root files:
+  - package.json (Next.js 14, Tailwind, Lucide React, TypeScript deps)
+  - next.config.ts (image domains, strict mode)
+  - tailwind.config.ts (brand color scale: brand-50 → brand-900)
+  - tsconfig.json (path aliases)
+  - app/globals.css (typography, section utility classes, prose-marketing)
+
+App shell:
+  - app/layout.tsx (root layout: Geist font, OpenGraph base, nav + footer)
+  - app/robots.ts (allow all except /dashboard/, /api/, /admin/)
+  - app/sitemap.ts (all public marketing pages + chargeback category pages)
+
+Marketing route group:
+  - app/(marketing)/layout.tsx (marketing shell: Nav + Footer wrappers)
+  - app/(marketing)/page.tsx (Home — 376 lines, JSON-LD SoftwareApplication schema,
+      hero, category strip, how-it-works, pricing comparison table, trust grid,
+      objection strip, final CTA — CTAs link to /signup/ and /how-it-works/)
+  - app/(marketing)/how-it-works/page.tsx (4-step walkthrough with timeline,
+      FAQ accordion, evidence checklist, final CTA)
+  - app/(marketing)/pricing/page.tsx (JSON-LD SoftwareApplication + FAQPage,
+      $39 single / $99 bundle, 6 feature bullets, comparison table, CTA)
+  - app/(marketing)/faq/page.tsx (JSON-LD FAQPage, 4 groups/16 questions,
+      accordion with details/summary, cross-links to /refund/ /pricing/)
+  - app/(marketing)/login/page.tsx (noindex, email+password form stub,
+      forgot-password link, Terms/Privacy footer note)
+  - app/(marketing)/signup/page.tsx (noindex, trust nudge strip, 3-field form stub)
+  - app/(marketing)/terms/page.tsx (13 sections, lastUpdated March 31 2026)
+  - app/(marketing)/privacy/page.tsx (11 sections, 72-hr file deletion, lastUpdated March 31 2026)
+  - app/(marketing)/refund/page.tsx (30-min window, no refund after intake, chargebacks section)
+
+Shared components:
+  - components/marketing/nav.tsx (logo + nav links + CTA button, mobile hamburger)
+  - components/marketing/footer.tsx (3-column links + trust badges + legal strip)
+
+SEO implementation:
+  - All public pages: title, description, alternates.canonical, openGraph
+  - Pricing + Home: JSON-LD structured data (SoftwareApplication, FAQPage)
+  - robots.ts: disallows /dashboard/, /api/, /admin/
+  - sitemap.ts: 13 URLs with lastmod + changeFrequency + priority
+
+QA PASS (first-pass, pre-deploy)
+---------------------------------
+- Repo structure: all 21 files confirmed in GitHub ✓
+- Home page metadata: title, description, OG, canonical, JSON-LD ✓
+- All CTAs verified: /signup/, /how-it-works/, /pricing/, /faq/ ✓
+- Internal cross-links: terms↔privacy↔refund↔faq all present ✓
+- noindex on login + signup pages ✓
+- File count: 54 total commits on main ✓
+
+KNOWN GAPS (pre-deploy, non-blocking)
+--------------------------------------
+- Forms on /login/ and /signup/ have no action — wired in Phase 9 (Auth)
+- /forgot-password/ page does not exist yet — wired in Phase 9
+- Category pages (/chargeback/*) linked from home but not yet built — Phase 10
+- No live deploy yet — Phase 8 will handle Vercel/Render deployment
+
+FEATURES ADDED TO features.json
+---------------------------------
+MKTG-001 through MKTG-012 (Marketing Site category, 12 entries, status: pending)
+
+NEXT PHASE
+----------
+Phase 8: Deployment & Environment Setup
+- Deploy to Vercel (or Render)
+- Set up environment variables (Supabase, Stripe, OpenAI, Resend)
+- Configure custom domain
+- Smoke test all marketing pages in production
+
+FILES CHANGED THIS SESSION
+---------------------------
+New (21): package.json, next.config.ts, tailwind.config.ts, tsconfig.json,
+  app/globals.css, app/layout.tsx, app/robots.ts, app/sitemap.ts,
+  app/(marketing)/layout.tsx, app/(marketing)/page.tsx,
+  app/(marketing)/how-it-works/page.tsx, app/(marketing)/pricing/page.tsx,
+  app/(marketing)/faq/page.tsx, app/(marketing)/login/page.tsx,
+  app/(marketing)/signup/page.tsx, app/(marketing)/terms/page.tsx,
+  app/(marketing)/privacy/page.tsx, app/(marketing)/refund/page.tsx,
+  components/marketing/nav.tsx, components/marketing/footer.tsx,
+  postcss.config.js
+Updated (3): quality/features.json (+12 MKTG entries),
+  quality/buglog.md (last_updated),
+  claude-progress.txt (this entry)
