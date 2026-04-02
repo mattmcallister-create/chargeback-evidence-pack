@@ -7,7 +7,34 @@
 
 ## 1. Testing Philosophy
 
-This product handles financial transactions and sensitive merchant documents. Testing is not optional.
+This product handles financial tPage_DownPage_DownPage_DownPage_DownPage_Downransactions and sensitive merchant 
+
+## Phase 8 — Billing Tests
+
+### Unit Tests (__tests__/billing/checkout.test.ts)
+- [x] Price configuration correctness (3 tiers, correct amounts, credits)
+- [ ] - [x] deriveAccessState returns correct state for all 6 combinations
+- [ ] - [x] deriveCanGenerate blocks restricted states, allows active states
+- [ ] - [x] Domain and URL constants are correct
+- [ ] - [x] Webhook event types are correctly defined
+- [ ] - [x] Brand name is "ChargebackKit"
+- [ ]
+- [ ] ### Integration Tests (Manual — Stripe Test Mode)
+- [ ] - [ ] One-time checkout creates session, redirects to Stripe
+- [ ] - [ ] Subscription checkout creates session with mode: subscription
+- [ ] - [ ] Webhook processes checkout.session.completed and grants credits
+- [ ] - [ ] Webhook processes invoice.payment_succeeded for subscription renewal
+- [ ] - [ ] Webhook deduplicates repeated events (idempotency)
+- [ ] - [ ] Customer Portal link opens Stripe portal
+- [ ] - [ ] Billing status API returns correct access state
+- [ ] - [ ] Unauthorized access returns 401
+- [ ]
+- [ ] ### E2E Tests (Manual — Before Launch)
+- [ ] - [ ] Full one-time purchase flow: pricing page → checkout → success page → credits visible
+- [ ] - [ ] Full subscription flow: pricing page → checkout → success → monthly credits
+- [ ] - [ ] Subscription cancellation via portal → subscription_canceling state
+- [ ] - [ ] Failed payment → subscription_past_due → blocks generation
+- [ ] - [ ] Receipt email received from Stripe after purchasedocuments. Testing is not optional.
 
 **Priority order:**
 1. Security (webhook verification, auth, access control)
