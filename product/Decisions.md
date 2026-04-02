@@ -338,3 +338,64 @@ This file is append-only. Do not delete past decisions. Mark superseded decision
 - **Rationale:** Stdout logging integrates with Render log aggregation without additional infrastructure. Structured JSON is queryable. Credit-event coverage provides a forensic trail for billing disputes and fraud investigation. `webhook.duplicate` specifically enables detection of replay attacks in production.
 - **Consequences:** Log volume scales with usage. No log retention policy at V1 — Render retains logs per platform defaults. No search UI unless Render log streaming is configured to an external store.
 - **Alternatives Rejected:** Database audit table (write amplification, RLS policy complexity); no audit logging (blind to security events post-incident)
+
+
+---
+
+## Phase 8 — Billing Implementation Decisions (Session 008)
+
+### DEC-029
+
+**Date:** 2026-04-01
+**Status:** Decided
+**Question:** Should subscriptions be added alongside one-time purchases?
+
+**Decision:** Yes. Add a monthly subscription plan ($29/month for 3 packs/month) alongside existing one-time purchases ($39 single, $99 bundle). Both use Stripe Checkout. Subscription lifecycle tracked in a new user_subscriptions table written exclusively by webhooks.
+
+**Rationale:** The task requirement explicitly requests subscription support. Monthly subscriptions serve high-frequency merchants (those with regular chargebacks) while one-time purchases serve episodic users. Both paths use the same credit system. This supersedes DEC-010's "no subscription in v1" constraint.
+
+**Consequences:** New user_subscriptions table required. Webhook handler must process six event types instead of one. Stripe Customer Portal configuration must enable subscription management. Access state machine expands from 2 states to 6 states. Monthly revenue becomes possible alongside one-time revenue.
+
+**Alternatives Rejected:** Subscription-only model (wrong for episodic users), credit-topup-only with auto-refill (more complex Stripe configuration with less user clarity).
+
+### DEC-030
+
+**Date:** 2026-04-01
+**Status:** Decided
+**Question:** Who sends billing emails — Stripe or the product?
+
+**Decision:** Stripe sends all financial communication (receipts, invoices, failed payment notices, renewal reminders). ChargebackKit sends only product communication (purchase confirmation with next steps, via Resend). The two never overlap. Full boundary documented in docs/billing-email-boundary.md.
+
+**Rationale:** Duplicate receipt emails confuse customers and create support burden. Stripe receipts include legally required information. Letting Stripe own financial email means zero custom receipt templates to build or maintain.
+
+**Consequences:** Must enable receipt emails in Stripe Dashboard. Product must NOT send any email that looks like a receipt. Success page must say "Stripe will email your receipt." In-app billing display links to Customer Portal for all financial history.
+
+**Alternatives Rejected:** Product sends all emails including receipts (duplicates Stripe), product sends nothing (user has no product onboarding after purchase).
+
+### DEC-031
+
+**Date:** 2026-04-01
+**Status:** Decided
+**Question:** What is the canonical domain for all billing URLs?
+
+**Decision:** chargebackkit.app is the canonical production domain. All success URLs, cancel URLs, portal return URLs, and webhook endpoint URLs use this domain. NEXT_PUBLIC_APP_URL defaults to https://chargebackkit.app.
+
+**Rationale:** The brand is ChargebackKit. All billing return flows must use the final domain to prevent redirect mismatches when Stripe sends users back after checkout.
+
+**Consequences:** NEXT_PUBLIC_APP_URL must be set correctly in each environment. Stripe webhook endpoint must be registered at https://chargebackkit.app/api/webhooks/stripe.
+
+**Alternatives Rejected:** Using a subdomain like app.chargebackkit.app (unnecessary complexity), leaving domain as old brand.
+
+### DEC-032
+
+**Date:** 2026-04-01
+**Status:** Decided
+**Question:** How should the entitlement access state machine work?
+
+**Decision:** Six states derived server-side from user_credits.credits + user_subscriptions.status: unpaid, one_time_active, subscription_active, subscription_canceling, subscription_past_due, subscription_expired. Generation is gated on canGenerate = credits > 0 AND state is not restricted. Credits are the universal entitlement unit.
+
+**Rationale:** Credits as the universal unit keeps the generation pipeline simple: it always checks deduct_credit(). The six states give clear UX signals. Subscription_canceling still allows generation. Subscription_past_due blocks generation (creates urgency to fix payment).
+
+**Consequences:** BillingStatus API endpoint returns the full state for UI rendering. Dashboard and generation gate read this state. Credits are never manipulated client-side. The entitlement module (lib/billing/entitlements.ts) is the single authority.
+
+**Alternatives Rejected:** Time-based access (fragile), separate entitlement table (adds sync complexity), client-side state derivation (insecure).
