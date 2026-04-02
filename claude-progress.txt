@@ -730,3 +730,62 @@ New (21): package.json, next.config.ts, tailwind.config.ts, tsconfig.json,
 Updated (3): quality/features.json (+12 MKTG entries),
   quality/buglog.md (last_updated),
   claude-progress.txt (this entry)
+
+
+---
+
+SESSION 008 — Phase 8: Billing Implementation
+Date: 2026-04-01
+Phase: Billing, Access Provisioning, Billing Communication Boundary
+
+COMPLETED:
+- Built complete Stripe billing integration (one-time + subscription)
+- Three pricing tiers: Single Pack ($39/1 credit), 3-Pack Bundle ($99/3 credits), Monthly Pro ($29mo/3 credits)
+- Stripe Checkout (hosted) with mode: payment and mode: subscription
+- Webhook handler with signature verification, idempotent processing (INSERT-before-process + UNIQUE constraint)
+- 6-state access machine: unpaid, one_time_active, subscription_active, subscription_canceling, subscription_past_due, subscription_expired
+- Credit-based entitlement engine (lib/billing/entitlements.ts) as single authority
+- Stripe Customer Portal integration for payment history and subscription management
+- Billing-email boundary defined: Stripe owns financial emails, ChargebackKit owns product emails via Resend
+- chargebackkit.app set as canonical domain for all billing URLs
+
+FILES CREATED (16 new):
+- lib/billing/types.ts — billing types, constants, price configs, 6 access states
+- lib/billing/entitlements.ts — server-side entitlement engine, access state derivation
+- app/api/checkout/route.ts — creates Stripe Checkout sessions
+- app/api/webhooks/stripe/route.ts — webhook handler with signature verification
+- app/api/billing/portal/route.ts — Stripe Customer Portal session creation
+- app/api/billing/status/route.ts — returns user billing status as JSON
+- app/checkout/success/page.tsx — display-only confirmation (no provisioning)
+- app/checkout/cancel/page.tsx — checkout cancelled page
+- components/billing/pricing-cards.tsx — pricing UI with checkout integration
+- components/billing/billing-status.tsx — dashboard billing status display
+- components/billing/checkout-button.tsx — standalone checkout CTA
+- components/billing/portal-button.tsx — customer portal link button
+- architecture/db-migration-subscriptions.sql — user_subscriptions table + RLS
+- docs/billing-email-boundary.md — Stripe vs product email boundary spec
+- __tests__/billing/checkout.test.ts — billing unit tests
+
+FILES UPDATED:
+- product/Decisions.md — added DEC-029 through DEC-032 (billing decisions)
+- ops/runbook.md — added Billing Operations section (Stripe setup, env vars, ops procedures, monitoring)
+
+DECISIONS LOGGED:
+- DEC-029: Add subscription support alongside one-time purchases
+- DEC-030: Billing-email boundary (Stripe sends financial, product sends product)
+- DEC-031: chargebackkit.app as canonical domain
+- DEC-032: 6-state access state machine with credits as universal entitlement unit
+
+ARCHITECTURE NOTES:
+- Credits are the universal entitlement unit — both one-time and subscription paths grant credits
+- Webhook handler processes 6 event types with race condition protection
+- Generation gate checks deduct_credit() regardless of how credits were acquired
+- Success page deliberately does NOT provision — all provisioning is webhook-driven
+- Subscription renewals grant credits via invoice.payment_succeeded webhook
+
+NEXT STEPS:
+- Run Stripe Dashboard setup (prices, webhook, portal, email settings)
+- Run db-migration-subscriptions.sql in Supabase
+- Set billing environment variables in Render
+- Test end-to-end checkout flow with Stripe test mode
+- Phase 9: Marketing site / landing page build
