@@ -8,6 +8,42 @@
   "features": [
     {
       "id": "AUTH-001",
+          {
+            "id": "F-BILLING-001",
+            "name": "Stripe Checkout Integration",
+            "phase": 8,
+            "status": "implemented",
+            "description": "One-time and subscription checkout via Stripe hosted Checkout"
+    },
+        {
+                "id": "F-BILLING-002",
+                "name": "Webhook-Driven Entitlements",
+                "phase": 8,
+                "status": "implemented",
+                "description": "Idempotent webhook handler with signature verification and credit provisioning"
+        },
+        {
+                "id": "F-BILLING-003",
+                "name": "6-State Access Machine",
+                "phase": 8,
+                "status": "implemented",
+                "description": "Server-side access state derivation: unpaid, one_time_active, subscription_active, subscription_canceling, subscription_past_due, subscription_expired"
+        },
+        {
+                "id": "F-BILLING-004",
+                "name": "Stripe Customer Portal",
+                "phase": 8,
+                "status": "implemented",
+                "description": "Customer portal for payment history, receipts, subscription management"
+        },
+        {
+                "id": "F-BILLING-005",
+                "name": "Billing UI Components",
+                "phase": 8,
+                "status": "implemented",
+                "description": "Pricing cards, checkout button, billing status display, portal button"
+        "total_features": 61
+          
       "category": "Authentication",
       "description": "User can create an account with email and password",
       "steps": [
