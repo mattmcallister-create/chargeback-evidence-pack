@@ -298,3 +298,95 @@ Run this checklist before every production deployment. Each item maps to a known
 2. Copy new key → Render → Environment → update `OPENAI_API_KEY` → redeploy
 3. Delete old key in OpenAI dashboard
 4. Verify: trigger a pack generation → confirm AI analysis step completes
+
+
+---
+
+## Billing Operations
+
+### Stripe Dashboard Setup (Required Before Launch)
+
+1. **Enable receipt emails**: Stripe Dashboard > Settings > Emails > Enable "Successful payments"
+2. **Enable failed payment emails**: Same page > Enable "Failed payments"
+3. **Enable renewal reminders**: Stripe Dashboard > Settings > Billing > Customer emails > Enable "Upcoming renewals"
+4. **Create restricted API key**: Stripe Dashboard > Developers > API keys > Create restricted key with: Checkout Sessions (Write), Customers (Write), Billing Portal Sessions (Write), Subscriptions (Write), Prices (Read), Events (Read)
+5. **Register webhook endpoint**: Stripe Dashboard > Developers > Webhooks > Add endpoint: `https://chargebackkit.app/api/webhooks/stripe`
+   - Events to listen for: `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.payment_succeeded`, `invoice.payment_failed`
+6. **Configure Customer Portal**: Stripe Dashboard > Settings > Billing > Customer portal
+   - Enable: Payment method management, Invoice history, Subscription cancellation
+   - Disable: Subscription plan switching (V1 has one plan)
+7. **Create Prices**: Create three Price objects in Stripe:
+   - Single Pack: $39 one-time (set ID as STRIPE_PRICE_ID_SINGLE_PACK)
+   - 3-Pack Bundle: $99 one-time (set ID as STRIPE_PRICE_ID_BUNDLE_3)
+   - Monthly Pro: $29/month recurring (set ID as STRIPE_PRICE_ID_SUBSCRIPTION)
+
+### Billing Environment Variables
+
+```
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
+STRIPE_SECRET_KEY=rk_live_...          # Use restricted key, not full secret
+STRIPE_WEBHOOK_SECRET=whsec_...        # From webhook endpoint registration
+STRIPE_PRICE_ID_SINGLE_PACK=price_...  # $39 single pack
+STRIPE_PRICE_ID_BUNDLE_3=price_...     # $99 3-pack bundle
+STRIPE_PRICE_ID_SUBSCRIPTION=price_... # $29/month subscription
+```
+
+### Billing Email Boundary
+
+**Stripe sends**: Payment receipts, invoice PDFs, failed payment alerts, renewal reminders, cancellation confirmations, refund confirmations.
+
+**ChargebackKit sends (via Resend)**: Purchase confirmation with next steps (first purchase only).
+
+**Neither sends**: The other's emails. No duplication. See docs/billing-email-boundary.md for full spec.
+
+### Common Billing Operations
+
+#### Grant manual credits (emergency only)
+```sql
+-- Run via Supabase SQL editor. Log in audit system.
+SELECT add_credits('USER_UUID_HERE', 1);
+```
+
+#### Check a user's billing status
+```sql
+SELECT
+  p.email,
+  uc.credits,
+  us.status as sub_status,
+  us.current_period_end,
+  us.cancel_at_period_end
+FROM profiles p
+LEFT JOIN user_credits uc ON uc.user_id = p.id
+LEFT JOIN user_subscriptions us ON us.user_id = p.id
+WHERE p.email = 'customer@example.com';
+```
+
+#### Verify webhook is processing
+Check Render logs for:
+```
+{"event":"webhook.processed","webhook_event_id":"evt_..."}
+```
+If seeing `webhook.duplicate`, that's normal — Stripe retries are being correctly deduplicated.
+
+#### Handle a failed webhook
+1. Check Stripe Dashboard > Developers > Webhooks > select endpoint > Event deliveries
+2. Find the failed event, note the event ID
+3. Check webhook_events table: `SELECT * FROM webhook_events WHERE event_id = 'evt_...'`
+4. If event is NOT in the table, click "Resend" in Stripe Dashboard
+5. If event IS in the table but credits weren't granted, manually grant credits and log it
+
+#### Handle a refund
+1. Issue refund in Stripe Dashboard (never via API in V1)
+2. Stripe sends refund confirmation email automatically
+3. Decide whether to revoke credits:
+   - If pack was not generated: leave credits (user may rebuy)
+   - If pack was generated: no action needed (pack already delivered)
+   - If abuse suspected: revoke credits manually via SQL
+
+### Monitoring Checklist (Weekly)
+
+- [ ] Check Stripe Dashboard > Developers > Webhooks for failed deliveries
+- [ ] Check Render logs for `webhook.processing_failed` events
+- [ ] Check Stripe Dashboard > Payments for any disputes
+- [ ] Verify Stripe email settings are still enabled (receipts, failed payments, renewals)
+- [ ] Check user_subscriptions table for any stuck `past_due` subscriptions > 7 days
