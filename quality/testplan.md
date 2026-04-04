@@ -224,3 +224,83 @@ Before running tests:
 | Network-specific evidence rule accuracy not tested | Medium | PM/QA | Before launch |
 | Rate limiting on webhook endpoint not verified | High | Security | Before launch |
 | File upload virus/malware scanning not implemented | Medium | Arch | v2 |
+
+
+---
+
+## Phase 9 — Core Application Test Plan (2026-04-04)
+
+### 1. Auth & Protected Routes
+
+| Test | Type | Expected |
+|------|------|----------|
+| Unauthenticated access to /app/* | Integration | Redirect to /login |
+| getAuthenticatedUser() with valid JWT | Unit | Returns user object |
+| getAuthenticatedUser() with no JWT | Unit | Throws 401 |
+| Middleware redirects preserve return URL | Integration | ?redirect=/app/packs/123 |
+
+### 2. Pack CRUD
+
+| Test | Type | Expected |
+|------|------|----------|
+| POST /api/packs creates draft pack | Integration | 201, pack in DB |
+| GET /api/packs lists only user's packs | Integration | No other user's packs |
+| GET /api/packs/[id] with wrong user | Integration | 403 Forbidden |
+| PUT /api/packs/[id] updates merchant info | Integration | 200, fields updated |
+
+### 3. Intake Wizard
+
+| Test | Type | Expected |
+|------|------|----------|
+| Category selection renders 6 options | Unit | All categories visible |
+| Question validation rejects empty required fields | Unit | Validation errors shown |
+| Wizard submit creates pack via API | E2E | Pack appears in dashboard |
+| Edit page pre-populates existing answers | E2E | Fields filled correctly |
+
+### 4. Evidence Upload
+
+| Test | Type | Expected |
+|------|------|----------|
+| Upload file under 10MB | Integration | 201, exhibit in DB |
+| Upload file over 10MB | Integration | 400, error message |
+| Upload when pack exceeds 50MB total | Integration | 400, quota error |
+| Delete exhibit removes from storage | Integration | File deleted, exhibit removed |
+| Reorder exhibits updates display_order | Integration | New order persisted |
+
+### 5. PDF Generation (Critical Path)
+
+| Test | Type | Expected |
+|------|------|----------|
+| POST /generate deducts credit | Integration | Credit count decremented |
+| POST /generate returns 202 | Integration | Async job started |
+| GET /generate/status returns pending/ready/failed | Integration | Correct status |
+| Generation failure restores credit | Integration | Credit count restored |
+| Generated PDF has cover page, summary, rebuttal, exhibits | E2E | All sections present |
+| Download returns signed URL | Integration | Valid 1hr URL |
+
+### 6. Email
+
+| Test | Type | Expected |
+|------|------|----------|
+| Pack-ready email sent after generation | Integration | Resend API called |
+| Email contains download link | Unit | Link present in template |
+| Email failure doesn't fail generation | Integration | Pack still marked ready |
+
+### 7. Deadlines
+
+| Test | Type | Expected |
+|------|------|----------|
+| POST deadline with valid date | Integration | 201, deadline created |
+| Urgency badge green for >14 days | Unit | Green color |
+| Urgency badge yellow for 7-14 days | Unit | Yellow color |
+| Urgency badge red for <7 days | Unit | Red color |
+| Aggregated view shows all user deadlines | E2E | Cross-pack deadlines |
+
+### 8. Error Handling & Loading States
+
+| Test | Type | Expected |
+|------|------|----------|
+| ErrorBoundary catches render error | Unit | Recovery UI shown |
+| ErrorBoundary Try Again resets state | Unit | Children re-rendered |
+| NotFoundError returns 404 status | Unit | statusCode === 404 |
+| Loading skeletons render with animate-pulse | Unit | Correct CSS classes |
