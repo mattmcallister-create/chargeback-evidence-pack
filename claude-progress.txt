@@ -789,3 +789,84 @@ NEXT STEPS:
 - Set billing environment variables in Render
 - Test end-to-end checkout flow with Stripe test mode
 - Phase 9: Marketing site / landing page build
+========================================
+SESSION 009 — 2026-04-04
+========================================
+OBJECTIVE: Build core application — dispute pack creation, evidence management, AI rebuttal generation, PDF output
+
+COMPLETED (Phases 1-9 of Core App Sprint):
+
+Phase 1 — Auth, App Shell, Constants:
+- middleware.ts — Redirect unauthenticated users from /app/* to login
+- lib/auth/get-user.ts — Reusable getAuthenticatedUser() for API routes
+- lib/supabase/client.ts — Browser + server Supabase client builders (SSR pattern)
+- lib/constants.ts — 6 dispute categories, file limits, timeouts
+- app/app/layout.tsx — Protected app shell with sidebar nav, credit display, error boundary
+- app/app/page.tsx — Dashboard with pack list table or empty state
+- app/app/settings/page.tsx — Profile info + billing status + Stripe portal link
+
+Phase 2 — Data Layer:
+- lib/database/types.ts — TypeScript types for Pack, Exhibit, Generation, Deadline
+- lib/database/packs.ts — CRUD with triple-layer ownership checks
+- lib/database/exhibits.ts — Exhibit CRUD with reorder support
+- lib/database/generations.ts — Generation record management
+- lib/database/deadlines.ts — Deadline tracking with urgency state calculation
+- lib/storage/uploads.ts — Supabase Storage helpers with file validation
+- app/api/packs/route.ts — POST create + GET list packs
+- app/api/packs/[id]/route.ts — GET detail + PUT update with ownership checks
+
+Phase 3 — Intake Wizard:
+- lib/intake/categories.ts — 6 category definitions with question schemas and validation
+- components/packs/dispute-wizard.tsx — Multi-step form
+- app/app/packs/new/page.tsx — New dispute pack page
+- app/app/packs/[id]/page.tsx — Pack detail with status, evidence, generate, download
+- app/app/packs/[id]/edit/page.tsx — Edit draft pack with pre-populated wizard
+
+Phase 4 — Evidence Upload:
+- components/packs/exhibit-uploader.tsx — Drag-and-drop upload with progress bar
+- components/packs/exhibits-list.tsx — Label editing, reorder, delete, storage usage
+- app/api/packs/[id]/exhibits/route.ts — POST upload (multipart)
+- app/api/packs/[id]/exhibits/[exhibitId]/route.ts — PUT label/order + DELETE
+- app/api/packs/[id]/exhibits/reorder/route.ts — PUT bulk reorder
+
+Phase 5 — PDF Generation (Critical Path):
+- lib/pdf/html-template.ts — Professional HTML template with cover, summary, rebuttal, exhibits
+- lib/pdf/generator.ts — Puppeteer HTML-to-PDF with A4 format, 60s timeout
+- lib/pdf/rebuttal-generator.ts — OpenAI GPT-4o rebuttal narrative
+- lib/pdf/steps.ts — Generation pipeline with credit deduction/rollback
+- app/api/packs/[id]/generate/route.ts — POST triggers async generation (202 Accepted)
+- app/api/packs/[id]/generate/status/route.ts — GET poll status
+- app/api/packs/[id]/download/route.ts — GET signed download URL
+- components/packs/generation-status.tsx — Polling UI with progress bar and download
+
+Phase 6 — Transactional Email:
+- lib/email/templates.ts — Pack-ready HTML email with download link
+- lib/email/send.ts — Resend API integration, fire-and-forget
+
+Phase 7 — Deadline Tracking:
+- components/packs/deadline-tracker.tsx — Urgency badges (green/yellow/red)
+- app/app/deadlines/page.tsx — Aggregated deadlines view
+- app/api/packs/[id]/deadlines/route.ts — POST create + GET list
+
+Phase 8 — Polish:
+- components/error-boundary.tsx — React error boundary with recovery UI
+- components/loading-skeleton.tsx — Skeleton placeholders
+- lib/errors.ts — Error classes (NotFound, Forbidden, Validation, etc.)
+
+Phase 9 — Quality Tracking:
+- quality/features.json — Added F-CORE-001 through F-CORE-012
+- quality/testplan.md — Phase 9 test plan with 30+ test cases
+- claude-progress.txt — This session entry
+- product/Decisions.md — Appended DEC-033 through DEC-041
+
+KEY DECISIONS: DEC-033 through DEC-041
+- Triple-layer auth, 6 dispute categories, async PDF generation
+- Credit deduction before generation with auto rollback
+- OpenAI GPT-4o for rebuttals, Puppeteer for PDF
+- Supabase Storage for exhibits, Resend for email
+- Deadline urgency thresholds (green/yellow/red)
+
+NEXT STEPS:
+- Deploy to Render and test end-to-end
+- Configure Puppeteer and OpenAI in production
+- Full E2E test of dispute pack creation flow
