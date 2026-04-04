@@ -1,3 +1,26 @@
+// ─── Brand & Site Configuration ─────────────────────────────────────────────
+export const APP_NAME = 'ChargebackKit';
+export const APP_DESCRIPTION = 'Build submission-ready chargeback evidence packs';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
+export const SUPPORT_EMAIL = 'support@chargebackkit.app';
+export const FORWARDING_EMAIL = 'mattmcallistermarketing@gmail.com';
+
+// ─── Routes ────────────────────────────────────────────────────────────────
+export const ROUTES = {
+  HOME: '/',
+  LOGIN: '/login',
+  SIGNUP: '/signup',
+  PRICING: '/pricing',
+  DASHBOARD: '/app',
+  NEW_PACK: '/app/packs/new',
+  PACK_DETAIL: '/app/packs',
+  DEADLINES: '/app/deadlines',
+  SETTINGS: '/app/settings',
+  CHECKOUT_SUCCESS: '/checkout/success',
+  CHECKOUT_CANCEL: '/checkout/cancel',
+  AUTH_CALLBACK: '/auth/callback',
+} as const;
+
 // ─── Dispute Categories ───────────────────────────────────────────────
 // Based on Stripe's dispute reason taxonomy.
 // Each category drives the intake question flow and rebuttal strategy.
