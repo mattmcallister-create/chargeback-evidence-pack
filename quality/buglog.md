@@ -1,61 +1,83 @@
-# Bug Log — Chargeback Evidence Pack Builder
-**Last Updated:** 2026-04-01
-**Policy:** Do not delete entries. Update status only. Add new bugs at the bottom of the list.
+# Bug Log — ChargebackKit v1
+
+**Version:** 1.0
+**Last Updated:** 2026-04-04
+**Reviewer:** Claude (Phase 10 Hardening Pass)
 
 ---
 
-## Bug Entry Format
+## Summary
 
-**BUG-[number]**
-- **Date Reported:**
-- **Reported By:**
-- **Severity:** Critical / High / Medium / Low
-- **Status:** Open / In Progress / Fixed / Wont Fix / Cannot Reproduce
-- **Feature Area:** (Auth / Pack Creation / Payments / Generation / PDF / Deadline / UX / Security)
-- **Description:**
-- **Steps to Reproduce:**
-- **Expected:**
-- **Actual:**
-- **Fix Applied:** (commit hash or PR, if fixed)
-- **Notes:**
+| Severity | Total | Fixed | Open |
+|----------|-------|-------|------|
+| CRITICAL | 5     | 5     | 0    |
+| HIGH     | 5     | 2     | 3    |
+| MEDIUM   | 9     | 0     | 9    |
+| LOW      | 5     | 0     | 5    |
+| **Total**| **24**| **7** | **17**|
 
 ---
 
-## Severity Definitions
+## CRITICAL
 
-| Severity | Definition | Response Time |
-|----------|-----------|---------------|
-| Critical | Data loss, security vulnerability, payment error, or product completely unusable | Immediate — fix before any other work |
-| High | Core workflow broken for a subset of users, pack generation fails, PDF corrupt | Fix within current build sprint |
-| Medium | Feature partially broken but workaround exists | Fix before launch |
-| Low | Minor UX issue, cosmetic, edge case | Fix when time permits |
+| ID | File | Issue | Status | Fix |
+|----|------|-------|--------|-----|
+| BUG-001 | (missing) app/(auth)/login/page.tsx | No login page exists. Users clicking Sign In get 404. | FIXED | Created login page with password + magic link support |
+| BUG-002 | (missing) app/auth/callback/route.ts | No auth callback route. OAuth and magic link flows fail completely. | FIXED | Created auth callback route handler |
+| BUG-003 | middleware.ts | Middleware doesn't exclude /auth/callback. Auth callback blocked by redirect loop. | FIXED | Rewrote middleware with PUBLIC_ROUTES array including /auth/callback |
+| BUG-004 | middleware.ts | No token refresh in middleware. Sessions expire silently. | FIXED | Middleware now calls supabase.auth.getUser() and refreshes cookies |
+| BUG-005 | (missing) app/app/packs/new/page.tsx | Pack creation page doesn't exist. ROUTES.NEW_PACK points to 404. | FIXED | Created page wrapping DisputeWizard with access check |
+
+## HIGH
+
+| ID | File | Issue | Status | Fix |
+|----|------|-------|--------|-----|
+| BUG-006 | app/api/packs/route.ts | POST route accepts JSON without any schema validation. | OPEN | Add Zod schema validation |
+| BUG-007 | webhooks/stripe/route.ts, settings/page.tsx | Credit operations use read-then-write without transactions. Race condition. | OPEN | Use Supabase RPC for atomic credit operations |
+| BUG-011 | lib/constants.ts | No APP_NAME, SITE_URL, or SUPPORT_EMAIL constants. Brand scattered. | FIXED | Added centralized brand constants block |
+| BUG-012 | marketing pages | Marketing uses "Evidence Pack" not "ChargebackKit". Email templates use "ChargebackKit". | FIXED | Standardized: ChargebackKit = brand, Evidence Pack = product noun |
+| BUG-025 | (missing) app/(auth)/signup/page.tsx | No signup page exists. Users clicking Sign Up get 404. | FIXED | Created signup page with email + password flow |
+
+## MEDIUM
+
+| ID | File | Issue | Status | Fix |
+|----|------|-------|--------|-----|
+| BUG-008 | app/api/webhooks/stripe/route.ts | Webhook switch has no default case. Unknown events silently ignored. | OPEN | Add default case with structured logging |
+| BUG-009 | app/api/webhooks/stripe/route.ts | 5 console.log statements in production webhook handler. | OPEN | Replace with structured logging or remove |
+| BUG-010 | app/app/page.tsx (line 40) | Hardcoded localhost reference. Breaks in production. | OPEN | Use env variable or relative URL |
+| BUG-013 | lib/constants.ts | No chargebackkit.app domain references in codebase. | OPEN | Use SITE_URL constant everywhere |
+| BUG-014 | components/packs/dispute-wizard.tsx | 482-line form with 18 inputs has no loading/submitting state. | OPEN | Add isSubmitting state with spinner |
+| BUG-015 | components/packs/dispute-wizard.tsx | Zero aria-* or role attributes in 482-line form. | OPEN | Add accessibility attributes |
+| BUG-016 | app/app/settings/page.tsx | No loading skeleton or error state. | OPEN | Add Suspense with skeleton |
+| BUG-020 | app/checkout/success/page.tsx | No loading indicator during redirect. | OPEN | Add loading spinner |
+| BUG-022 | lib/pdf/rebuttal-generator.ts | OpenAI call has no retry or timeout. Hangs indefinitely on failure. | OPEN | Add timeout + exponential backoff |
+| BUG-023 | app/api/*.ts | No rate limiting on any API endpoint. | OPEN | Add per-route rate limits |
+
+## LOW
+
+| ID | File | Issue | Status | Fix |
+|----|------|-------|--------|-----|
+| BUG-017 | app/app/deadlines/page.tsx | No loading skeleton. | OPEN | Add skeleton |
+| BUG-018 | components/packs/exhibit-uploader.tsx | No drag & drop support for file uploads. | OPEN | Add drag zone |
+| BUG-019 | components/packs/exhibit-uploader.tsx | No thumbnail preview for uploaded images. | OPEN | Add preview |
+| BUG-021 | lib/auth/get-user.ts | Creates Supabase client directly instead of using shared lib. | OPEN | Refactor to shared client |
+| BUG-024 | generation-status.tsx, exhibit-uploader.tsx | Uses `: any` type annotations. | OPEN | Replace with proper types |
 
 ---
 
-## Active Bugs
+## Missing Dependencies (Not Installed)
 
-_No bugs logged yet. Project is in pre-build harness phase._
-
----
-
-## Resolved Bugs
-
-_No resolved bugs yet._
+| Package | Purpose | Required For |
+|---------|---------|-------------|
+| zod | Input validation | BUG-006 fix |
+| puppeteer | PDF generation | Production PDF output |
+| openai | AI rebuttals | Production rebuttal generation |
 
 ---
 
-## Bug Triage Notes
+## Notes
 
-**Pre-build note (2026-04-01):** This log is initialized as part of the operating harness. Bugs will be logged here as development begins. The following known risk areas should be watched closely during build:
-
-1. **Stripe webhook raw body handling** — Next.js default body parsing will break Stripe signature verification. Must disable body parser on the webhook route. This is a known gotcha and a Critical-level risk if missed.
-
-2. **Supabase Storage RLS policies** — Row Level Security must be configured to prevent User A from accessing User B's files. Misconfiguration is a security bug, not a feature bug. Test explicitly.
-
-3. **PDF generation on Render free tier** — Render free tier spins down after inactivity. First PDF generation after spin-down may timeout. Watch for this in staging.
-
-4. **CodeMirror / Monaco editor tab handling** — If using a rich text editor for any intake fields, tab key may be intercepted. Test keyboard navigation explicitly.
-
-5. **Concurrent pack generation** — If a user double-clicks Generate, two generation requests may fire. Credit deduction must be atomic. Test with artificial latency.
-
-6. **File upload race condition** — If exhibit files are uploaded and the user navigates away before upload completes, file records may be orphaned. Implement upload-complete state tracking.
+- Fixes for BUG-001 through BUG-005, BUG-011, BUG-012, BUG-025 created in Phase 10 hardening pass
+- MEDIUM and LOW bugs tracked for next sprint
+- Missing npm dependencies (zod, puppeteer, openai) need to be installed before those features work in production
+- Middleware rewrite (BUG-003/004) is the single highest-impact fix — prevents auth loops and session expiry
