@@ -399,3 +399,49 @@ This file is append-only. Do not delete past decisions. Mark superseded decision
 **Consequences:** BillingStatus API endpoint returns the full state for UI rendering. Dashboard and generation gate read this state. Credits are never manipulated client-side. The entitlement module (lib/billing/entitlements.ts) is the single authority.
 
 **Alternatives Rejected:** Time-based access (fragile), separate entitlement table (adds sync complexity), client-side state derivation (insecure).
+---
+
+## DEC-033: Triple-Layer Authentication
+**Date:** 2026-04-04 | **Status:** Accepted
+
+Every protected resource uses three auth layers: JWT verification, Supabase Row-Level Security, and explicit code-level ownership checks (user_id match). Defense in depth.
+
+## DEC-034: Six Dispute Categories with Tailored Intake
+**Date:** 2026-04-04 | **Status:** Accepted
+
+Categories: Fraudulent, Product Not Received, Not As Described, Subscription Cancelled, Duplicate Charge, Credit Not Processed. Each has category-specific intake questions.
+
+## DEC-035: Async PDF Generation with Polling
+**Date:** 2026-04-04 | **Status:** Accepted
+
+POST /generate returns 202 Accepted. Client polls /status every 3 seconds. Avoids long-running HTTP connections and request timeouts.
+
+## DEC-036: Credit Deduction Before Generation
+**Date:** 2026-04-04 | **Status:** Accepted
+
+Credits are deducted via deduct_credit() BEFORE PDF generation starts. If any pipeline step fails, restore_credit() is called automatically. Prevents credit leaks.
+
+## DEC-037: OpenAI GPT-4o for Rebuttal Narratives
+**Date:** 2026-04-04 | **Status:** Accepted
+
+AI-generated rebuttal narratives (300-500 words) using GPT-4o. Professional, factual tone. Cached in pack_generations.rebuttal_text to avoid regeneration costs.
+
+## DEC-038: Puppeteer for PDF Generation
+**Date:** 2026-04-04 | **Status:** Accepted
+
+HTML template rendered to PDF via Puppeteer with A4 format, professional typography (11pt body, 16pt headings), 1-inch margins. 60-second timeout.
+
+## DEC-039: Supabase Storage for Evidence
+**Date:** 2026-04-04 | **Status:** Accepted
+
+Exhibits stored in Supabase Storage bucket. Limits: 10MB per file, 50MB per pack. Signed URLs for secure access (1hr expiry). Filenames sanitized.
+
+## DEC-040: Resend for Pack-Ready Email Only
+**Date:** 2026-04-04 | **Status:** Accepted
+
+ChargebackKit sends only pack-ready notifications via Resend. All billing emails (receipts, renewals, failures) handled by Stripe per DEC-030. No overlap.
+
+## DEC-041: Deadline Urgency Thresholds
+**Date:** 2026-04-04 | **Status:** Accepted
+
+Three urgency levels: green (>14 days), yellow (7-14 days), red (<7 days). Visual badges on deadline tracker. Aggregated view across all user packs.
