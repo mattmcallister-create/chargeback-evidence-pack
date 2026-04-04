@@ -1,6 +1,17 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
+const PUBLIC_ROUTES = ['/', '/login', '/signup', '/pricing', '/auth/callback'];
+const API_ROUTES = ['/api/webhooks'];
+
+function isPublicRoute(pathname: string): boolean {
+  return PUBLIC_ROUTES.some(route => pathname === route || pathname.startsWith(route + '/'));
+}
+
+function isApiRoute(pathname: string): boolean {
+  return API_ROUTES.some(route => pathname.startsWith(route));
+}
+
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -15,7 +26,7 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
           supabaseResponse = NextResponse.next({
@@ -29,31 +40,39 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  // Refresh session - important for Server Components
+  // IMPORTANT: Refreshes the auth token. Must be called on every request.
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protected routes: redirect to login if not authenticated
-  if (request.nextUrl.pathname.startsWith('/app')) {
-    if (!user) {
-      const url = request.nextUrl.clone();
-      url.pathname = '/login';
-      url.searchParams.set('redirect', request.nextUrl.pathname);
-      return NextResponse.redirect(url);
-    }
+  const { pathname } = request.nextUrl;
+
+  // Allow public routes and webhook endpoints
+  if (isPublicRoute(pathname) || isApiRoute(pathname)) {
+    return supabaseResponse;
   }
 
-  // Auth pages: redirect to dashboard if already logged in
-  if (
-    request.nextUrl.pathname === '/login' ||
-    request.nextUrl.pathname === '/signup'
-  ) {
-    if (user) {
-      const url = request.nextUrl.clone();
-      url.pathname = '/app';
-      return NextResponse.redirect(url);
-    }
+  // Redirect unauthenticated users to login
+  if (!user && pathname.startsWith('/app')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    url.searchParams.set('next', pathname);
+    return NextResponse.redirect(url);
+  }
+
+  // Redirect unauthenticated users from checkout
+  if (!user && pathname.startsWith('/checkout')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    url.searchParams.set('next', '/pricing');
+    return NextResponse.redirect(url);
+  }
+
+  // Redirect authenticated users away from login/signup
+  if (user && (pathname === '/login' || pathname === '/signup')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/app';
+    return NextResponse.redirect(url);
   }
 
   return supabaseResponse;
@@ -61,14 +80,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization)
-     * - favicon.ico (favicon)
-     * - public folder files
-     * - API routes (handled by their own auth)
-     */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|api/).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
