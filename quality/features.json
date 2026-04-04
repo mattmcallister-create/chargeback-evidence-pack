@@ -1,9 +1,9 @@
 {
   "_meta": {
     "version": "1.0",
-    "last_updated": "2026-04-01",
+    "last_updated": "2026-04-04",
     "description": "Structured acceptance criteria for Chargeback Evidence Pack Builder v1. Do not delete entries. Update status field only. UX acceptance criteria added in Phase 3. UX acceptance criteria added in Phase 3.",
-    "total_features": 56
+    "total_features": 68
   },
   "features": [
     {
@@ -1570,7 +1570,91 @@
         "Nav links broken or missing",
         "Footer legal links absent",
         "Mobile menu not functioning"
-      ],
+      ,
+    {
+      "id": "F-CORE-001",
+      "name": "Dispute Intake Wizard",
+      "phase": "core-phase-3",
+      "status": "implemented",
+      "description": "Multi-step form: category selection, basic info, category-specific questions, review, submit"
+    },
+    {
+      "id": "F-CORE-002",
+      "name": "Evidence Upload & Exhibit Management",
+      "phase": "core-phase-4",
+      "status": "implemented",
+      "description": "Drag-drop upload (10MB/file, 50MB/pack), inline label editing, reorder, delete"
+    },
+    {
+      "id": "F-CORE-003",
+      "name": "PDF Evidence Pack Generation",
+      "phase": "core-phase-5",
+      "status": "implemented",
+      "description": "Puppeteer HTML-to-PDF: cover page, dispute summary, rebuttal narrative, evidence checklist, exhibits"
+    },
+    {
+      "id": "F-CORE-004",
+      "name": "AI Rebuttal Narrative",
+      "phase": "core-phase-5",
+      "status": "implemented",
+      "description": "GPT-4o generated professional rebuttal (300-500 words), cached per generation"
+    },
+    {
+      "id": "F-CORE-005",
+      "name": "Credit-Gated Generation Pipeline",
+      "phase": "core-phase-5",
+      "status": "implemented",
+      "description": "deduct_credit() before generation, restore_credit() on failure, async 202 pattern"
+    },
+    {
+      "id": "F-CORE-006",
+      "name": "Generation Status Polling UI",
+      "phase": "core-phase-5",
+      "status": "implemented",
+      "description": "Client polls /status every 3s, progress bar, retry on failure, download on ready"
+    },
+    {
+      "id": "F-CORE-007",
+      "name": "Pack-Ready Email Notification",
+      "phase": "core-phase-6",
+      "status": "implemented",
+      "description": "Resend API fire-and-forget email with download link after successful generation"
+    },
+    {
+      "id": "F-CORE-008",
+      "name": "Deadline Tracking with Urgency Badges",
+      "phase": "core-phase-7",
+      "status": "implemented",
+      "description": "Per-pack deadlines with color-coded urgency: green >14d, yellow 7-14d, red <7d"
+    },
+    {
+      "id": "F-CORE-009",
+      "name": "Aggregated Deadlines View",
+      "phase": "core-phase-7",
+      "status": "implemented",
+      "description": "Cross-pack deadlines page with upcoming/past-due sections and pack links"
+    },
+    {
+      "id": "F-CORE-010",
+      "name": "Error Boundary with Recovery UI",
+      "phase": "core-phase-8",
+      "status": "implemented",
+      "description": "React class error boundary catches render errors, shows Try Again button"
+    },
+    {
+      "id": "F-CORE-011",
+      "name": "Application Error Classes",
+      "phase": "core-phase-8",
+      "status": "implemented",
+      "description": "NotFound (404), Forbidden (403), Validation (400), Conflict (409), InsufficientCredits (402)"
+    },
+    {
+      "id": "F-CORE-012",
+      "name": "Loading Skeleton Components",
+      "phase": "core-phase-8",
+      "status": "implemented",
+      "description": "PackListSkeleton, PackDetailSkeleton, GenerationSkeleton, FormSkeleton with animate-pulse"
+    }],
       "status": "pending",
       "notes": "Phase 7 — mobile menu toggle wired with useState in nav.tsx"
     }
