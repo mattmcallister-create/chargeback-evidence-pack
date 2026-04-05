@@ -36,7 +36,7 @@ const steps = [
   {
     number: '02',
     title: 'We structure your evidence the way card networks expect',
-    body: 'The builder organises your inputs, labels each exhibit, and structures the rebuttal narrative to match Visa, Mastercard, and Amex submission requirements for your specific dispute type.',
+    body: 'ChargebackKit organises your inputs, labels each exhibit, and structures the rebuttal narrative to match Visa, Mastercard, and Amex submission requirements for your specific dispute type.',
     icon: CheckCircle,
   },
   {
@@ -50,7 +50,7 @@ const steps = [
 const objections = [
   {
     q: "What if I don't have all the evidence?",
-    a: 'The builder tells you exactly what\'s needed for your dispute type and what you can include even if some evidence is partial or missing.',
+    a: 'ChargebackKit tells you exactly what\'s needed for your dispute type and what you can include even if some evidence is partial or missing.',
   },
   {
     q: 'Is $39 worth it for a smaller dispute?',
@@ -104,7 +104,7 @@ export default function HomePage() {
               href="/signup/"
               className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
             >
-              Build My Evidence Pack
+              Build My Evidence Pack — $39
               <ArrowRight size={18} />
             </Link>
             <Link
@@ -117,7 +117,7 @@ export default function HomePage() {
 
           {/* Trust line */}
           <p className="text-sm text-slate-400">
-            $39 · No subscription · Files deleted after 72 hours
+            $39 · No subscription · 72-hour access to your pack
           </p>
         </div>
       </section>
@@ -363,7 +363,7 @@ export default function HomePage() {
             href="/signup/"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
           >
-            Build My Evidence Pack
+            Build My Evidence Pack — $39
             <ArrowRight size={18} />
           </Link>
           <p className="mt-4 text-sm text-slate-400">
