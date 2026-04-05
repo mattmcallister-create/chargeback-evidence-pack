@@ -8,6 +8,7 @@ const navLinks = [
   { label: 'How It Works', href: '/how-it-works/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'FAQ', href: '/faq/' },
+  { label: 'Guides', href: '/stripe-chargeback-evidence' },
 ]
 
 export default function MarketingNav() {
@@ -22,12 +23,9 @@ export default function MarketingNav() {
           <Link
             href="/"
             className="flex items-center gap-2 shrink-0"
-            aria-label="Chargeback Evidence Pack Builder — Home"
+            aria-label="ChargebackKit — Home"
           >
-            <span className="text-white font-semibold text-base leading-tight">
-              Chargeback<br />
-              <span className="text-brand-100 font-normal text-sm">Evidence Pack</span>
-            </span>
+            <span className="text-white font-bold text-lg tracking-tight">ChargebackKit</span>
           </Link>
 
           {/* Desktop nav */}
