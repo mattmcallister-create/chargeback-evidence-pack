@@ -5,14 +5,14 @@ import { ArrowRight, Check, Shield, Download, FileText, Clock } from 'lucide-rea
 export const metadata: Metadata = {
   title: 'Evidence Pack Pricing — $39, No Subscription',
   description:
-    'Chargeback Evidence Pack Builder pricing: $39 per pack, no subscription. One payment covers a complete, submission-ready evidence pack for your dispute type.',
+    'ChargebackKit pricing: $39 per pack, no subscription. One payment covers a complete, submission-ready evidence pack for your dispute type.',
   alternates: {
     canonical: '/pricing/',
   },
   openGraph: {
     title: 'Evidence Pack Pricing — $39, No Subscription',
     description:
-      'Chargeback Evidence Pack Builder pricing: $39 per pack, no subscription. One payment, complete evidence pack.',
+      'ChargebackKit pricing: $39 per pack, no subscription. One payment, complete evidence pack.',
     url: '/pricing/',
   },
 }
@@ -35,13 +35,13 @@ const included = [
   },
   {
     icon: Download,
-    title: '72-hour download access',
-    desc: 'Download and re-download your pack within 72 hours of creation. Files are deleted after that window.',
+    title: '72-hour access to your pack',
+    desc: 'Download and re-download your completed evidence pack anytime within 72 hours of creation.',
   },
   {
     icon: Clock,
-    title: 'No account required to purchase',
-    desc: 'Purchase and build your pack without creating an account. Account creation is optional for storing your pack reference.',
+    title: 'Start immediately — no signup required',
+    desc: 'Begin building your evidence pack right away. No account creation needed upfront — sign up later if you want to save your pack reference.',
   },
   {
     icon: Shield,
@@ -51,6 +51,10 @@ const included = [
 ]
 
 const pricingFaqs = [
+  {
+    q: 'Will this guarantee I win my chargeback?',
+    a: 'No product can guarantee a chargeback outcome. Card networks — not this product — make the final determination. What ChargebackKit guarantees is that your evidence is structured correctly for your dispute type. That is the part in your control.',
+  },
   {
     q: 'Is there a subscription?',
     a: 'No. This is a one-time purchase of $39 per pack. There are no monthly fees, no recurring charges, and no subscription option. You buy a pack when you have a dispute that needs a response.',
@@ -65,22 +69,18 @@ const pricingFaqs = [
   },
   {
     q: 'Do I need an account to purchase?',
-    a: 'No account is required. You can purchase and complete the builder as a guest. An account allows you to access your pack reference and history.',
+    a: 'No account is required. You can purchase and complete ChargebackKit as a guest. An account allows you to access your pack reference and history.',
   },
   {
     q: 'Are there bundle options?',
     a: 'A 3-pack bundle is available for $99 — for merchants managing multiple disputes at once. The bundle is for simultaneous disputes, not a subscription or recurring access.',
-  },
-  {
-    q: 'Will this guarantee I win my chargeback?',
-    a: 'No product can guarantee a chargeback outcome. Card networks — not this product — make the final determination. What this builder guarantees is that your evidence is structured correctly for your dispute type. That is the part in your control.',
   },
 ]
 
 const softwareSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Chargeback Evidence Pack Builder',
+  name: 'ChargebackKit',
   applicationCategory: 'BusinessApplication',
   offers: [
     {
@@ -252,7 +252,7 @@ export default function PricingPage() {
             <p className="text-sm text-slate-600 leading-relaxed">
               We can&apos;t guarantee a chargeback outcome — no one can. Card networks make the
               final determination based on the evidence submitted and their internal rules.
-              What this builder does guarantee is that your evidence is structured the way card
+              What ChargebackKit does guarantee is that your evidence is structured the way card
               networks expect to see it for your specific dispute type. That is the part in your
               control.
             </p>
