@@ -925,3 +925,52 @@ NEXT STEPS:
 - Install missing npm dependencies
 - Fix BUG-010 (hardcoded localhost) before production
 - Address MEDIUM/LOW bugs in Phase 11
+
+
+═══════════════════════════════════════════════════
+SESSION 011 — Phase 11: SEO/AEO/GEO Advanced Discoverability
+Date: 2026-04-05
+═══════════════════════════════════════════════════
+
+OBJECTIVE:
+Implement the advanced discoverability layer for ChargebackKit.
+Fix critical domain/brand inconsistencies, add structured data,
+build product-led search pages, and create authority content.
+
+CRITICAL FIXES:
+- Fixed robots.ts: chargebackevidencepack.com → chargebackkit.app, added /app/ /auth/ /checkout/ disallow
+- Fixed sitemap.ts: correct domain, expanded from 8 to 10 URLs (added 3 new SEO pages)
+- Fixed root layout.tsx: ChargebackKit brand, correct metadataBase, added Organization + SoftwareApplication JSON-LD
+
+NEW PAGES CREATED:
+1. /stripe-chargeback-evidence — Product-led SEO page with evidence table, FAQPage schema, internal links
+2. /chargeback-evidence-checklist — Utility page with 37+ checklist items across 4 dispute types, FAQPage schema
+3. /guides/chargeback-response-deadlines — Authority asset (~1,700 words) with card network deadline table, FAQPage + HowTo schemas
+
+STRUCTURED DATA ADDED:
+- Organization schema (root layout) — name, url, logo, contactPoint, sameAs
+- SoftwareApplication schema (root layout) — BusinessApplication category, pricing link
+- FAQPage schema on all 3 new pages
+- HowTo schema on deadlines guide
+
+SEO ARCHITECTURE:
+- All pages use canonical URLs via alternates.canonical
+- Internal linking topology: each new page links to the other 2 + existing pages
+- CTA sections on each page drive to /pricing or /how-it-works
+- Proper heading hierarchy (h1 → h2 → h3) on all pages
+
+COMMITS (6):
+1. Phase 11: Fix robots.ts — correct domain, disallow /app/ /auth/ /checkout/
+2. Phase 11: Fix sitemap.ts — correct domain, add new SEO pages (10 URLs)
+3. Phase 11: Fix root layout — ChargebackKit brand, correct domain, Organization + SoftwareApp JSON-LD
+4. Phase 11: Add /stripe-chargeback-evidence product-led SEO page with FAQPage schema
+5. Phase 11: Add /chargeback-evidence-checklist utility page with FAQPage schema
+6. Phase 11: Add /guides/chargeback-response-deadlines authority asset with FAQPage + HowTo schemas
+
+REMAINING (deferred to next session):
+- Update homepage (app/(marketing)/page.tsx) brand references from old name to ChargebackKit
+- Update FAQ page (app/(marketing)/faq/page.tsx) brand references
+- Update how-it-works page brand references
+- Add internal links to new pages from nav.tsx and footer.tsx
+- Update growth/SEO-AEO-GEO-Plan.md with implementation status
+- Update quality/features.json with new page features
