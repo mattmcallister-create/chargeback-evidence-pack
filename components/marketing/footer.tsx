@@ -20,7 +20,9 @@ const guideLinks = [
   { label: 'Stripe Chargeback Response', href: '/guide/stripe-chargeback-response/' },
   { label: 'Evidence Requirements', href: '/guide/chargeback-evidence-requirements/' },
   { label: 'Reason Codes Explained', href: '/guide/chargeback-reason-codes/' },
-  { label: 'Response Deadlines', href: '/guide/chargeback-deadlines/' },
+  { label: 'Response Deadlines', href: '/guides/chargeback-response-deadlines' },
+    { label: 'Stripe Evidence Guide', href: '/stripe-chargeback-evidence' },
+    { label: 'Evidence Checklist', href: '/chargeback-evidence-checklist' },
 ]
 
 const legalLinks = [
@@ -43,12 +45,11 @@ export default function MarketingFooter() {
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-3">
               <span className="text-white font-semibold text-base leading-tight">
-                Chargeback<br />
-                <span className="text-slate-400 font-normal text-sm">Evidence Pack</span>
+                ChargebackKit
               </span>
             </Link>
             <p className="text-sm leading-relaxed">
-              Submission-ready, dispute-category-specific evidence packs for Stripe merchants.
+              ChargebackKit builds submission-ready evidence packs for Stripe merchants.
               $39 per pack. No subscription.
             </p>
           </div>
@@ -99,7 +100,7 @@ export default function MarketingFooter() {
         {/* Bottom bar */}
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-xs">
-            © {year} Chargeback Evidence Pack Builder. All rights reserved.
+            © {year} ChargebackKit. All rights reserved.
           </p>
 
           <div className="flex flex-wrap gap-4 text-xs">
