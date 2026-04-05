@@ -5,14 +5,14 @@ import { ArrowRight, MessageSquare, Layers, FileDown, AlertTriangle, Lock } from
 export const metadata: Metadata = {
   title: 'How It Works — Dispute to PDF in 30 Minutes',
   description:
-    'How the Chargeback Evidence Pack Builder works: structured intake, category-specific evidence assembly, labeled PDF output. 5 steps from dispute notification to submission.',
+    'How the ChargebackKit works: structured intake, category-specific evidence assembly, labeled PDF output. 5 steps from dispute notification to submission.',
   alternates: {
     canonical: '/how-it-works/',
   },
   openGraph: {
     title: 'How It Works — Dispute to PDF in 30 Minutes',
     description:
-      'How the Chargeback Evidence Pack Builder works: structured intake, category-specific evidence assembly, labeled PDF output.',
+      'How the ChargebackKit works: structured intake, category-specific evidence assembly, labeled PDF output.',
     url: '/how-it-works/',
   },
 }
@@ -60,24 +60,24 @@ const steps = [
   {
     number: '01',
     title: 'Select your dispute category',
-    body: 'Choose your dispute type from the six categories the builder covers. The category maps to the reason code on your Stripe dispute notification. If you\'re unsure, check the "Reason" field in your Stripe Dashboard.',
+    body: 'Choose your dispute type from the six categories ChargebackKit covers. The category maps to the reason code on your Stripe dispute notification. If you\'re unsure, check the "Reason" field in your Stripe Dashboard.',
     icon: Layers,
   },
   {
     number: '02',
     title: 'Answer structured questions about the transaction',
-    body: 'The builder asks targeted questions based on your dispute category: order details, delivery method, customer communication history, policy acceptance, and timeline. Takes 5–10 minutes.',
+    body: 'ChargebackKit asks targeted questions based on your dispute category: order details, delivery method, customer communication history, policy acceptance, and timeline. Takes 5–10 minutes.',
     icon: MessageSquare,
   },
   {
     number: '03',
     title: 'Upload your exhibits',
-    body: 'Upload screenshots, shipping confirmations, terms of service documents, customer emails, and any other supporting evidence. The builder prompts you for exactly what each dispute type requires — and flags what\'s missing.',
+    body: 'Upload screenshots, shipping confirmations, terms of service documents, customer emails, and any other supporting evidence. ChargebackKit prompts you for exactly what each dispute type requires — and flags what\'s missing.',
     icon: FileDown,
   },
   {
     number: '04',
-    title: 'The builder structures your evidence pack',
+    title: 'ChargebackKit structures your evidence pack',
     body: 'Your inputs are assembled into a structured rebuttal narrative, labeled exhibits, and evidence checklist — in the format Visa, Mastercard, and Amex expect to see for your specific dispute type.',
     icon: Layers,
   },
@@ -100,11 +100,11 @@ const howItWorksFaqs = [
   },
   {
     q: 'What if I don\'t have all the evidence items?',
-    a: 'Include what you have. The builder distinguishes between required evidence and supplementary evidence for your dispute type, and notes which items are missing.',
+    a: 'Include what you have. ChargebackKit distinguishes between required evidence and supplementary evidence for your dispute type, and notes which items are missing.',
   },
   {
     q: 'Is this specific to Stripe?',
-    a: 'The builder is built for Stripe merchants. It references Stripe\'s evidence submission portal and the reason codes Stripe surfaces. The underlying card network rules (Visa, Mastercard, Amex) apply regardless of processor.',
+    a: 'ChargebackKit is built for Stripe merchants. It references Stripe\'s evidence submission portal and the reason codes Stripe surfaces. The underlying card network rules (Visa, Mastercard, Amex) apply regardless of processor.',
   },
 ]
 
@@ -193,7 +193,7 @@ export default function HowItWorksPage() {
             </h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
               What you need to prove a fraudulent chargeback is different from what you need for
-              a subscription cancellation dispute. The builder handles this for you.
+              a subscription cancellation dispute. ChargebackKit handles this for you.
             </p>
           </div>
 
