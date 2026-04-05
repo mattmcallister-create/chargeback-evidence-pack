@@ -5,14 +5,14 @@ import { ArrowRight } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions',
   description:
-    'Answers to common questions about the Chargeback Evidence Pack Builder: pricing, dispute categories, evidence requirements, file handling, and refund policy.',
+    'Answers to common questions about the ChargebackKit: pricing, dispute categories, evidence requirements, file handling, and refund policy.',
   alternates: {
     canonical: '/faq/',
   },
   openGraph: {
-    title: 'Frequently Asked Questions | Chargeback Evidence Pack Builder',
+    title: 'Frequently Asked Questions | ChargebackKit',
     description:
-      'Common questions about pricing, dispute categories, evidence requirements, and how the builder works.',
+      'Common questions about pricing, dispute categories, evidence requirements, and how ChargebackKit works.',
     url: '/faq/',
   },
 }
@@ -22,12 +22,12 @@ const faqGroups = [
     title: 'About the product',
     faqs: [
       {
-        q: 'What is the Chargeback Evidence Pack Builder?',
-        a: 'It is a structured web tool that guides Stripe merchants through the chargeback response process. You answer questions about your dispute, upload your supporting documents, and the builder assembles a fully labeled, submission-ready PDF evidence pack — structured for your specific dispute type and reason code.',
+        q: 'What is the ChargebackKit?',
+        a: 'It is a structured web tool that guides Stripe merchants through the chargeback response process. You answer questions about your dispute, upload your supporting documents, and ChargebackKit assembles a fully labeled, submission-ready PDF evidence pack — structured for your specific dispute type and reason code.',
       },
       {
         q: 'Is this a template or a builder?',
-        a: 'It is a builder, not a template. A template gives you a blank document to fill in. This builder asks structured questions based on your dispute category, identifies the right evidence requirements for your reason code, labels your exhibits, and assembles the narrative and evidence into a submission-ready PDF.',
+        a: 'It is a builder, not a template. A template gives you a blank document to fill in. ChargebackKit asks structured questions based on your dispute category, identifies the right evidence requirements for your reason code, labels your exhibits, and assembles the narrative and evidence into a submission-ready PDF.',
       },
       {
         q: 'Which dispute categories are covered?',
@@ -35,11 +35,11 @@ const faqGroups = [
       },
       {
         q: 'Is this specific to Stripe?',
-        a: 'The builder is built for Stripe merchants. It is structured around Stripe\'s evidence submission portal and the reason codes Stripe surfaces. The underlying evidence rules come from Visa, Mastercard, and Amex — so the evidence structure is correct regardless of processor, but the workflow references Stripe directly.',
+        a: 'ChargebackKit is built for Stripe merchants. It is structured around Stripe\'s evidence submission portal and the reason codes Stripe surfaces. The underlying evidence rules come from Visa, Mastercard, and Amex — so the evidence structure is correct regardless of processor, but the workflow references Stripe directly.',
       },
       {
         q: 'Is this legal advice?',
-        a: 'No. This is not legal advice and this is not a law firm. The builder organises evidence based on card network submission guidelines. For legal advice specific to your situation, consult a licensed attorney.',
+        a: 'No. This is not legal advice and this is not a law firm. ChargebackKit organises evidence based on card network submission guidelines. For legal advice specific to your situation, consult a licensed attorney.',
       },
     ],
   },
@@ -64,7 +64,7 @@ const faqGroups = [
       },
       {
         q: 'Do I need an account to purchase?',
-        a: 'No account is required. You can purchase and complete the builder as a guest. Creating an account allows you to access your pack reference and download history.',
+        a: 'No account is required. You can purchase and complete ChargebackKit as a guest. Creating an account allows you to access your pack reference and download history.',
       },
     ],
   },
@@ -77,11 +77,11 @@ const faqGroups = [
       },
       {
         q: 'What if I don\'t have all the evidence items?',
-        a: 'Include what you have. The builder distinguishes required evidence from supplementary evidence for your dispute type, and flags which items are missing. An incomplete but correctly structured submission is better than a complete but incorrectly formatted one.',
+        a: 'Include what you have. ChargebackKit distinguishes required evidence from supplementary evidence for your dispute type, and flags which items are missing. An incomplete but correctly structured submission is better than a complete but incorrectly formatted one.',
       },
       {
         q: 'Will this guarantee I win my chargeback?',
-        a: 'No. No product can guarantee a chargeback outcome. Card networks — Visa, Mastercard, Amex — make the final determination. What this builder does is ensure your evidence is structured correctly for your dispute type. That is the part in your control.',
+        a: 'No. No product can guarantee a chargeback outcome. Card networks — Visa, Mastercard, Amex — make the final determination. What ChargebackKit does is ensure your evidence is structured correctly for your dispute type. That is the part in your control.',
       },
       {
         q: 'How long does it take to build a pack?',
@@ -89,7 +89,7 @@ const faqGroups = [
       },
       {
         q: 'I don\'t know which category my dispute falls under. How do I find out?',
-        a: 'Check the "Reason" field in your Stripe dispute notification. Stripe surfaces a reason code for every dispute (e.g., "fraudulent," "subscription_cancelled," "product_not_received"). Each reason code maps to one of the six categories the builder covers.',
+        a: 'Check the "Reason" field in your Stripe dispute notification. Stripe surfaces a reason code for every dispute (e.g., "fraudulent," "subscription_cancelled," "product_not_received"). Each reason code maps to one of the six categories ChargebackKit covers.',
       },
     ],
   },
@@ -141,7 +141,7 @@ export default function FAQPage() {
             Frequently asked questions
           </h1>
           <p className="text-xl text-slate-300">
-            Answers to common questions about the builder, pricing, evidence requirements, and file handling.
+            Answers to common questions about ChargebackKit, pricing, evidence requirements, and file handling.
           </p>
         </div>
       </section>
@@ -187,7 +187,7 @@ export default function FAQPage() {
             <p className="text-sm font-semibold text-slate-900 mb-3">More detail on specific topics:</p>
             <div className="flex flex-wrap gap-3">
               <Link href="/how-it-works/" className="text-sm text-brand-700 underline hover:text-brand-800">
-                How the builder works →
+                How ChargebackKit works →
               </Link>
               <Link href="/pricing/" className="text-sm text-brand-700 underline hover:text-brand-800">
                 Pricing details →
