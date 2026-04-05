@@ -81,3 +81,22 @@
 - MEDIUM and LOW bugs tracked for next sprint
 - Missing npm dependencies (zod, puppeteer, openai) need to be installed before those features work in production
 - Middleware rewrite (BUG-003/004) is the single highest-impact fix — prevents auth loops and session expiry
+
+---
+
+## CRO Issues (Session 012)
+
+| ID | File | Issue | Status | Fix |
+|----|------|-------|--------|-----|
+| CRO-001 | app/(marketing)/pricing/page.tsx | Pricing page metadata still says "Chargeback Evidence Pack Builder" instead of "ChargebackKit" — brand mismatch in Google results | FIXED | Updated title, description, and openGraph metadata to ChargebackKit |
+| CRO-002 | app/(marketing)/pricing/page.tsx | FAQ copy references "the builder" and "this builder" instead of brand name | FIXED | Replaced 3 instances with "ChargebackKit" |
+| CRO-003 | app/(marketing)/pricing/page.tsx | "No account required" framing signals throwaway tool | FIXED | Reframed to "Start immediately — no signup required" |
+| CRO-004 | app/(marketing)/pricing/page.tsx | "72-hour download access" with "Files deleted after" warning creates anxiety | FIXED | Reframed to "72-hour access to your pack" without deletion warning |
+| CRO-005 | app/(marketing)/pricing/page.tsx | FAQ order doesn't match visitor anxiety sequence — guarantee buried at end | FIXED | Moved guarantee FAQ to position #1 (highest anxiety first) |
+| CRO-006 | app/(marketing)/page.tsx | Hero and final CTAs missing $39 price — clicks not pre-qualified | FIXED | Added " — $39" to all 3 CTA buttons |
+| CRO-007 | app/(marketing)/page.tsx | Trust line says "Files deleted after 72 hours" — negative framing | FIXED | Changed to "72-hour access to your pack" |
+| CRO-008 | app/(marketing)/page.tsx | Homepage references "The builder" instead of brand name | FIXED | Replaced 2 instances with "ChargebackKit" |
+| CRO-009 | app/(marketing)/page.tsx | Missing Stripe trust badge in hero area | OPEN | Sprint 2: Add visual Stripe badge per CRO-Plan Section 5 |
+| CRO-010 | app/(marketing)/pricing/page.tsx | Comparison table may not be above the fold | OPEN | Sprint 2: Ensure price anchoring table appears early |
+| CRO-011 | multiple | Category chips may not link to category pages | OPEN | Sprint 2: Make chips clickable per CRO-Plan Section 2 |
+| CRO-012 | deployment | onrender.com URL may be visible/indexed — damages trust | OPEN | Sprint 2: Canonical URLs + noindex for render URLs |
