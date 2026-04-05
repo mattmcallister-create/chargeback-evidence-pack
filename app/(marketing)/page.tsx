@@ -58,17 +58,17 @@ const objections = [
   },
   {
     q: 'Why not just use ChatGPT?',
-    a: 'ChatGPT doesn\'t know Stripe\'s evidence format, your specific reason code requirements, or which exhibit fields carry the most weight for your dispute type. This builder does.',
+    a: 'ChatGPT doesn\'t know Stripe\'s evidence format, your specific reason code requirements, or which exhibit fields carry the most weight for your dispute type. ChargebackKit does.',
   },
 ]
 
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Chargeback Evidence Pack Builder',
+  name: 'ChargebackKit',
   applicationCategory: 'BusinessApplication',
   description:
-    'Submission-ready, dispute-category-specific chargeback evidence packs for Stripe merchants. $39 per pack. No subscription.',
+    'ChargebackKit builds submission-ready, dispute-category-specific chargeback evidence packs for Stripe merchants.',
   offers: {
     '@type': 'Offer',
     price: '39.00',
@@ -223,7 +223,7 @@ export default function HomePage() {
                 </tr>
                 <tr className="bg-brand-50">
                   <td className="px-6 py-4 font-semibold text-brand-900">
-                    Chargeback Evidence Pack Builder
+                    ChargebackKit
                   </td>
                   <td className="px-6 py-4 font-bold text-brand-800">$39</td>
                   <td className="px-6 py-4 text-brand-800 font-medium">30 minutes</td>
@@ -306,7 +306,7 @@ export default function HomePage() {
               <h3 className="font-semibold text-slate-900 mb-2">No outcome guarantee — and that&apos;s honest</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
                 No product can guarantee a chargeback outcome. Card networks make the final decision.
-                What this builder does is ensure your evidence is structured correctly — that&apos;s
+                What ChargebackKit does is ensure your evidence is structured correctly — that&apos;s
                 the part in your control.
               </p>
             </div>
