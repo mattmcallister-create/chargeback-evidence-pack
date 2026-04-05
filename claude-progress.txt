@@ -974,3 +974,35 @@ REMAINING (deferred to next session):
 - Add internal links to new pages from nav.tsx and footer.tsx
 - Update growth/SEO-AEO-GEO-Plan.md with implementation status
 - Update quality/features.json with new page features
+
+
+## Session 012 — CRO Sprint (Phase 12)
+Date: 2026-04-05
+Focus: Conversion Rate Optimisation audit and implementation
+
+### What was done
+- Full CRO audit against CRO-Plan.md and Positioning.md
+- Identified top 15 conversion risks ranked by impact
+- Pricing/packaging teardown: confirmed $39 one-time model is correct for launch
+- Pricing page: fixed 3 old brand refs, 3 builder refs, reframed "no account" and "72-hour" copy, reordered FAQs (guarantee first)
+- Homepage: added $39 to all 3 CTA buttons, fixed trust line (removed "files deleted" warning), replaced "The builder" with "ChargebackKit"
+
+### Files changed
+- app/(marketing)/pricing/page.tsx — brand fixes, copy improvements, FAQ reorder
+- app/(marketing)/page.tsx — CTA price, trust line fix, brand refs
+
+### CRO changes summary
+1. All CTAs now show price: "Build My Evidence Pack — $39"
+2. Trust line updated: "$39 · No subscription · 72-hour access to your pack"
+3. FAQ reordered by anxiety level (guarantee question first)
+4. "No account required" reframed as "Start immediately — no signup required"
+5. "72-hour download access" reframed as "72-hour access to your pack" (removed deletion warning)
+6. All "the builder" / "this builder" references replaced with "ChargebackKit"
+7. All metadata brand references updated to ChargebackKit
+
+### Remaining CRO items for next session
+- Add Stripe trust badge visual to hero area
+- Ensure comparison table prominence on pricing page
+- Tighten objection strip copy
+- Canonical URL / onrender.com fix
+- Add analytics (Plausible/PostHog) per CRO-Plan
