@@ -357,3 +357,29 @@ Visitors on category pages have already self-identified their dispute type. The 
 ---
 
 _End of CRO Plan. Cross-reference with SEO-AEO-GEO-Plan.md for page-level implementation specs and with design/PageBlueprints.md for UI placement rules._
+
+
+---
+
+## 9. Implementation Log
+
+### Session 012 — 2026-04-05
+
+**Status:** Sprint 1 items implemented
+
+#### Completed
+- [x] **Pricing page brand fix:** All "Chargeback Evidence Pack Builder" and "the builder" references updated to "ChargebackKit" (6 instances)
+- [x] **CTA standardization:** All CTAs now read "Build My Evidence Pack — $39" (homepage hero, mid-page, and final CTA)
+- [x] **Trust line fix:** "$39 · No subscription · Files deleted after 72 hours" → "$39 · No subscription · 72-hour access to your pack"
+- [x] **FAQ reorder:** Moved guarantee question to #1 position (highest anxiety first). New order: guarantee → subscription → regenerate → refund → account → bundle
+- [x] **"No account" reframe:** "No account required to purchase" → "Start immediately — no signup required"
+- [x] **"72-hour" reframe:** Removed deletion warning. Now reads "Download and re-download your completed evidence pack anytime within 72 hours of creation"
+- [x] **Brand consistency:** All "The builder" references on homepage replaced with "ChargebackKit"
+
+#### Remaining (Sprint 2)
+- [ ] Add Stripe trust badge visual to hero area (Section 5)
+- [ ] Ensure comparison table is above the fold on pricing page (Section 4)
+- [ ] Make category chips clickable/linked to category pages (Section 2)
+- [ ] Tighten objection strip copy per exact specs (Section 3)
+- [ ] Canonical URL / onrender.com fix
+- [ ] Add analytics (Plausible/PostHog) per measurement framework (Section 7)
