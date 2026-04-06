@@ -100,3 +100,16 @@
 | CRO-010 | app/(marketing)/pricing/page.tsx | Comparison table may not be above the fold | OPEN | Sprint 2: Ensure price anchoring table appears early |
 | CRO-011 | multiple | Category chips may not link to category pages | OPEN | Sprint 2: Make chips clickable per CRO-Plan Section 2 |
 | CRO-012 | deployment | onrender.com URL may be visible/indexed — damages trust | OPEN | Sprint 2: Canonical URLs + noindex for render URLs |
+
+## Phase 13 — Launch Readiness Closures (2026-04-06)
+
+| ID | Area | Status | Resolution |
+|----|------|--------|------------|
+| QA-009 | ops/runbook.md | CLOSED | Appended Phase 13 launch playbook (Render service spec, env var matrix [R1]/[R2]/[O], 8-step deploy sequence, GoDaddy+Render+Resend+ImprovMX DNS plan, production readiness checklist, search/canonical readiness, PostHog event taxonomy, weekly founder report plan, rapid iteration triggers, founder launch checklist, safety gate) |
+| QA-010 | lib/analytics/posthog.ts | CLOSED | New PostHog client + PostHogProvider + PageviewTracker (SPA pageviews via usePathname/useSearchParams), initPostHog/track/identify/reset helpers |
+| QA-011 | lib/analytics/events.ts | CLOSED | Typed event taxonomy (CTA_CLICK, PRICING_VIEW, CHECKOUT_START/COMPLETE, SIGNUP_*, PACK_*, PDF_*, BILLING_PORTAL_OPEN, ERROR) + typed wrapper functions |
+| QA-012 | app/api/health/route.ts | CLOSED | Render healthcheck endpoint returning {ok,service,timestamp}, runtime nodejs, force-dynamic |
+| QA-013 | render.yaml | CLOSED | Render Blueprint: Node 20, starter plan, Oregon, autoDeploy main, build/start commands, healthCheckPath /api/health, full env var matrix with sync:false for secrets |
+
+### Launch readiness gate
+Nothing in production flips live (Stripe live keys, custom domain, Resend sending domain, Supabase production redirect URLs) without explicit founder confirmation per Phase 13 safety gate. See ops/runbook.md Section 11.
