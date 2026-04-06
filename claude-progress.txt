@@ -1110,3 +1110,52 @@ path is intact end-to-end at the source level: marketing -> /pricing/
 
   THUMBS UP — CLEARED FOR NEXT PHASE.
 ================================================================
+
+================================================================================
+PHASE 13 — LAUNCH READINESS (2026-04-06)
+================================================================================
+
+Goal: Prepare ChargebackKit for safe Render-first deployment with full instrumentation.
+No live cutover (Stripe live, custom domain, Resend sending, Supabase prod redirects)
+flips without explicit founder confirmation. Launch should be boring, safe, reversible.
+
+Commits landed on main:
+  QA-009  ops/runbook.md           Phase 13 launch playbook (+20,820 chars)
+                                   - Render service spec (Node 20, starter, Oregon)
+                                   - Build: npm ci && npm run build
+                                   - Start: npm run start -- -p $PORT -H 0.0.0.0
+                                   - healthCheckPath /api/health
+                                   - Env var matrix [R1]/[R2]/[O]
+                                   - 8-step deploy sequence
+                                   - GoDaddy + Render + Resend + ImprovMX DNS plan
+                                   - Production readiness + search/canonical readiness
+                                   - PostHog event taxonomy + funnels
+                                   - Weekly founder report -> mattmcallistermarketing@gmail.com
+                                   - Rapid iteration triggers (first 72h)
+                                   - Founder launch checklist
+                                   - Section 11 SAFETY GATE: nothing live without founder OK
+
+  QA-010  lib/analytics/posthog.ts NEW. PostHogProvider + PageviewTracker (SPA pageviews).
+  QA-011  lib/analytics/events.ts  NEW. Typed EVENTS taxonomy + wrapper functions.
+  QA-012  app/api/health/route.ts  NEW. Render healthcheck JSON {ok,service,timestamp}.
+  QA-013  render.yaml              NEW. Render Blueprint with full env var matrix.
+  QA-014  quality/buglog.md        Phase 13 closures section (QA-009..013) + safety gate.
+  QA-015  quality/features.json    Added F-LAUNCH-001..006.
+  QA-016  claude-progress.txt      This entry.
+
+Exit criteria for Phase 13:
+  [x] Render-deployable: render.yaml + /api/health both on main
+  [x] Instrumented: PostHog client + typed event taxonomy committed
+  [x] Documented: ops/runbook.md contains full launch playbook + checklist
+  [x] Tracked: features.json + buglog.md + this progress log updated
+  [ ] Live cutover: PENDING explicit founder confirmation per safety gate
+
+Next session (when founder gives go-ahead):
+  1. Create Render web service from main branch
+  2. Set R1 env vars; verify boot + /api/health 200 on onrender.com URL
+  3. Smoke test full funnel on temporary URL
+  4. Configure GoDaddy DNS per runbook Section 4
+  5. Attach chargebackkit.app + verify TLS
+  6. Flip Supabase prod redirects; cutover Stripe live keys (R2 envs)
+  7. Announce; monitor PostHog funnels for 72h
+ 
