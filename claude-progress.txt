@@ -1006,3 +1006,107 @@ Focus: Conversion Rate Optimisation audit and implementation
 - Tighten objection strip copy
 - Canonical URL / onrender.com fix
 - Add analytics (Plausible/PostHog) per CRO-Plan
+
+
+================================================================
+PASS 2 — RED-TEAM QA SWEEP (PRE-LAUNCH HARDENING)
+================================================================
+Date: 2026-04-06
+Branch: main
+Operator: Claude (via Claude in Chrome against GitHub web editor)
+Goal: Ship pass 2 at CTO-level quality before Render web service
+      setup, custom domain attachment, integration cutover, and
+      launch ops. Not a rolling launch — single hard cutover.
+
+----------------------------------------------------------------
+COMMITS LANDED ON main
+----------------------------------------------------------------
+QA-002  lib/email/send.ts          .com -> .app TLD on
+                                   NEXT_PUBLIC_APP_URL fallback +
+                                   RESEND_FROM_EMAIL fallback
+                                   (closes BUG-006)
+
+QA-003  lib/email/templates.ts     .com -> .app TLD on
+                                   NEXT_PUBLIC_APP_URL fallback
+                                   (closes BUG-005)
+
+QA-004  app/app/page.tsx           localhost:3000 -> chargebackkit.app
+                                   on NEXT_PUBLIC_APP_URL fallback
+                                   (closes BUG-007)
+
+QA-005  app/checkout/success/      href "/dashboard" -> "/app"
+        page.tsx                   HIGHEST-IMPACT P0: every paying
+                                   user was being routed to a 404
+                                   immediately after Stripe checkout
+                                   (closes BUG-008)
+
+QA-006  lib/billing/types.ts       PORTAL_RETURN_URL /dashboard ->
+                                   /app/settings + CHECKOUT_CANCEL_URL
+                                   trailing slash (closes BUG-009,
+                                   BUG-010)
+
+QA-007  .env.example               New file documenting required
+                                   env vars for production deploy
+                                   (NEXT_PUBLIC_SITE_URL,
+                                    NEXT_PUBLIC_APP_URL, Stripe keys,
+                                    Resend keys)
+
+----------------------------------------------------------------
+VERIFIED ALREADY CLEAN ON main (stale buglog from pass 1)
+----------------------------------------------------------------
+app/layout.tsx          BUG-001, BUG-002, BUG-014  brand + metadataBase
+app/robots.ts           BUG-003, BUG-012           disallow /app/ + /api/
+app/sitemap.ts          BUG-004, BUG-011           no dead /guide/ refs
+middleware.ts                                       no /dashboard refs
+components/marketing/nav.tsx                        ChargebackKit brand
+components/marketing/footer.tsx                     ChargebackKit brand
+
+----------------------------------------------------------------
+DROPPED FROM SCOPE (CONFIRMED N/A)
+----------------------------------------------------------------
+- /chargeback/[slug]/ sitemap entries: app/chargeback/ directory
+  does not exist on main; the 6 CRO-012 dynamic category pages
+  were a phantom from a stale local snapshot. No sitemap edit
+  required.
+- ROUTES const + CI grep gate: deferred to post-launch hardening;
+  zero runtime impact at launch.
+
+----------------------------------------------------------------
+BUG STATUS SUMMARY
+----------------------------------------------------------------
+P0 closed:  BUG-005, BUG-006, BUG-007, BUG-008, BUG-009, BUG-010
+P0 verified clean: BUG-001, BUG-002, BUG-003, BUG-004
+P1 closed/clean:  BUG-011, BUG-012, BUG-013, BUG-014
+Open: NONE blocking launch.
+
+----------------------------------------------------------------
+EXIT CRITERIA — PASS 2
+----------------------------------------------------------------
+[x] Zero hardcoded localhost in runtime fallbacks
+[x] Zero hardcoded chargebackkit.com in runtime fallbacks
+[x] Zero references to wrong brand "Chargeback Evidence Pack" in
+    user-facing surfaces
+[x] Checkout success CTA points at the real authenticated app route
+[x] Stripe billing portal return URL points at /app/settings
+[x] Stripe checkout cancel URL has trailing slash (no 308 hop)
+[x] robots.ts disallows /app/ and /api/
+[x] sitemap.ts contains no dead URLs
+[x] metadataBase explicitly set in root layout
+[x] .env.example committed for ops handoff to Render
+
+----------------------------------------------------------------
+EXECUTIVE SIGNOFF
+----------------------------------------------------------------
+Pass 2 is COMPLETE. The repo on main is production-ready for the
+next phase: Render web service setup, production hardening,
+custom domain attachment (chargebackkit.app), integration cutover,
+launch operations, and post-launch instrumentation.
+
+No P0 or P1 launch blockers remain. The single highest-impact bug
+(checkout success -> 404) is fixed and verified on main. The revenue
+path is intact end-to-end at the source level: marketing -> /pricing/
+-> Stripe checkout -> /checkout/success -> /app -> billing portal
+-> /app/settings.
+
+  THUMBS UP — CLEARED FOR NEXT PHASE.
+================================================================
