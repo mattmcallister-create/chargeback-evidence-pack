@@ -130,5 +130,5 @@ export const CANONICAL_DOMAIN = 'chargebackkit.app';
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || `https://${CANONICAL_DOMAIN}`;
 
 export const CHECKOUT_SUCCESS_URL = `${APP_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`;
-export const CHECKOUT_CANCEL_URL = `${APP_URL}/pricing`;
-export const PORTAL_RETURN_URL = `${APP_URL}/dashboard`;
+export const CHECKOUT_CANCEL_URL = `${APP_URL}/pricing/`;
+export const PORTAL_RETURN_URL = `${APP_URL}/app/settings`;
