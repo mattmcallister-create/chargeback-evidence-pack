@@ -51,7 +51,7 @@ export async function sendPackReadyEmail(
   const downloadUrl = await getPDFUrl(generation.pdf_storage_path);
 
   const appUrl =
-    process.env.NEXT_PUBLIC_APP_URL || 'https://chargebackkit.com';
+    process.env.NEXT_PUBLIC_APP_URL || 'https://chargebackkit.app';
 
   const templateData = {
     userName,
@@ -62,7 +62,7 @@ export async function sendPackReadyEmail(
   };
 
   const fromEmail =
-    process.env.RESEND_FROM_EMAIL || 'ChargebackKit <noreply@chargebackkit.com>';
+    process.env.RESEND_FROM_EMAIL || 'ChargebackKit <noreply@chargebackkit.app>';
 
   const response = await fetch('https://api.resend.com/emails', {
     method: 'POST',
