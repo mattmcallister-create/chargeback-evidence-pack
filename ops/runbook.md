@@ -390,3 +390,430 @@ If seeing `webhook.duplicate`, that's normal — Stripe retries are being correc
 - [ ] Check Stripe Dashboard > Payments for any disputes
 - [ ] Verify Stripe email settings are still enabled (receipts, failed payments, renewals)
 - [ ] Check user_subscriptions table for any stuck `past_due` subscriptions > 7 days
+
+
+================================================================
+PHASE 13 — RENDER LAUNCH PLAYBOOK (founder-operable)
+================================================================
+Owner: Matt (solo founder)  Date: 2026-04-06
+Repo: mattmcallister-create/chargeback-evidence-pack  Branch: main
+Brand: ChargebackKit  Domain: chargebackkit.app
+Stack: Next.js 14 (App Router) + Supabase + Stripe + Resend + PostHog
+Hosting: Render Web Service (Node)
+Email forwarding: ImprovMX  Registrar: GoDaddy
+
+RULE: Nothing live flips without explicit founder confirmation in chat.
+Render dashboard actions (create service, deploy, attach domain) are
+documented here for the founder to execute. Code-side changes are
+committed to main and verified before any cutover.
+
+----------------------------------------------------------------
+1. RENDER WEB SERVICE — CREATION PLAN
+----------------------------------------------------------------
+Service type:        Web Service (not Static Site, not Background Worker)
+Source:              GitHub mattmcallister-create/chargeback-evidence-pack
+Branch:              main  Auto-deploy: ON
+Region:              Oregon (us-west) — closest to Stripe + Supabase US
+Instance:            Starter ($7/mo) for launch; bump to Standard if p95>1s
+Runtime:             Node 20 (set via .nvmrc or package.json engines)
+Build command:       npm ci && npm run build
+Start command:       npm run start -- -p $PORT -H 0.0.0.0
+Health check path:   /api/health  (returns 200 JSON {ok:true})
+Initial URL pattern: https://chargeback-evidence-pack-XXXX.onrender.com
+                     (XXXX is the random suffix Render assigns)
+Storage:             None on disk. PDFs are streamed in-memory and
+                     written to Supabase Storage (bucket: packs).
+                     Render filesystem is ephemeral — DO NOT persist.
+Retention:           Supabase Storage lifecycle rule deletes packs
+                     >90 days old (configure in Supabase dashboard).
+Port binding:        Next.js binds 0.0.0.0:$PORT via the start cmd above.
+Puppeteer:           If PDF gen uses Puppeteer, set
+                     PUPPETEER_SKIP_DOWNLOAD=true and use
+                     @sparticuz/chromium-min OR switch to @react-pdf/renderer.
+                     Render Starter has limited memory; prefer @react-pdf.
+
+----------------------------------------------------------------
+2. ENVIRONMENT VARIABLES (Render dashboard -> Environment)
+----------------------------------------------------------------
+Legend: [R1]=required before first deploy  [R2]=required before cutover
+        [O]=optional  See .env.example in repo root for canonical list.
+
+# Public site config
+NEXT_PUBLIC_SITE_URL          [R2] https://chargebackkit.app
+                              [R1] https://chargeback-evidence-pack-XXXX.onrender.com
+NEXT_PUBLIC_APP_URL           [R2] https://chargebackkit.app
+                              [R1] same as initial onrender URL
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL      [R1] https://<project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY [R1] eyJ...
+SUPABASE_SERVICE_ROLE_KEY     [R1] eyJ...  (server only — never NEXT_PUBLIC)
+
+# Stripe
+STRIPE_SECRET_KEY             [R1] sk_test_... (R1) -> sk_live_... (R2)
+STRIPE_WEBHOOK_SECRET         [R1] whsec_... (rotate at cutover with live key)
+STRIPE_PRICE_ID               [R1] price_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY [R1] pk_test_... -> pk_live_... at cutover
+
+# Resend
+RESEND_API_KEY                [R1] re_...
+RESEND_FROM_EMAIL             [R1] ChargebackKit <noreply@chargebackkit.app>
+
+# OpenAI (if narrative generator uses it)
+OPENAI_API_KEY                [R1] sk-proj-...
+OPENAI_MODEL                  [O]  gpt-4o-mini (default)
+
+# PDF generation
+PDF_ENGINE                    [O]  react-pdf (recommended) | puppeteer
+PUPPETEER_SKIP_DOWNLOAD       [O]  true (only if puppeteer engine)
+
+# PostHog analytics
+NEXT_PUBLIC_POSTHOG_KEY       [R1] phc_...
+NEXT_PUBLIC_POSTHOG_HOST      [R1] https://us.i.posthog.com
+
+# Optional observability
+SENTRY_DSN                    [O]
+
+----------------------------------------------------------------
+3. DEPLOYMENT SEQUENCE (do these IN ORDER)
+----------------------------------------------------------------
+STEP 1: Create Render Web Service
+  - dashboard.render.com -> New + -> Web Service
+  - Connect GitHub repo chargeback-evidence-pack
+  - Set name: chargeback-evidence-pack (or chargebackkit)
+  - Apply build/start commands from section 1
+  - Save & deploy. Note the assigned onrender.com URL.
+
+STEP 2: Add [R1] env vars
+  - Set NEXT_PUBLIC_SITE_URL + NEXT_PUBLIC_APP_URL to the
+    onrender URL temporarily.
+  - Add Supabase, Stripe TEST keys, Resend, OpenAI, PostHog.
+  - Trigger Manual Deploy -> Clear build cache & deploy.
+
+STEP 3: Verify boot on onrender URL
+  - GET /api/health -> 200 ok:true
+  - GET / -> renders marketing landing
+  - GET /pricing/ -> renders
+  - GET /robots.txt -> Disallow includes /app/ /api/
+  - GET /sitemap.xml -> contains chargebackkit.app URLs (or onrender host
+    until you flip NEXT_PUBLIC_SITE_URL — that is intentional).
+
+STEP 4: Wire integrations to onrender URL (TEMPORARY)
+  - Stripe Dashboard (TEST mode):
+      Developers -> Webhooks -> Add endpoint
+      URL: https://<onrender>/api/webhooks/stripe
+      Events: checkout.session.completed,
+              customer.subscription.updated,
+              customer.subscription.deleted,
+              invoice.payment_failed
+      Copy whsec_... -> set STRIPE_WEBHOOK_SECRET in Render -> redeploy.
+  - Supabase Dashboard:
+      Auth -> URL Configuration
+      Site URL: https://<onrender>
+      Redirect URLs: add https://<onrender>/auth/callback
+                     and (later) https://chargebackkit.app/auth/callback
+
+STEP 5: End-to-end smoke test ON onrender (use Stripe TEST card 4242 4242 4242 4242)
+  - Visit /pricing/ -> click checkout CTA
+  - Complete Stripe test checkout
+  - Land on /checkout/success -> click Go to App -> /app loads
+  - Verify webhook fired (Stripe dash -> webhook attempts -> 200)
+  - Verify Supabase row inserted (subscription/customer)
+  - Create a pack -> trigger PDF gen -> download PDF
+  - Verify Resend email arrived at mattmcallistermarketing@gmail.com
+  - Open billing portal -> verify return URL -> /app/settings
+
+STEP 6: Attach custom domain chargebackkit.app
+  - Render: Settings -> Custom Domains -> Add
+    Add both: chargebackkit.app  AND  www.chargebackkit.app
+  - Render gives you a CNAME target (e.g. <svc>.onrender.com)
+    and an ALIAS/A record for the apex.
+  - Configure GoDaddy DNS (see section 4).
+  - Wait for Render to verify (usually <5 min, can take 1h).
+  - Confirm Render shows TLS certificate Issued (Lets Encrypt auto).
+
+STEP 7: Flip canonical to chargebackkit.app
+  - Render env vars:
+      NEXT_PUBLIC_SITE_URL = https://chargebackkit.app
+      NEXT_PUBLIC_APP_URL  = https://chargebackkit.app
+  - Manual Deploy.
+  - Stripe webhook: ADD new endpoint pointed at
+      https://chargebackkit.app/api/webhooks/stripe
+    Update STRIPE_WEBHOOK_SECRET to the new whsec_.
+    Keep the onrender webhook for 24h then DELETE.
+  - Supabase Auth: change Site URL to https://chargebackkit.app.
+    Keep both redirect URLs in the allowlist for 24h.
+  - Resmoke-test the full flow on the canonical domain.
+
+STEP 8: Cut Stripe over to LIVE mode
+  - Swap STRIPE_SECRET_KEY, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    STRIPE_PRICE_ID, STRIPE_WEBHOOK_SECRET to live values.
+  - Re-register the LIVE webhook at the canonical URL.
+  - Run one $1 live transaction with a real card; refund immediately.
+
+----------------------------------------------------------------
+4. DNS — GoDaddy + Render + Resend + ImprovMX
+----------------------------------------------------------------
+Apex/www decision: SERVE ON APEX. www -> 301 redirect to apex.
+Render handles the redirect automatically when both are added.
+
+GoDaddy DNS records (chargebackkit.app):
+  Type    Name    Value                                  TTL
+  A       @       <Render apex IP from dashboard>        600
+  CNAME   www     <svc>.onrender.com                     600
+
+Resend (transactional sending from noreply@chargebackkit.app):
+  In Resend dashboard -> Domains -> Add chargebackkit.app.
+  Resend will give you 3-4 records to add in GoDaddy:
+    TXT   send._domainkey   <DKIM key>                  3600
+    TXT   @                 v=spf1 include:resend.com ~all  3600
+    TXT   _dmarc            v=DMARC1; p=none; rua=mailto:mattmcallistermarketing@gmail.com
+    MX    send              feedback-smtp.us-east-1.amazonses.com  10  3600
+  Wait for Resend dashboard to mark domain Verified.
+
+ImprovMX (inbound forwarding for hello@, support@, etc.):
+  improvmx.com -> Add domain chargebackkit.app.
+  Add MX records in GoDaddy at the APEX (not 'send'):
+    MX   @   mx1.improvmx.com   10   3600
+    MX   @   mx2.improvmx.com   20   3600
+  In ImprovMX, create aliases all forwarding to mattmcallistermarketing@gmail.com:
+    hello@chargebackkit.app    -> mattmcallistermarketing@gmail.com
+    support@chargebackkit.app  -> mattmcallistermarketing@gmail.com
+    *@chargebackkit.app        -> mattmcallistermarketing@gmail.com (catch-all)
+  IMPORTANT: ImprovMX MX is on the apex; Resend MX is on 'send' subdomain.
+  They DO NOT conflict because they are at different hostnames.
+
+Public-facing addresses on the website (keep minimal):
+  - support@chargebackkit.app  (footer + contact + legal pages)
+  - hello@chargebackkit.app    (optional; only if used in marketing copy)
+  All forward to mattmcallistermarketing@gmail.com via ImprovMX.
+
+----------------------------------------------------------------
+5. PRODUCTION READINESS CHECKLIST
+----------------------------------------------------------------
+[ ] Stripe TEST and LIVE clearly separated; LIVE keys only set at step 8
+[ ] Stripe webhook registered on canonical domain; secret rotated
+[ ] Stripe Customer Portal configured: cancel + update payment + invoices on,
+    return URL = https://chargebackkit.app/app/settings
+[ ] Resend domain verified (DKIM/SPF/DMARC green)
+[ ] ImprovMX forwarding live for support@ and hello@
+[ ] Supabase redirect URLs include both onrender and chargebackkit.app
+    during cutover; onrender entry removed 24h after cutover
+[ ] All secrets in Render env only — never committed to git
+[ ] No /api/debug or /test routes shipped (grep app/api for 'debug')
+[ ] No 'Coming soon' or placeholder copy on production pages
+[ ] /privacy /terms /refund-policy pages match Stripe + Resend reality
+[ ] Refund policy consistent across pricing, checkout copy, and legal
+[ ] Single support contact: support@chargebackkit.app
+
+----------------------------------------------------------------
+6. SEARCH/CANONICAL READINESS
+----------------------------------------------------------------
+[ ] sitemap.xml served from chargebackkit.app contains only chargebackkit.app URLs
+[ ] robots.txt Disallows /app/ and /api/, allows /
+[ ] All <link rel=canonical> resolve to chargebackkit.app (no onrender leakage)
+[ ] Open Graph + Twitter card image URLs use chargebackkit.app
+[ ] /checkout/success and /checkout/cancel are noindex (already via app router config)
+[ ] After cutover: submit sitemap to Google Search Console for chargebackkit.app
+[ ] Verify chargebackkit.app in GSC via DNS TXT record (add to GoDaddy)
+[ ] Set onrender.com URL as 'change of address' source if it ever got indexed
+    (it should not — robots on onrender is fine since same code)
+
+----------------------------------------------------------------
+7. ANALYTICS INSTRUMENTATION (PostHog)
+----------------------------------------------------------------
+Why PostHog: free tier covers 1M events/mo, autocapture+pageviews out of the box,
+session replays, funnels, retention, and feature flags from one tool.
+
+Install (already covered in code via lib/analytics/posthog.ts):
+  npm i posthog-js posthog-node
+  Wrap app/layout.tsx <body> with <PostHogProvider> from lib/analytics.
+  Autocapture is ON; pageviews are captured on route change.
+
+Required custom events (call posthog.capture(name, props) at the call site):
+  pageview                          (autocaptured)
+  cta_click                         {location, label, href}
+  pricing_view                      {plan_visible}
+  checkout_start                    {plan, price_id}
+  checkout_complete                 {plan, amount, currency}  (from /checkout/success)
+  signup_start                      {method}
+  signup_complete                   {user_id}
+  pack_create_start                 {reason_code}
+  pack_create_complete              {pack_id, reason_code, duration_ms}
+  pdf_generate_start                {pack_id}
+  pdf_generate_complete             {pack_id, pages, bytes, duration_ms}
+  pdf_download                      {pack_id}
+  pack_email_sent                   {pack_id}
+  billing_portal_open               {}
+  error                             {scope, message}
+
+Funnels to build in PostHog (Insights -> Funnels):
+  Acquisition: pageview(/) -> pricing_view -> checkout_start -> checkout_complete
+  Activation:  signup_complete -> pack_create_start -> pdf_generate_complete -> pdf_download
+  Revenue:     checkout_complete -> 7d retention pack_create_complete
+
+Drop-off detection: PostHog Insights -> Funnel -> step-by-step conversion;
+any step <20% conversion is flagged as a 'biggest drop-off' in the weekly report.
+
+----------------------------------------------------------------
+8. WEEKLY FOUNDER REPORT
+----------------------------------------------------------------
+Cadence: every Monday 09:00 PT.
+Recipient: mattmcallistermarketing@gmail.com
+Mechanism (simplest first):
+  Option A (RECOMMENDED): PostHog 'Subscriptions' on a saved Dashboard.
+    1. Build a Dashboard named 'ChargebackKit Weekly'.
+    2. Add tiles: Total pageviews 7d, Top referrers, Top landing pages,
+       cta_click count, pricing_view count, checkout_start count,
+       checkout_complete count, Acquisition funnel, Activation funnel,
+       Revenue tile (checkout_complete sum amount).
+    3. Click Subscribe -> email -> mattmcallistermarketing@gmail.com,
+       weekly Monday 09:00 PT.
+  Option B (fallback): Render Cron Job hits /api/reports/weekly which queries
+    PostHog HogQL via /api/projects/.../query and ships the digest via Resend.
+    Implement only if PostHog Subscriptions is insufficient.
+
+Required content:
+  - total traffic (pageviews + unique visitors, 7d)
+  - top 5 traffic sources (referrer host)
+  - top 5 landing pages
+  - on-site behavior (cta_click count, scroll depth via autocapture)
+  - conversion-action clicks (pricing_view, checkout_start)
+  - purchase actions (checkout_complete count + revenue $)
+  - biggest drop-off (largest single-step % drop in either funnel)
+  - week-over-week deltas on the above
+  - top opportunities/anomalies (auto-flag any metric >2 sigma above 4-week mean)
+
+----------------------------------------------------------------
+9. RAPID POST-LAUNCH ITERATION TRIGGERS (first 72h)
+----------------------------------------------------------------
+IMMEDIATE FIX (act within 1h of signal):
+  - error event count > 10/hr OR any 5xx > 1% of requests
+  - checkout_start fired but checkout_complete = 0 over 6h with traffic >50
+  - PDF generation failure rate > 5%
+  - Supabase auth callback errors > 5
+  - Stripe webhook failure rate > 1% (check Stripe dashboard)
+  - Domain returns non-200 on /, /pricing/, /app, or /api/health
+
+PRICING CHANGE TRIGGER:
+  - pricing_view -> checkout_start conversion < 3% over 200+ pricing views
+  - checkout_start -> checkout_complete conversion < 30% over 50+ starts
+  - 3+ unsolicited 'too expensive' emails in support@
+
+CTA / FUNNEL CHANGE TRIGGER:
+  - landing -> pricing_view < 8% over 500 landings
+  - cta_click but no pricing_view -> CTA destination wrong
+  - high scroll depth >75% but low CTA click -> CTA invisible/unclear
+
+PRODUCT UX CHANGE TRIGGER:
+  - signup_complete -> pack_create_start < 50%
+  - pack_create_start -> pdf_generate_complete < 70%
+  - replays show repeated rage clicks or dead clicks (PostHog session replay)
+
+CONTENT / SEO CHANGE TRIGGER:
+  - 0 organic traffic after 7 days (check GSC impressions)
+  - high bounce on a specific landing page (>80%, time<10s)
+  - Search Console reports indexing errors
+
+----------------------------------------------------------------
+10. FOUNDER LAUNCH CHECKLIST (top to bottom)
+----------------------------------------------------------------
+PRELAUNCH:
+  [ ] Pass 2 commits all on main (QA-002..QA-008) — DONE 2026-04-06
+  [ ] .env.example present in repo — DONE
+  [ ] /api/health route exists and returns 200 (verify before deploy)
+  [ ] PostHog account created; project key in hand
+  [ ] Resend account created; chargebackkit.app domain ready to add
+  [ ] ImprovMX account created
+  [ ] Supabase project provisioned; tables migrated
+  [ ] Stripe account complete; LIVE mode activation requested
+  [ ] Stripe products + prices created in BOTH test and live
+RENDER CREATE:
+  [ ] Web Service created from main branch (autodeploy ON)
+  [ ] Build + start commands set
+  [ ] First deploy succeeded; onrender URL noted
+ENV VARS:
+  [ ] All [R1] vars set in Render Environment
+  [ ] Manual deploy after env var save
+STRIPE:
+  [ ] TEST webhook registered on onrender URL
+  [ ] Customer Portal configured (return URL = /app/settings)
+  [ ] Test card 4242 transaction succeeds end-to-end
+RESEND:
+  [ ] Domain chargebackkit.app added
+  [ ] DKIM/SPF/DMARC records added in GoDaddy
+  [ ] Domain shows Verified in Resend dashboard
+  [ ] Test send to mattmcallistermarketing@gmail.com lands in inbox
+IMPROVMX:
+  [ ] Domain added; MX records in GoDaddy at apex
+  [ ] support@chargebackkit.app alias forwards to gmail
+  [ ] Catch-all alias enabled
+  [ ] Self-test: send mail to support@ from gmail; confirm delivery
+GODADDY DNS (final state after section 4):
+  [ ] A @ -> Render apex IP
+  [ ] CNAME www -> <svc>.onrender.com
+  [ ] MX @ x2 -> ImprovMX
+  [ ] TXT @ SPF (Resend)
+  [ ] TXT send._domainkey DKIM (Resend)
+  [ ] TXT _dmarc DMARC
+  [ ] MX send -> Resend
+  [ ] TXT for Google Search Console verification
+RENDER CUSTOM DOMAIN:
+  [ ] chargebackkit.app added in Render Custom Domains
+  [ ] www.chargebackkit.app added
+  [ ] Render shows both Verified + TLS Issued
+SUPABASE:
+  [ ] Site URL = https://chargebackkit.app
+  [ ] Redirect allowlist contains chargebackkit.app and (temporarily) onrender URL
+WEBHOOK CUTOVER:
+  [ ] LIVE Stripe webhook registered on canonical URL
+  [ ] STRIPE_WEBHOOK_SECRET updated in Render; manual deploy
+  [ ] Old onrender webhook deleted 24h after cutover
+ANALYTICS:
+  [ ] PostHog provider mounted in app/layout
+  [ ] Custom events firing (verify in PostHog Live Events tab)
+  [ ] Funnels built (Acquisition, Activation, Revenue)
+  [ ] Weekly Dashboard subscription emailing mattmcallistermarketing@gmail.com
+SMOKE TEST (on chargebackkit.app, BEFORE announcing):
+  [ ] / loads, no console errors
+  [ ] /pricing/ loads
+  [ ] CTA -> Stripe checkout (use $1 live card; refund)
+  [ ] /checkout/success -> /app
+  [ ] Create pack -> generate PDF -> download
+  [ ] Receive transactional email
+  [ ] Open billing portal -> return to /app/settings
+  [ ] Send test mail to support@ -> arrives in gmail
+ROLLBACK PLAN:
+  - Render: Manual Deploy -> Rollback to previous successful deploy
+  - Stripe: switch back to TEST keys in Render env; redeploy
+  - DNS: revert A/CNAME at GoDaddy (TTL 600 = ~10min)
+  - DB: Supabase Point-in-Time Recovery (paid plan) or Snapshot restore
+INCIDENT RESPONSE:
+  1. Acknowledge in #status (or just a note in claude-progress.txt)
+  2. Snapshot Render logs + Stripe webhook attempts + Sentry/PostHog errors
+  3. Rollback if revenue path is broken
+  4. Patch on a branch -> PR -> merge -> auto-deploy -> verify
+  5. Postmortem appended to claude-progress.txt within 24h
+POST-LAUNCH (first 24h):
+  [ ] Verify Render service uptime > 99% (Render Metrics tab)
+  [ ] Verify Stripe webhook success rate = 100%
+  [ ] Verify PostHog is receiving events
+  [ ] Submit sitemap to Google Search Console
+  [ ] Submit sitemap to Bing Webmaster Tools
+FIRST WEEK MONITORING:
+  [ ] Daily check of triggers in section 9
+  [ ] First weekly report received Monday
+  [ ] Identify top 3 funnel leaks; queue fixes for week 2
+
+----------------------------------------------------------------
+11. SAFETY GATE
+----------------------------------------------------------------
+Nothing in section 3 (deployment sequence) or section 8 (live cutover)
+is executed by Claude without explicit, in-chat founder confirmation
+naming the specific step (e.g. 'do step 6 now' or 'flip the live keys').
+Code changes that prepare for these steps (env example, analytics lib,
+doc updates) ARE landed on main automatically as part of phase 13.
+
+================================================================
+END PHASE 13 LAUNCH PLAYBOOK
+================================================================
