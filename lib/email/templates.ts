@@ -68,7 +68,7 @@ export function packReadyHTML(data: PackReadyEmailData): string {
               <p style="margin:0 0 8px;color:#666;font-size:13px;line-height:1.5;">
                 This download link expires in 1 hour. You can always download
                 your pack again from your
-                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://chargebackkit.com'}/app/packs/${data.packId}"
+                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'https://chargebackkit.app'}/app/packs/${data.packId}"
                    style="color:#2563eb;text-decoration:none;">
                   dashboard
                 </a>.
