@@ -1654,6 +1654,48 @@
       "phase": "core-phase-8",
       "status": "implemented",
       "description": "PackListSkeleton, PackDetailSkeleton, GenerationSkeleton, FormSkeleton with animate-pulse"
+    },
+    {
+      "id": "F-LAUNCH-001",
+      "name": "Render Blueprint (render.yaml)",
+      "phase": "phase-13-launch",
+      "status": "implemented",
+      "description": "Render web service blueprint: Node 20, starter, Oregon, autoDeploy main, build/start commands, healthCheckPath /api/health, env var matrix with sync:false for secrets"
+    },
+    {
+      "id": "F-LAUNCH-002",
+      "name": "Health Check Endpoint",
+      "phase": "phase-13-launch",
+      "status": "implemented",
+      "description": "GET /api/health returns {ok,service,timestamp}; runtime nodejs; force-dynamic; consumed by Render healthCheckPath"
+    },
+    {
+      "id": "F-LAUNCH-003",
+      "name": "PostHog Analytics Client",
+      "phase": "phase-13-launch",
+      "status": "implemented",
+      "description": "lib/analytics/posthog.ts — PostHogProvider + PageviewTracker (SPA pageviews via usePathname/useSearchParams), initPostHog/track/identify/reset helpers"
+    },
+    {
+      "id": "F-LAUNCH-004",
+      "name": "Typed Event Taxonomy",
+      "phase": "phase-13-launch",
+      "status": "implemented",
+      "description": "lib/analytics/events.ts — EVENTS const + EventName type + typed wrappers (cta, pricing_view, checkout_*, signup_*, pack_*, pdf_*, billing_portal_open, error)"
+    },
+    {
+      "id": "F-LAUNCH-005",
+      "name": "Phase 13 Launch Playbook in runbook",
+      "phase": "phase-13-launch",
+      "status": "implemented",
+      "description": "ops/runbook.md Phase 13: Render service spec, env var matrix R1/R2/O, 8-step deploy sequence, GoDaddy+Render+Resend+ImprovMX DNS plan, production readiness, search/canonical readiness, PostHog instrumentation, weekly founder report, rapid iteration triggers, founder launch checklist, safety gate"
+    },
+    {
+      "id": "F-LAUNCH-006",
+      "name": "Founder Launch Safety Gate",
+      "phase": "phase-13-launch",
+      "status": "ready",
+      "description": "No live cutover (Stripe live keys, custom domain, Resend sending, Supabase prod redirects) without explicit founder confirmation. Documented in runbook Section 11."
     }],
       "status": "pending",
       "notes": "Phase 7 — mobile menu toggle wired with useState in nav.tsx"
