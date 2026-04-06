@@ -119,6 +119,10 @@ export default function HomePage() {
           <p className="text-sm text-slate-400">
             $39 · No subscription · 72-hour access to your pack
           </p>
+          <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.479 9.883c-1.626-.604-2.512-1.067-2.512-1.803 0-.622.511-.977 1.423-.977 1.667 0 3.379.642 4.558 1.22l.666-4.111c-.935-.446-2.847-1.177-5.49-1.177-1.87 0-3.425.489-4.536 1.401-1.155.96-1.757 2.344-1.757 4.025 0 3.049 1.865 4.358 4.906 5.46 1.958.702 2.613 1.204 2.613 1.976 0 .754-.648 1.184-1.81 1.184-1.469 0-3.89-.717-5.488-1.65l-.674 4.157c1.364.777 3.892 1.564 6.514 1.564 1.976 0 3.624-.467 4.736-1.35 1.244-.982 1.89-2.427 1.89-4.297 0-3.102-1.891-4.396-4.969-5.522z"/></svg>
+            <span>Secure checkout via Stripe · PCI-compliant</span>
+          </div>
         </div>
       </section>
 
