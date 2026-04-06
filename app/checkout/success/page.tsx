@@ -51,7 +51,7 @@ export default function CheckoutSuccessPage() {
 
         {/* Primary CTA */}
         <Link
-          href="/dashboard"
+          href="/app"
           className="inline-block w-full bg-gray-900 text-white rounded-md py-3 px-4 font-medium hover:bg-gray-800 transition-colors mb-3"
         >
           Go to Dashboard
