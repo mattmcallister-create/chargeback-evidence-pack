@@ -7,17 +7,24 @@ export const FORWARDING_EMAIL = 'mattmcallistermarketing@gmail.com';
 
 // ─── Routes ────────────────────────────────────────────────────────────────
 export const ROUTES = {
+  // Public
   HOME: '/',
   LOGIN: '/login',
   SIGNUP: '/signup',
   PRICING: '/pricing',
+
+  // Protected
   DASHBOARD: '/app',
   NEW_PACK: '/app/packs/new',
   PACK_DETAIL: '/app/packs',
   DEADLINES: '/app/deadlines',
   SETTINGS: '/app/settings',
+
+  // Checkout
   CHECKOUT_SUCCESS: '/checkout/success',
   CHECKOUT_CANCEL: '/checkout/cancel',
+
+  // Auth
   AUTH_CALLBACK: '/auth/callback',
 } as const;
 
@@ -120,20 +127,3 @@ export const DEADLINE_URGENCY = {
 
 export type UrgencyLevel = 'green' | 'yellow' | 'red';
 
-// ─── App Routes ───────────────────────────────────────────────────────
-
-export const ROUTES = {
-  // Public
-  HOME: '/',
-  LOGIN: '/login',
-  SIGNUP: '/signup',
-  PRICING: '/pricing',
-
-  // Protected
-  DASHBOARD: '/app',
-  NEW_PACK: '/app/packs/new',
-  PACK_DETAIL: (id: string) => `/app/packs/${id}`,
-  PACK_EDIT: (id: string) => `/app/packs/${id}/edit`,
-  DEADLINES: '/app/deadlines',
-  SETTINGS: '/app/settings',
-} as const;
