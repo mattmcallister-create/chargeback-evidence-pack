@@ -211,7 +211,7 @@ export default function FAQPage() {
           </h2>
           <p className="text-slate-300 mb-6">$39. No subscription. Submission-ready in 30 minutes.</p>
           <Link
-            href="/signup/"
+            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors"
           >
             Create Your Pack
