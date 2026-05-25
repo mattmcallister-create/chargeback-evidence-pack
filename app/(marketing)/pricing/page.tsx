@@ -167,7 +167,7 @@ export default function PricingPage() {
 
               {/* CTA */}
               <Link
-                href="/signup/"
+                href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
                 className="w-full flex items-center justify-center gap-2 bg-brand-800 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-700 transition-colors"
               >
                 Build My Evidence Pack — $39
@@ -191,7 +191,7 @@ export default function PricingPage() {
               </p>
             </div>
             <Link
-              href="/signup/?plan=bundle"
+              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
               className="shrink-0 inline-flex items-center gap-2 bg-white border border-slate-300 text-slate-800 font-semibold text-sm px-5 py-2.5 rounded-lg hover:border-slate-400 hover:bg-slate-50 transition-colors"
             >
               Get 3-pack ($99)
@@ -297,7 +297,7 @@ export default function PricingPage() {
             One pack. One payment. Submission-ready in 30 minutes.
           </p>
           <Link
-            href="/signup/"
+            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
           >
             Build My Evidence Pack — $39
