@@ -41,6 +41,9 @@ export const metadata: Metadata = {
     description:
       'ChargebackKit helps merchants win chargebacks faster. Compile evidence, respond to disputes, and protect your revenue in minutes.',
   },
+  verification: {
+        google: '1vKCDAzJ928Zqdb-lBV2A8Ypookr_d9T02zlNTN0SU0',
+  },
   applicationName: 'ChargebackKit',
 };
 
