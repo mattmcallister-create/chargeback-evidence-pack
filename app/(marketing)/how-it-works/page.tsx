@@ -150,7 +150,7 @@ export default function HowItWorksPage() {
             type and the evidence requirements card networks use to evaluate your response.
           </p>
           <Link
-            href="/signup/"
+            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors"
           >
             Create Your First Pack
@@ -268,7 +268,7 @@ export default function HowItWorksPage() {
             $39. No subscription. Submission-ready in 30 minutes.
           </p>
           <Link
-            href="/signup/"
+            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors"
           >
             Create Your First Pack
