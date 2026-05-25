@@ -57,6 +57,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.9,
     },
+    {
+      url: `${baseUrl}/guides/chargeback-rebuttal-letter`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/guides/how-to-win-a-chargeback`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
         // Chargeback category pages — high-intent, per-dispute-type landing pages
         ...chargebackCategories.map((slug) => ({
                 url: `${baseUrl}/chargeback/${slug}`,
