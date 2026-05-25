@@ -221,7 +221,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
             <Link
-              href="/signup/"
+              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
               className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
             >
               Build My {data.label} Pack — $39
@@ -343,7 +343,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
             Submission-grade. Category-specific. Built the way card networks want to see it.
           </p>
           <Link
-            href="/signup/"
+            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
           >
             Build My Evidence Pack — $39
