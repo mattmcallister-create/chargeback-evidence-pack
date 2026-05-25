@@ -50,7 +50,7 @@ export default function MarketingNav() {
               Log In
             </Link>
             <Link
-              href="/signup/"
+              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
               className="inline-flex items-center gap-1.5 bg-white text-brand-900 font-semibold text-sm px-4 py-2 rounded-md hover:bg-brand-50 transition-colors duration-150 shadow-sm"
             >
               Create Pack
@@ -93,7 +93,7 @@ export default function MarketingNav() {
               Log In
             </Link>
             <Link
-              href="/signup/"
+              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
               className="block text-center py-2.5 bg-white text-brand-900 font-semibold text-sm rounded-md hover:bg-brand-50 transition-colors"
               onClick={() => setMobileOpen(false)}
             >
