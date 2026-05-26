@@ -177,7 +177,7 @@ export default function GuidesIndexPage() {
             <ArrowRight size={18} />
           </Link>
           <p className="mt-4 text-sm text-slate-400">
-            $39 \u00b7 No subscription \u00b7 72-hour access
+            $39 · No subscription · 72-hour access
           </p>
         </div>
       </section>
