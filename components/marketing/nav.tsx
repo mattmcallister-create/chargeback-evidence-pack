@@ -9,6 +9,7 @@ const navLinks = [
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Calculator', href: '/tools/chargeback-calculator/' },
   { label: 'Guides', href: '/guides' },
+  { label: 'Templates', href: '/templates' },
   { label: 'FAQ', href: '/faq/' },
 ]
 
