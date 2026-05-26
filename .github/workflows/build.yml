@@ -14,12 +14,19 @@ jobs:
     env:
       # Skip puppeteer's Chromium download during install — not needed for next build.
       PUPPETEER_SKIP_DOWNLOAD: 'true'
-      # Stub NEXT_PUBLIC_* envs so the build doesn't fail on undefined references.
+      # Stubbed envs so next build's page-data collection doesn't throw on missing values.
+      # These are CI placeholders only; real secrets are managed in Render and never in this workflow.
       NEXT_PUBLIC_SITE_URL: https://chargebackkit.app
       NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
-      NEXT_PUBLIC_POSTHOG_KEY: placeholder-posthog-key
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-anon-key
+      NEXT_PUBLIC_POSTHOG_KEY: ci-placeholder-posthog-key
       NEXT_PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
+      SUPABASE_SERVICE_ROLE_KEY: ci-placeholder-service-role-key
+      STRIPE_SECRET_KEY: sk_test_ci_placeholder
+      STRIPE_WEBHOOK_SECRET: whsec_ci_placeholder
+      RESEND_API_KEY: re_ci_placeholder
+      OPENAI_API_KEY: sk-ci-placeholder
+      NEXT_PUBLIC_SUPPORT_EMAIL: support@chargebackkit.app
     steps:
       - name: Checkout
         uses: actions/checkout@v4
