@@ -181,7 +181,7 @@ export default function GuidesPage() {
             href="/#pricing"
             className="inline-flex items-center px-8 py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-600 transition-colors text-lg"
           >
-            Build Your Evidence Pack — \$39
+            Build Your Evidence Pack — \$19
             <ArrowRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
