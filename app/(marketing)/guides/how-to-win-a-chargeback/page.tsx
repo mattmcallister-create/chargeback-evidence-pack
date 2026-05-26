@@ -69,6 +69,15 @@ export default function HowToWinChargebackPage() {
       />
 
       <div className="max-w-4xl mx-auto px-4 py-16">
+        {/* Breadcrumb */}
+        <nav className="mb-8 text-sm">
+          <Link href="/guides" className="text-brand-700 hover:text-brand-800 font-medium">
+            Guides
+          </Link>
+          <span className="mx-2 text-slate-400">/</span>
+          <span className="text-slate-600">How to Win a Chargeback</span>
+        </nav>
+
         <h1 className="text-4xl font-bold mb-6 text-gray-900">
           How to Win a Chargeback as a Merchant
         </h1>
@@ -92,7 +101,7 @@ export default function HowToWinChargebackPage() {
             than a &quot;product not received&quot; dispute. Read the reason code, understand the claim, and
             build your response around disproving that specific claim.
           </p>
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mt-4">
+          <div className="bg-brand-50 border-l-4 border-brand-800 p-4 mt-4">
             <p className="text-gray-700"><strong>Key principle:</strong> The bank reviewer is not investigating your business. They are checking whether your evidence disproves the specific claim made by the cardholder. Give them exactly that.</p>
           </div>
         </section>
@@ -152,15 +161,15 @@ export default function HowToWinChargebackPage() {
             as follows:
           </p>
           <div className="space-y-4">
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Cover Page</h3>
               <p className="text-gray-700">Business name, dispute ID, transaction details, and a one-paragraph summary of your case.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Rebuttal Narrative</h3>
               <p className="text-gray-700">A concise, point-by-point response to the cardholder&apos;s claim with references to specific exhibits.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Labeled Exhibits</h3>
               <p className="text-gray-700">Each piece of evidence labeled (Exhibit A, B, C) with a brief description of what it proves.</p>
             </div>
@@ -251,17 +260,17 @@ export default function HowToWinChargebackPage() {
           </div>
         </section>
 
-        <section className="bg-blue-50 rounded-lg p-8 text-center">
+        <section className="bg-brand-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Build a Winning Evidence Pack in 30 Minutes</h2>
           <p className="text-gray-700 mb-6">ChargebackKit structures your evidence the way card networks expect to see it. Answer questions about your dispute, upload your exhibits, and get a submission-ready PDF.</p>
-          <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
+          <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="inline-block bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-emerald-600 transition-colors">
             Build My Evidence Pack &mdash; $39
           </a>
         </section>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Resources</h3>
-          <ul className="space-y-2 text-blue-600">
+          <ul className="space-y-2 text-brand-700">
             <li><Link href="/guides/chargeback-rebuttal-letter" className="hover:underline">Chargeback Rebuttal Letter: How to Write One That Wins</Link></li>
             <li><Link href="/stripe-chargeback-evidence" className="hover:underline">Stripe Chargeback Evidence: What to Submit &amp; How</Link></li>
             <li><Link href="/chargeback-evidence-checklist" className="hover:underline">Chargeback Evidence Checklist: Complete Guide by Dispute Type</Link></li>
