@@ -232,27 +232,49 @@ export default function ChargebackResponseDeadlinesPage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What happens if I miss a chargeback response deadline?</h3>
-              <p className="text-gray-700">Missing a chargeback response deadline results in an automatic loss. The bank rules in the cardholder&apos;s favor without reviewing your evidence. The chargeback is finalized and the funds are deducted from your account.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Are chargeback deadlines the same for all card networks?</h3>
-              <p className="text-gray-700">No. Visa allows 30 days, Mastercard 45 days, American Express 20 days, and Discover 30 days. Always check your payment processor&apos;s dispute dashboard for your specific deadline.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Can I request an extension for a chargeback deadline?</h3>
-              <p className="text-gray-700">Extensions are rarely granted. Some payment processors may allow a brief extension if you contact them before the deadline, but this is not guaranteed.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">When does the chargeback deadline clock start?</h3>
-              <p className="text-gray-700">The deadline typically starts when you are notified of the dispute through your payment processor. Your response deadline is measured from when you receive the dispute notice.</p>
-            </div>
+              <section className="section bg-white px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>What happens if I miss a chargeback response deadline?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Missing a chargeback response deadline results in an automatic loss. The bank rules in the cardholder&apos;s favor without reviewing your evidence. The chargeback is finalized and the funds are deducted from your account.
+              </div>
+            </details>
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>Are chargeback deadlines the same for all card networks?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                No. Visa allows 30 days, Mastercard 45 days, American Express 20 days, and Discover 30 days. Always check your payment processor&apos;s dispute dashboard for your specific deadline.
+              </div>
+            </details>
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>Can I request an extension for a chargeback deadline?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Extensions are rarely granted. Some payment processors may allow a brief extension if you contact them before the deadline, but this is not guaranteed.
+              </div>
+            </details>
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>When does the chargeback deadline clock start?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                The deadline typically starts when you are notified of the dispute through your payment processor. Your response deadline is measured from when you receive the dispute notice.
+              </div>
+            </details>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* CTA Section */}
         <section className="bg-brand-50 rounded-lg p-8 text-center mb-12">
