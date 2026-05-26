@@ -1,18 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, FileText, Shield, Clock, BookOpen } from 'lucide-react'
+import { ArrowRight, FileText, Shield, Clock, BookOpen, CreditCard, AlertTriangle, Store, Code, Zap } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Chargeback Guides for Stripe Merchants',
+  title: 'Chargeback Guides — Prevention, Response & Evidence Strategies',
   description:
-    'Free guides on chargeback prevention, rebuttal letters, evidence requirements, response deadlines, and winning disputes as a merchant.',
+    'Free guides on chargeback prevention, rebuttal letters, evidence requirements, response deadlines, and winning disputes for Stripe, Shopify, PayPal, and Square merchants.',
   alternates: {
     canonical: '/guides',
   },
   openGraph: {
-    title: 'Chargeback Guides for Stripe Merchants',
+    title: 'Chargeback Guides — Prevention, Response & Evidence Strategies',
     description:
-      'Free guides on chargeback prevention, rebuttal letters, evidence requirements, response deadlines, and winning disputes as a merchant.',
+      'Free guides on chargeback prevention, rebuttal letters, evidence requirements, response deadlines, and winning disputes for Stripe, Shopify, PayPal, and Square merchants.',
     url: '/guides',
   },
 }
@@ -21,166 +21,171 @@ const guides = [
   {
     title: 'Chargeback Prevention: 12 Proven Strategies',
     description:
-      'Prevent chargebacks before they happen. Covers billing descriptors, fraud tools, customer communication, and card network monitoring thresholds.',
+      'Prevent chargebacks before they happen. Covers billing descriptors, fraud tools, customer communication, and card network monitoring to reduce dispute rates.',
     href: '/guides/chargeback-prevention',
     icon: Shield,
     tag: 'Prevention',
   },
   {
-    title: 'How to Win a Chargeback as a Merchant',
+    title: 'How to Write a Chargeback Rebuttal Letter',
     description:
-      'Step-by-step guide to building a winning chargeback response — from gathering evidence to structuring your rebuttal for card networks.',
-    href: '/guides/how-to-win-a-chargeback',
+      'Step-by-step guide to writing compelling rebuttal letters that win disputes. Includes templates, formatting tips, and real examples for common reason codes.',
+    href: '/guides/chargeback-rebuttal-letter',
     icon: FileText,
+    tag: 'Response',
+  },
+  {
+    title: 'Chargeback Evidence Checklist',
+    description:
+      'Complete checklist of evidence types accepted by Visa, Mastercard, and major processors. Know exactly what documentation to gather for every dispute type.',
+    href: '/guides/chargeback-evidence-checklist',
+    icon: BookOpen,
+    tag: 'Evidence',
+  },
+  {
+    title: 'Chargeback Response Deadlines by Processor',
+    description:
+      'Never miss a deadline. Complete guide to response windows for Stripe, PayPal, Square, Shopify, and direct processor disputes with calendar planning tips.',
+    href: '/guides/chargeback-response-deadlines',
+    icon: Clock,
+    tag: 'Deadlines',
+  },
+  {
+    title: 'How to Win a Chargeback: The Complete Guide',
+    description:
+      'End-to-end strategy for winning chargeback disputes. From initial notification through evidence submission, learn what separates winning responses from losing ones.',
+    href: '/guides/how-to-win-a-chargeback',
+    icon: Zap,
     tag: 'Strategy',
   },
   {
-    title: 'Chargeback Rebuttal Letter Guide',
+    title: 'Visa Reason Code 13.1: Merchandise Not Received',
     description:
-      'How to write a compelling rebuttal letter that addresses the specific reason code and presents evidence card networks need to see.',
-    href: '/guides/chargeback-rebuttal-letter',
-    icon: BookOpen,
-    tag: 'Writing',
+      'Complete guide to fighting Visa reason code 13.1 disputes. Learn required evidence, response deadlines, and proven strategies to win merchandise-not-received chargebacks.',
+    href: '/guides/visa-reason-code-13-1',
+    icon: CreditCard,
+    tag: 'Reason Code',
   },
   {
-    title: 'Chargeback Response Deadlines',
+    title: 'Mastercard Reason Code 4853: Cardholder Dispute',
     description:
-      'Every deadline you need to know — Visa, Mastercard, Amex, and Discover response windows, plus Stripe-specific timelines.',
-    href: '/guides/chargeback-response-deadlines',
-    icon: Clock,
-    tag: 'Reference',
+      'How to respond to Mastercard reason code 4853 chargebacks. Covers all sub-reason codes, required evidence, and step-by-step response strategies.',
+    href: '/guides/mastercard-reason-code-4853',
+    icon: CreditCard,
+    tag: 'Reason Code',
+  },
+  {
+    title: 'Shopify Chargeback Response Guide',
+    description:
+      'How to respond to chargebacks on Shopify. Platform-specific evidence requirements, Shopify Protect details, and step-by-step dispute resolution for Shopify merchants.',
+    href: '/guides/shopify-chargeback-response',
+    icon: Store,
+    tag: 'Shopify',
+  },
+  {
+    title: 'PayPal Dispute Response Guide',
+    description:
+      'Navigate PayPal disputes, claims, and chargebacks. Understand Seller Protection eligibility, evidence requirements, and how to escalate or resolve PayPal disputes.',
+    href: '/guides/paypal-dispute-response',
+    icon: Store,
+    tag: 'PayPal',
+  },
+  {
+    title: 'Square Chargeback Response Guide',
+    description:
+      'Fight chargebacks on Square with confidence. Covers Square\'s dispute process, free chargeback protection program, evidence requirements, and response strategies.',
+    href: '/guides/square-chargeback-response',
+    icon: Store,
+    tag: 'Square',
+  },
+  {
+    title: 'SaaS Chargeback Prevention',
+    description:
+      'Prevent and fight chargebacks unique to SaaS and subscription businesses. Covers trial abuse, cancellation disputes, renewal chargebacks, and subscription evidence strategies.',
+    href: '/guides/saas-chargeback-prevention',
+    icon: Code,
+    tag: 'SaaS',
+  },
+  {
+    title: 'Friendly Fraud Prevention Guide',
+    description:
+      'Identify, prevent, and fight friendly fraud (first-party fraud). Learn the warning signs, prevention strategies, and evidence needed to win disputes from legitimate customers.',
+    href: '/guides/friendly-fraud-prevention',
+    icon: AlertTriangle,
+    tag: 'Fraud',
   },
 ]
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Chargeback Guides for Stripe Merchants',
-  description:
-    'Free guides on chargeback prevention, rebuttal letters, evidence requirements, and winning disputes.',
-  url: 'https://chargebackkit.app/guides',
-  mainEntity: guides.map((g) => ({
-    '@type': 'Article',
-    name: g.title,
-    url: `https://chargebackkit.app${g.href}`,
-    description: g.description,
-  })),
-}
-
-export default function GuidesIndexPage() {
+export default function GuidesPage() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
+    <main className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-brand-900 pt-20 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm text-emerald-400 uppercase tracking-widest font-medium mb-4">
-            FREE RESOURCES
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight tracking-tight mb-6">
-            Chargeback Guides for Merchants
+      <section className="bg-gradient-to-b from-brand-950 to-brand-900 text-white py-20">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            Chargeback Guides
           </h1>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Everything you need to prevent, respond to, and win chargeback disputes — written specifically for Stripe merchants.
+          <p className="text-xl text-brand-200 max-w-2xl mx-auto">
+            Free, expert-written guides to help Stripe, Shopify, PayPal, and Square merchants prevent chargebacks,
+            build winning evidence, and recover lost revenue.
           </p>
         </div>
       </section>
 
       {/* Guide Cards */}
-      <section className="bg-white py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {guides.map(({ title, description, href, icon: Icon, tag }) => (
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {guides.map((guide) => {
+            const Icon = guide.icon
+            return (
               <Link
-                key={href}
-                href={href}
-                className="group block bg-white rounded-xl border border-slate-200 p-6 hover:border-brand-300 hover:shadow-md transition-all duration-200"
+                key={guide.href}
+                href={guide.href}
+                className="group block bg-white border border-brand-100 rounded-2xl p-6 hover:border-emerald-500 hover:shadow-lg transition-all duration-200"
               >
-                <div className="flex items-start gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center group-hover:bg-brand-100 transition-colors">
-                    <Icon size={22} className="text-brand-800" strokeWidth={1.5} />
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center group-hover:bg-emerald-50 transition-colors">
+                    <Icon className="w-5 h-5 text-brand-700 group-hover:text-emerald-600 transition-colors" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="inline-block text-xs font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
-                        {tag}
-                      </span>
-                    </div>
-                    <h2 className="text-lg font-semibold text-slate-900 group-hover:text-brand-800 transition-colors mb-2">
-                      {title}
-                    </h2>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-3">
-                      {description}
-                    </p>
-                    <span className="inline-flex items-center gap-1 text-sm font-medium text-brand-700 group-hover:text-brand-800">
-                      Read guide
-                      <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                    </span>
-                  </div>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-brand-500">
+                    {guide.tag}
+                  </span>
                 </div>
+                <h2 className="text-lg font-semibold text-brand-900 mb-2 group-hover:text-emerald-700 transition-colors">
+                  {guide.title}
+                </h2>
+                <p className="text-sm text-brand-600 mb-4 leading-relaxed">
+                  {guide.description}
+                </p>
+                <span className="inline-flex items-center text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
+                  Read guide
+                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </span>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* More Resources */}
-      <section className="bg-slate-50 py-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-slate-900 text-center mb-8">
-            More resources
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <Link
-              href="/stripe-chargeback-evidence"
-              className="block bg-white rounded-lg border border-slate-200 p-5 hover:border-brand-300 hover:shadow-sm transition-all text-center"
-            >
-              <h3 className="font-semibold text-slate-900 mb-1">Stripe Evidence Guide</h3>
-              <p className="text-sm text-slate-500">Complete Stripe chargeback response walkthrough</p>
-            </Link>
-            <Link
-              href="/chargeback-evidence-checklist"
-              className="block bg-white rounded-lg border border-slate-200 p-5 hover:border-brand-300 hover:shadow-sm transition-all text-center"
-            >
-              <h3 className="font-semibold text-slate-900 mb-1">Evidence Checklist</h3>
-              <p className="text-sm text-slate-500">Required evidence by dispute category</p>
-            </Link>
-            <Link
-              href="/pricing"
-              className="block bg-white rounded-lg border border-slate-200 p-5 hover:border-brand-300 hover:shadow-sm transition-all text-center"
-            >
-              <h3 className="font-semibold text-slate-900 mb-1">Build Your Pack</h3>
-              <p className="text-sm text-slate-500">Get a submission-ready evidence pack — $39</p>
-            </Link>
-          </div>
+            )
+          })}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-brand-800 py-16 px-4 sm:px-6 lg:px-8 text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            Need to respond to a chargeback now?
+      <section className="bg-brand-950 text-white py-16">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold mb-4">
+            Ready to Fight Your Chargeback?
           </h2>
-          <p className="text-slate-300 mb-8">
-            Build a submission-ready evidence pack in 30 minutes.
+          <p className="text-brand-200 mb-8 text-lg">
+            ChargebackKit builds your complete evidence package in minutes — not hours.
+            Upload your data, and we handle the rest.
           </p>
           <Link
-            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
-            className="inline-flex items-center gap-2 bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-emerald-600 transition-colors shadow-lg"
+            href="/#pricing"
+            className="inline-flex items-center px-8 py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-600 transition-colors text-lg"
           >
-            Build My Evidence Pack — $39
-            <ArrowRight size={18} />
+            Build Your Evidence Pack — \$39
+            <ArrowRight className="w-5 h-5 ml-2" />
           </Link>
-          <p className="mt-4 text-sm text-slate-400">
-            $39 · No subscription · 72-hour access
-          </p>
         </div>
       </section>
-    </>
+    </main>
   )
 }
