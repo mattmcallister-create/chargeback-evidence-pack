@@ -78,12 +78,71 @@ const organizationSchema = {
   operatingSystem: 'Web',
 }
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is a chargeback evidence pack?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A chargeback evidence pack is a structured collection of documents, transaction records, and supporting evidence formatted specifically for submission to card networks like Visa and Mastercard. It includes a rebuttal letter, labeled exhibits, and a cover page organized to match the requirements of your specific dispute reason code.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long does it take to build a chargeback evidence pack?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'With ChargebackKit, you can build a submission-ready evidence pack in about 30 minutes. Without a tool, merchants typically spend 3 to 5 hours gathering evidence, formatting documents, and writing rebuttal letters for a single dispute.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the average chargeback win rate?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The average merchant wins about 30 percent of chargeback disputes. However, merchants who submit properly formatted, category-specific evidence with compelling rebuttal narratives can achieve win rates of 60 to 80 percent depending on the dispute type.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does ChargebackKit work with Stripe, Shopify, and PayPal?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ChargebackKit generates evidence packs formatted for all major payment processors including Stripe, Shopify Payments, PayPal, Square, and direct merchant accounts. The output PDF can be uploaded directly to any processor dispute portal.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much does ChargebackKit cost?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ChargebackKit costs 39 dollars per evidence pack with no subscription required. This is a fraction of the 300 to 500 dollars that chargeback consultants typically charge for the same work, and there are no monthly fees or commitments.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What types of chargebacks can I fight with ChargebackKit?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'ChargebackKit supports all major dispute categories including fraudulent or unauthorized transactions, product not received, product not as described, subscription cancellation disputes, duplicate charges, and credit not processed. Each category has tailored evidence requirements and rebuttal templates.',
+      },
+    },
+  ],
+}
+
 export default function HomePage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       {/* ─── HERO ─────────────────────────────────────────────────────────── */}
@@ -351,6 +410,27 @@ export default function HomePage() {
               See all frequently asked questions →
             </Link>
           </p>
+        </div>
+      </section>
+
+      {/* ─── FAQ ──────────────────────────────────────────────────────────── */}
+      <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-brand-50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-brand-900 text-center mb-12">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-6">
+            {faqSchema.mainEntity.map((item, i) => (
+              <div key={i} className="bg-white rounded-xl border border-brand-100 p-6">
+                <h3 className="text-lg font-semibold text-brand-900 mb-3">
+                  {item.name}
+                </h3>
+                <p className="text-brand-600 leading-relaxed">
+                  {item.acceptedAnswer.text}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
