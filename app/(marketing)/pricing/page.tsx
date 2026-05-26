@@ -1,16 +1,16 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Check, Shield, Download, FileText, Clock } from 'lucide-react'
+import { ArrowRight, Check, Shield, Download, FileText, Clock, ChevronDown } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Evidence Pack Pricing â Starting at $19 | ChargebackKit',
+  title: 'Evidence Pack Pricing \u2014 Starting at $19 | ChargebackKit',
   description:
     'ChargebackKit pricing: single packs from $19, volume discounts up to 45% off. No subscription. One payment, submission-ready evidence pack for your dispute type.',
   alternates: {
     canonical: '/pricing/',
   },
   openGraph: {
-    title: 'Evidence Pack Pricing â Starting at $19 | ChargebackKit',
+    title: 'Evidence Pack Pricing \u2014 Starting at $19 | ChargebackKit',
     description:
       'ChargebackKit pricing: single packs from $19, volume packs available. No subscription required.',
     url: '/pricing/',
@@ -68,7 +68,7 @@ const included = [
   {
     icon: FileText,
     title: 'Category-specific evidence structure',
-    desc: 'Your pack is organised around the exact evidence fields that matter for your dispute type â not generic chargeback guidance.',
+    desc: 'Your pack is organised around the exact evidence fields that matter for your dispute type \u2014 not generic chargeback guidance.',
   },
   {
     icon: Check,
@@ -78,7 +78,7 @@ const included = [
   {
     icon: FileText,
     title: 'Formatted PDF ready for Stripe',
-    desc: 'A single labeled PDF with cover page, rebuttal narrative, and organised exhibits â ready to upload to Stripe\'s evidence submission portal.',
+    desc: 'A single labeled PDF with cover page, rebuttal narrative, and organised exhibits \u2014 ready to upload to Stripe\'s evidence submission portal.',
   },
   {
     icon: Download,
@@ -87,8 +87,8 @@ const included = [
   },
   {
     icon: Clock,
-    title: 'Start immediately â no signup required',
-    desc: 'Begin building your evidence pack right away. No account creation needed upfront â sign up later if you want to save your pack reference.',
+    title: 'Start immediately \u2014 no signup required',
+    desc: 'Begin building your evidence pack right away. No account creation needed upfront \u2014 sign up later if you want to save your pack reference.',
   },
   {
     icon: Shield,
@@ -100,11 +100,11 @@ const included = [
 const pricingFaqs = [
   {
     q: 'Will this guarantee I win my chargeback?',
-    a: 'No product can guarantee a chargeback outcome. Card networks â not this product â make the final determination. What ChargebackKit guarantees is that your evidence is structured correctly for your dispute type. That is the part in your control.',
+    a: 'No product can guarantee a chargeback outcome. Card networks \u2014 not this product \u2014 make the final determination. What ChargebackKit guarantees is that your evidence is structured correctly for your dispute type. That is the part in your control.',
   },
   {
     q: 'Is there a subscription?',
-    a: 'No. Every tier is a one-time purchase â no monthly fees, no recurring charges. Buy a single pack for $19 or save with volume packs: 5-Pack ($79), 10-Pack ($129), or 25-Pack ($269).',
+    a: 'No. Every tier is a one-time purchase \u2014 no monthly fees, no recurring charges. Buy a single pack for $19 or save with volume packs: 5-Pack ($79), 10-Pack ($129), or 25-Pack ($269).',
   },
   {
     q: 'Can I regenerate my pack if I need to make changes?',
@@ -120,7 +120,7 @@ const pricingFaqs = [
   },
   {
     q: 'How do volume packs work?',
-    a: 'Volume packs give you credits for multiple evidence packs at a discounted per-pack price. Use them whenever you have disputes â they do not expire. The 5-Pack drops your cost to $15.80/pack, the 10-Pack to $12.90/pack, and the 25-Pack to just $10.76/pack.',
+    a: 'Volume packs give you credits for multiple evidence packs at a discounted per-pack price. Use them whenever you have disputes \u2014 they do not expire. The 5-Pack drops your cost to $15.80/pack, the 10-Pack to $12.90/pack, and the 25-Pack to just $10.76/pack.',
   },
 ]
 
@@ -142,21 +142,21 @@ const softwareSchema = {
       name: '5-Pack',
       price: '79.00',
       priceCurrency: 'USD',
-      description: 'Five evidence packs at $15.80 each â save 17%.',
+      description: 'Five evidence packs at $15.80 each \u2014 save 17%.',
     },
     {
       '@type': 'Offer',
       name: '10-Pack',
       price: '129.00',
       priceCurrency: 'USD',
-      description: 'Ten evidence packs at $12.90 each â save 32%.',
+      description: 'Ten evidence packs at $12.90 each \u2014 save 32%.',
     },
     {
       '@type': 'Offer',
       name: '25-Pack',
       price: '269.00',
       priceCurrency: 'USD',
-      description: 'Twenty-five evidence packs at $10.76 each â save 43%.',
+      description: 'Twenty-five evidence packs at $10.76 each \u2014 save 43%.',
     },
   ],
 }
@@ -278,14 +278,14 @@ export default function PricingPage() {
               <tbody>
                 <tr className="border-b border-slate-100">
                   <td className="px-6 py-4 text-slate-700">Chargeback consultant</td>
-                  <td className="px-6 py-4 text-slate-700">$300â$500</td>
-                  <td className="px-6 py-4 text-slate-700">1â3 days</td>
+                  <td className="px-6 py-4 text-slate-700">$300&ndash;$500</td>
+                  <td className="px-6 py-4 text-slate-700">1&ndash;3 days</td>
                   <td className="px-6 py-4 text-slate-500">Varies by consultant</td>
                 </tr>
                 <tr className="border-b border-slate-100">
                   <td className="px-6 py-4 text-slate-700">DIY with ChatGPT</td>
                   <td className="px-6 py-4 text-slate-700">$0</td>
-                  <td className="px-6 py-4 text-slate-700">2â4 hours</td>
+                  <td className="px-6 py-4 text-slate-700">2&ndash;4 hours</td>
                   <td className="px-6 py-4 text-slate-500">Generic, may miss reason-code requirements</td>
                 </tr>
                 <tr className="bg-brand-50">
@@ -298,7 +298,7 @@ export default function PricingPage() {
             </table>
           </div>
           <p className="text-center mt-4 text-sm text-slate-500">
-            A chargeback consultant charges $300â$500. Evidence packs start at $19 and take 30 minutes.
+            A chargeback consultant charges $300&ndash;$500. Evidence packs start at $19 and take 30 minutes.
           </p>
         </div>
       </section>
@@ -309,7 +309,7 @@ export default function PricingPage() {
           <div className="bg-white rounded-xl p-6 border border-slate-200">
             <h3 className="font-semibold text-slate-900 mb-2">About chargeback outcomes</h3>
             <p className="text-sm text-slate-600 leading-relaxed">
-              We can&apos;t guarantee a chargeback outcome â no one can. Card networks make the
+              We can&apos;t guarantee a chargeback outcome &mdash; no one can. Card networks make the
               final determination based on the evidence submitted and their internal rules.
               What ChargebackKit does guarantee is that your evidence is structured the way card
               networks expect to see it for your specific dispute type. That is the part in your
@@ -329,7 +329,7 @@ export default function PricingPage() {
                 <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
                   {q}
                   <span className="shrink-0 ml-4 text-slate-400 group-open:rotate-180 transition-transform">
-                    â
+                    &darr;
                   </span>
                 </summary>
                 <div className="px-5 pb-4 text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-3">
@@ -350,7 +350,7 @@ export default function PricingPage() {
       <section className="bg-brand-800 py-20 px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold text-white mb-4">
-            Get started â from $19
+            Get started &mdash; from $19
           </h2>
           <p className="text-slate-300 text-lg mb-8">
             One pack or volume pricing. Submission-ready in 30 minutes.
@@ -359,11 +359,11 @@ export default function PricingPage() {
             href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
           >
-            Build My Evidence Pack â $19
+            Build My Evidence Pack &mdash; $19
             <ArrowRight size={18} />
           </Link>
           <p className="mt-4 text-sm text-slate-400">
-            Secure checkout via Stripe Â· No subscription Â· Volume discounts available
+            Secure checkout via Stripe &middot; No subscription &middot; Volume discounts available
           </p>
         </div>
       </section>
