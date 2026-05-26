@@ -102,7 +102,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
             <Link
               href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
-              className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
+              className="inline-flex items-center gap-2 bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-emerald-600 transition-colors shadow-lg"
             >
               Build My Evidence Pack — $39
               <ArrowRight size={18} />
@@ -240,7 +240,7 @@ export default function HomePage() {
           <div className="mt-8 text-center">
             <Link
               href="/pricing/"
-              className="inline-flex items-center gap-2 bg-brand-800 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-700 transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-emerald-600 transition-colors shadow-sm"
             >
               Build My Evidence Pack — $39
               <ArrowRight size={18} />
@@ -365,7 +365,7 @@ export default function HomePage() {
           </p>
           <Link
             href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
-            className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
+            className="inline-flex items-center gap-2 bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-emerald-600 transition-colors shadow-lg"
           >
             Build My Evidence Pack — $39
             <ArrowRight size={18} />
