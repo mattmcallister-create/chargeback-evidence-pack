@@ -52,6 +52,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
     },
     {
+            url: `${baseUrl}/guides`,
+            lastModified: today,
+            changeFrequency: 'monthly',
+            priority: 0.9,
+    },
+    {
             url: `${baseUrl}/guides/chargeback-response-deadlines`,
             lastModified: today,
             changeFrequency: 'monthly',
