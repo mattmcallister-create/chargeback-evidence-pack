@@ -202,16 +202,58 @@ export default function PayPalDisputeResponsePage() {
         </div>
       </section>
 
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-        <div className="space-y-6">
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How long do I have to respond to a PayPal dispute?</h3><p className="text-gray-700">You have 10 days to respond to a PayPal dispute before it automatically escalates to a claim. Once escalated to a claim, you have 10 additional days to provide evidence. Missing these deadlines means PayPal will decide in the buyer's favor.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">What is PayPal Seller Protection?</h3><p className="text-gray-700">PayPal Seller Protection covers eligible transactions against unauthorized payment claims and item-not-received disputes. To qualify, you must ship to the confirmed address, use trackable shipping for items over $750, and respond to disputes within PayPal's deadlines.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">What is the difference between a PayPal dispute and a claim?</h3><p className="text-gray-700">A dispute is the initial stage where the buyer contacts you through PayPal's Resolution Center. A claim occurs when the dispute escalates and PayPal steps in to make a decision. You can resolve disputes directly with buyers, but claims require formal evidence submission.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">Can I appeal a PayPal chargeback decision?</h3><p className="text-gray-700">Yes, you can appeal a PayPal claim decision within 10 days if you have new evidence. For bank-initiated chargebacks processed through PayPal, you can submit evidence through PayPal's Resolution Center, and PayPal will forward it to the card issuer.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How much does a PayPal chargeback cost?</h3><p className="text-gray-700">PayPal charges a $20 chargeback fee per dispute (varies by currency and region). This fee is charged regardless of the outcome. If you qualify for Seller Protection, PayPal may waive the fee and cover the full transaction amount.</p></div>
-        </div>
-      </section>
+        <section className="section bg-white px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How long do I have to respond to a PayPal dispute?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  You have 10 days to respond to a PayPal dispute before it automatically escalates to a claim. Once escalated to a claim, you have 10 additional days to provide evidence. Missing these deadlines means PayPal will decide in the buyer's favor.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is PayPal Seller Protection?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  PayPal Seller Protection covers eligible transactions against unauthorized payment claims and item-not-received disputes. To qualify, you must ship to the confirmed address, use trackable shipping for items over $750, and respond to disputes within PayPal's deadlines.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is the difference between a PayPal dispute and a claim?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  A dispute is the initial stage where the buyer contacts you through PayPal's Resolution Center. A claim occurs when the dispute escalates and PayPal steps in to make a decision. You can resolve disputes directly with buyers, but claims require formal evidence submission.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Can I appeal a PayPal chargeback decision?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Yes, you can appeal a PayPal claim decision within 10 days if you have new evidence. For bank-initiated chargebacks processed through PayPal, you can submit evidence through PayPal's Resolution Center, and PayPal will forward it to the card issuer.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How much does a PayPal chargeback cost?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  PayPal charges a $20 chargeback fee per dispute (varies by currency and region). This fee is charged regardless of the outcome. If you qualify for Seller Protection, PayPal may waive the fee and cover the full transaction amount.
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
 
       <section className="bg-brand-50 rounded-lg p-8 text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Build Your PayPal Dispute Evidence Pack</h2>
