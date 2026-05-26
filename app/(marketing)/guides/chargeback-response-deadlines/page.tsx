@@ -77,6 +77,15 @@ export default function ChargebackResponseDeadlinesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howtoSchema) }} />
 
       <div className="max-w-4xl mx-auto px-4 py-16">
+        {/* Breadcrumb */}
+        <nav className="mb-8 text-sm">
+          <Link href="/guides" className="text-brand-700 hover:text-brand-800 font-medium">
+            Guides
+          </Link>
+          <span className="mx-2 text-slate-400">/</span>
+          <span className="text-slate-600">Response Deadlines</span>
+        </nav>
+
         <h1 className="text-4xl font-bold mb-6 text-gray-900">
           Chargeback Response Deadlines: Complete Guide by Card Network
         </h1>
@@ -134,7 +143,7 @@ export default function ChargebackResponseDeadlinesPage() {
         {/* Visa Section */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-4 text-gray-900">Visa</h2>
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6 rounded">
+          <div className="bg-brand-50 border-l-4 border-brand-800 p-6 mb-6 rounded">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Response Deadline: 30 Days</h3>
             <p className="text-gray-700">Visa cardholders have 120 days from the transaction date to file a chargeback. Once you receive a dispute notification, you have 30 days to submit your evidence response.</p>
           </div>
@@ -187,11 +196,11 @@ export default function ChargebackResponseDeadlinesPage() {
         <section className="bg-gray-50 rounded-lg p-8 mb-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900">Key Takeaways</h2>
           <div className="space-y-4">
-            <div className="flex gap-3"><span className="flex-shrink-0 text-blue-600 font-bold">1.</span><span className="text-gray-700">Deadlines are non-negotiable. Missing your deadline results in automatic loss and permanent fund deduction.</span></div>
-            <div className="flex gap-3"><span className="flex-shrink-0 text-blue-600 font-bold">2.</span><span className="text-gray-700">American Express has the shortest deadline (20 days); Mastercard the longest (45 days).</span></div>
-            <div className="flex gap-3"><span className="flex-shrink-0 text-blue-600 font-bold">3.</span><span className="text-gray-700">The clock starts when you are notified by your payment processor, not from the transaction date.</span></div>
-            <div className="flex gap-3"><span className="flex-shrink-0 text-blue-600 font-bold">4.</span><span className="text-gray-700">Submit evidence early and often. Do not wait until the last day.</span></div>
-            <div className="flex gap-3"><span className="flex-shrink-0 text-blue-600 font-bold">5.</span><span className="text-gray-700">Each card network has different preferences for evidence format and organization.</span></div>
+            <div className="flex gap-3"><span className="flex-shrink-0 text-brand-700 font-bold">1.</span><span className="text-gray-700">Deadlines are non-negotiable. Missing your deadline results in automatic loss and permanent fund deduction.</span></div>
+            <div className="flex gap-3"><span className="flex-shrink-0 text-brand-700 font-bold">2.</span><span className="text-gray-700">American Express has the shortest deadline (20 days); Mastercard the longest (45 days).</span></div>
+            <div className="flex gap-3"><span className="flex-shrink-0 text-brand-700 font-bold">3.</span><span className="text-gray-700">The clock starts when you are notified by your payment processor, not from the transaction date.</span></div>
+            <div className="flex gap-3"><span className="flex-shrink-0 text-brand-700 font-bold">4.</span><span className="text-gray-700">Submit evidence early and often. Do not wait until the last day.</span></div>
+            <div className="flex gap-3"><span className="flex-shrink-0 text-brand-700 font-bold">5.</span><span className="text-gray-700">Each card network has different preferences for evidence format and organization.</span></div>
           </div>
         </section>
 
@@ -199,23 +208,23 @@ export default function ChargebackResponseDeadlinesPage() {
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900">How to Never Miss a Deadline</h2>
           <div className="space-y-6">
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">1. Monitor Your Dashboard Daily</h3>
               <p className="text-gray-700">Check your payment processor for new disputes every morning. Email notifications can be delayed or missed.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">2. Set Calendar Reminders</h3>
               <p className="text-gray-700">When you see a dispute, immediately calculate your deadline and set reminders 5 days, 2 days, and 1 day before.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">3. Create a Response Template</h3>
               <p className="text-gray-700">Build a standard evidence organization template for your team. This speeds up response time.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">4. Gather Evidence Immediately</h3>
               <p className="text-gray-700">The moment you see a dispute, start collecting transaction records, customer communications, and delivery proof.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">5. Submit Early</h3>
               <p className="text-gray-700">Submit your evidence by day 10-14 of your response window. This protects against technical issues.</p>
             </div>
@@ -246,16 +255,16 @@ export default function ChargebackResponseDeadlinesPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-blue-50 rounded-lg p-8 text-center mb-12">
+        <section className="bg-brand-50 rounded-lg p-8 text-center mb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Never Miss a Deadline Again</h2>
           <p className="text-gray-700 mb-6">ChargebackKit tracks your deadlines automatically and alerts you before they expire. Respond faster, stay organized, and win more disputes.</p>
-          <Link href="/how-it-works" className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">See How It Works</Link>
+          <Link href="/how-it-works" className="inline-block bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-emerald-600 transition-colors">See How It Works</Link>
         </section>
 
         {/* Internal Links Footer */}
         <div className="mt-12 pt-8 border-t border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Resources</h3>
-          <ul className="space-y-2 text-blue-600">
+          <ul className="space-y-2 text-brand-700">
             <li><Link href="/stripe-chargeback-evidence" className="hover:underline">Stripe Chargeback Evidence: What to Submit &amp; How</Link></li>
             <li><Link href="/chargeback-evidence-checklist" className="hover:underline">Chargeback Evidence Checklist: Complete Guide by Dispute Type</Link></li>
             <li><Link href="/pricing" className="hover:underline">ChargebackKit Pricing &amp; Plans</Link></li>
