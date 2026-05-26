@@ -168,16 +168,68 @@ export default function FriendlyFraudPreventionPage() {
         </div>
       </section>
 
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-        <div className="space-y-6">
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">What is friendly fraud?</h3><p className="text-gray-700">Friendly fraud (also called first-party fraud or chargeback fraud) occurs when a legitimate cardholder makes a purchase and then disputes the charge with their bank instead of requesting a refund from the merchant. The customer received the product or service but claims otherwise to get their money back while keeping the item.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How common is friendly fraud?</h3><p className="text-gray-700">Friendly fraud accounts for an estimated 60-80% of all chargebacks according to industry research. It costs merchants over $50 billion annually worldwide. The problem has grown significantly with the rise of e-commerce and digital subscriptions.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How can I tell if a chargeback is friendly fraud?</h3><p className="text-gray-700">Key indicators include: the customer has a history of successful purchases, tracking shows delivery was confirmed, the customer continued using a digital service after the disputed charge, the customer did not contact you for a refund before filing a dispute, or the customer disputes only one charge in a series of recurring payments.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">Can I win a friendly fraud chargeback?</h3><p className="text-gray-700">Yes, friendly fraud chargebacks are winnable with proper evidence. You need to prove the customer authorized the transaction, received the product/service, and did not attempt to resolve the issue directly. Key evidence includes delivery confirmation, usage logs, IP address matching, and communication records.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">Is friendly fraud illegal?</h3><p className="text-gray-700">Friendly fraud can constitute wire fraud or theft of services, which are illegal. However, prosecution is rare because individual amounts are typically small, intent is difficult to prove, and the legal system has not kept pace with e-commerce fraud. Some states have begun passing specific chargeback fraud laws.</p></div>
-        </div>
-      </section>
+      <section className="section bg-white px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently asked questions</h2>
+            <div className="space-y-4">
+          <details key="What is friendly fraud?" className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is friendly fraud?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">
+                    ↓
+                  </span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Friendly fraud (also called first-party fraud or chargeback fraud) occurs when a legitimate cardholder makes a purchase and then disputes the charge with their bank instead of requesting a refund from the merchant. The customer received the product or service but claims otherwise to get their money back while keeping the item.
+                </div>
+              </details>
+          <details key="How common is friendly fraud?" className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How common is friendly fraud?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">
+                    ↓
+                  </span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Friendly fraud accounts for an estimated 60-80% of all chargebacks according to industry research. It costs merchants over $50 billion annually worldwide. The problem has grown significantly with the rise of e-commerce and digital subscriptions.
+                </div>
+              </details>
+          <details key="How can I tell if a chargeback is friendly fraud?" className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How can I tell if a chargeback is friendly fraud?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">
+                    ↓
+                  </span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Key indicators include: the customer has a history of successful purchases, tracking shows delivery was confirmed, the customer continued using a digital service after the disputed charge, the customer did not contact you for a refund before filing a dispute, or the customer disputes only one charge in a series of recurring payments.
+                </div>
+              </details>
+          <details key="Can I win a friendly fraud chargeback?" className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Can I win a friendly fraud chargeback?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">
+                    ↓
+                  </span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Yes, friendly fraud chargebacks are winnable with proper evidence. You need to prove the customer authorized the transaction, received the product/service, and did not attempt to resolve the issue directly. Key evidence includes delivery confirmation, usage logs, IP address matching, and communication records.
+                </div>
+              </details>
+          <details key="Is friendly fraud illegal?" className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Is friendly fraud illegal?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">
+                    ↓
+                  </span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Friendly fraud can constitute wire fraud or theft of services, which are illegal. However, prosecution is rare because individual amounts are typically small, intent is difficult to prove, and the legal system has not kept pace with e-commerce fraud. Some states have begun passing specific chargeback fraud laws.
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
 
       <section className="bg-brand-50 rounded-lg p-8 text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Fight Back Against Friendly Fraud</h2>
