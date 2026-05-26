@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Visa Reason Code 13.1: How to Fight "Merchandise Not Received" Chargebacks | ChargebackKit',
+  title: 'Visa Reason Code 13.1: How to Fight "Merchandise Not Received" Chargebacks',
   description:
     'Complete guide to Visa chargeback reason code 13.1 (Merchandise/Services Not Received). Learn evidence requirements, response deadlines, and how to win disputes.',
   alternates: {
     canonical: `${siteUrl}/guides/visa-reason-code-13-1`,
   },
   openGraph: {
-    title: 'Visa Reason Code 13.1: Fight "Not Received" Chargebacks | ChargebackKit',
+    title: 'Visa Reason Code 13.1: Fight "Not Received" Chargebacks',
     description:
       'Step-by-step guide to responding to Visa 13.1 chargebacks with the right evidence to win.',
     url: `${siteUrl}/guides/visa-reason-code-13-1`,
