@@ -4,6 +4,7 @@ const productLinks = [
   { label: 'How It Works', href: '/how-it-works/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'FAQ', href: '/faq/' },
+  { label: 'Guides', href: '/guides' },
 ]
 
 const categoryLinks = [
@@ -16,13 +17,12 @@ const categoryLinks = [
 ]
 
 const guideLinks = [
-  { label: 'Chargeback Rebuttal Letter', href: '/guide/chargeback-rebuttal-letter/' },
-  { label: 'Stripe Chargeback Response', href: '/guide/stripe-chargeback-response/' },
-  { label: 'Evidence Requirements', href: '/guide/chargeback-evidence-requirements/' },
-  { label: 'Reason Codes Explained', href: '/guide/chargeback-reason-codes/' },
+  { label: 'Chargeback Prevention', href: '/guides/chargeback-prevention' },
+  { label: 'How to Win a Chargeback', href: '/guides/how-to-win-a-chargeback' },
+  { label: 'Chargeback Rebuttal Letter', href: '/guides/chargeback-rebuttal-letter' },
   { label: 'Response Deadlines', href: '/guides/chargeback-response-deadlines' },
-    { label: 'Stripe Evidence Guide', href: '/stripe-chargeback-evidence' },
-    { label: 'Evidence Checklist', href: '/chargeback-evidence-checklist' },
+  { label: 'Stripe Evidence Guide', href: '/stripe-chargeback-evidence' },
+  { label: 'Evidence Checklist', href: '/chargeback-evidence-checklist' },
 ]
 
 const legalLinks = [
@@ -30,6 +30,41 @@ const legalLinks = [
   { label: 'Privacy Policy', href: '/privacy/' },
   { label: 'Refund Policy', href: '/refund/' },
 ]
+
+function FooterShield() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="text-emerald-400"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"
+        fill="currentColor"
+        opacity="0.15"
+      />
+      <path
+        d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M9 12l2 2 4-4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 export default function MarketingFooter() {
   const year = new Date().getFullYear()
@@ -43,7 +78,8 @@ export default function MarketingFooter() {
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-3">
+            <Link href="/" className="inline-flex items-center gap-2 mb-3">
+              <FooterShield />
               <span className="text-white font-semibold text-base leading-tight">
                 ChargebackKit
               </span>
@@ -100,7 +136,7 @@ export default function MarketingFooter() {
         {/* Bottom bar */}
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-xs">
-            © {year} ChargebackKit. All rights reserved.
+            \u00a9 {year} ChargebackKit. All rights reserved.
           </p>
 
           <div className="flex flex-wrap gap-4 text-xs">
@@ -121,4 +157,4 @@ export default function MarketingFooter() {
       </div>
     </footer>
   )
-}
+  }
