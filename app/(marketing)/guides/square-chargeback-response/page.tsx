@@ -203,14 +203,56 @@ export default function SquareChargebackResponsePage() {
         </div>
       </section>
 
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-        <div className="space-y-6">
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How long do I have to respond to a Square chargeback?</h3><p className="text-gray-700">Square gives you 7 days to respond to a chargeback dispute after notification. If you don't respond within this window, you automatically lose the dispute. Square recommends responding as quickly as possible with all relevant evidence.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">Does Square charge a chargeback fee?</h3><p className="text-gray-700">Square does not charge a chargeback fee to merchants. This is a significant advantage over other processors like Stripe ($15) and PayPal ($20). However, the disputed amount is still held during the review process.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">What is Square's chargeback protection program?</h3><p className="text-gray-700">Square offers chargeback protection for eligible transactions up to $250 per month. This covers disputes on qualifying chip-read, contactless, or swiped transactions. Online and manually keyed transactions are not covered by this protection.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How do I submit evidence for a Square dispute?</h3><p className="text-gray-700">You submit evidence through the Square Dashboard or Square app. Go to Transactions, find the disputed payment, and click Respond to Dispute. Upload relevant documents including receipts, shipping tracking, customer communications, and proof of delivery.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">What happens if I lose a Square chargeback?</h3><p className="text-gray-700">If you lose a Square chargeback, the disputed amount is deducted from your Square balance. Unlike some processors, Square does not charge an additional chargeback fee. Excessive chargebacks may affect your account standing and processing eligibility.</p></div>
+      <section className="section bg-white px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <details key="How long do I have to respond to a Square chargeback?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>How long do I have to respond to a Square chargeback?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Square gives you 7 days to respond to a chargeback dispute after notification. If you don&apos;t respond within this window, you automatically lose the dispute. Square recommends responding as quickly as possible with all relevant evidence.
+              </div>
+            </details>
+            <details key="Does Square charge a chargeback fee?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>Does Square charge a chargeback fee?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Square does not charge a chargeback fee to merchants. This is a significant advantage over other processors like Stripe ($15) and PayPal ($20). However, the disputed amount is still held during the review process.
+              </div>
+            </details>
+            <details key="What is Square&apos;s chargeback protection program?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>What is Square&apos;s chargeback protection program?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Square offers chargeback protection for eligible transactions up to $250 per month. This covers disputes on qualifying chip-read, contactless, or swiped transactions. Online and manually keyed transactions are not covered by this protection.
+              </div>
+            </details>
+            <details key="How do I submit evidence for a Square dispute?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>How do I submit evidence for a Square dispute?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                You submit evidence through the Square Dashboard or Square app. Go to Transactions, find the disputed payment, and click Respond to Dispute. Upload relevant documents including receipts, shipping tracking, customer communications, and proof of delivery.
+              </div>
+            </details>
+            <details key="What happens if I lose a Square chargeback?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>What happens if I lose a Square chargeback?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                If you lose a Square chargeback, the disputed amount is deducted from your Square balance. Unlike some processors, Square does not charge an additional chargeback fee. Excessive chargebacks may affect your account standing and processing eligibility.
+              </div>
+            </details>
+          </div>
         </div>
       </section>
 
