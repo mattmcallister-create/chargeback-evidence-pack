@@ -69,6 +69,15 @@ export default function ChargebackRebuttalLetterPage() {
       />
 
       <div className="max-w-4xl mx-auto px-4 py-16">
+        {/* Breadcrumb */}
+        <nav className="mb-8 text-sm">
+          <Link href="/guides" className="text-brand-700 hover:text-brand-800 font-medium">
+            Guides
+          </Link>
+          <span className="mx-2 text-slate-400">/</span>
+          <span className="text-slate-600">Rebuttal Letter Guide</span>
+        </nav>
+
         <h1 className="text-4xl font-bold mb-6 text-gray-900">
           Chargeback Rebuttal Letter: How to Write One That Wins
         </h1>
@@ -98,27 +107,27 @@ export default function ChargebackRebuttalLetterPage() {
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900">Essential Components of a Winning Rebuttal Letter</h2>
           <div className="space-y-6">
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">1. Header and Identifiers</h3>
               <p className="text-gray-700">Include your business name, merchant ID (MID), the acquirer reference number (ARN), chargeback case number, and dispute ID. These identifiers ensure your response is matched to the correct case.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">2. Transaction Summary</h3>
               <p className="text-gray-700">State the customer name, transaction date, amount, order ID, and a brief description of what was purchased. Keep this factual and concise.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">3. Reason Code Reference</h3>
               <p className="text-gray-700">Explicitly state the chargeback reason code and what the cardholder is claiming. This shows the reviewer you understand the specific dispute and are responding to the actual claim, not a generic scenario.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">4. Point-by-Point Refutation</h3>
               <p className="text-gray-700">Address each element of the cardholder&apos;s claim with specific evidence references. For example: &quot;The cardholder claims the product was not received. Exhibit A shows USPS tracking confirming delivery on [date] with signature confirmation.&quot;</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">5. Evidence Exhibit List</h3>
               <p className="text-gray-700">List every exhibit attached to your response with a brief description of what each proves. Label them clearly (Exhibit A, B, C) so the reviewer can cross-reference your narrative with the documentation.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">6. Professional Closing</h3>
               <p className="text-gray-700">End with a clear statement requesting reversal of the chargeback, your name, title, and business contact information. Sign the letter if submitting physically.</p>
             </div>
@@ -216,17 +225,17 @@ export default function ChargebackRebuttalLetterPage() {
           </div>
         </section>
 
-        <section className="bg-blue-50 rounded-lg p-8 text-center">
+        <section className="bg-brand-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Skip the Blank Page</h2>
           <p className="text-gray-700 mb-6">ChargebackKit generates a complete rebuttal narrative, labeled exhibits, and a cover page structured for your specific dispute type. No templates needed.</p>
-          <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
+          <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="inline-block bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-emerald-600 transition-colors">
             Build My Evidence Pack &mdash; $39
           </a>
         </section>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Resources</h3>
-          <ul className="space-y-2 text-blue-600">
+          <ul className="space-y-2 text-brand-700">
             <li><Link href="/stripe-chargeback-evidence" className="hover:underline">Stripe Chargeback Evidence: What to Submit &amp; How</Link></li>
             <li><Link href="/chargeback-evidence-checklist" className="hover:underline">Chargeback Evidence Checklist: Complete Guide by Dispute Type</Link></li>
             <li><Link href="/guides/chargeback-response-deadlines" className="hover:underline">Chargeback Response Deadlines: Complete Guide by Card Network</Link></li>
