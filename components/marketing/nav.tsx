@@ -7,8 +7,9 @@ import { Menu, X } from 'lucide-react'
 const navLinks = [
   { label: 'How It Works', href: '/how-it-works/' },
   { label: 'Pricing', href: '/pricing/' },
-  { label: 'FAQ', href: '/faq/' },
+  { label: 'Calculator', href: '/tools/chargeback-calculator/' },
   { label: 'Guides', href: '/guides' },
+  { label: 'FAQ', href: '/faq/' },
 ]
 
 function ShieldLogo() {
@@ -58,7 +59,7 @@ export default function MarketingNav() {
           <Link
             href="/"
             className="flex items-center gap-2 shrink-0"
-            aria-label="ChargebackKit — Home"
+            aria-label="ChargebackKit â Home"
           >
             <ShieldLogo />
             <span className="text-white font-bold text-lg tracking-tight">ChargebackKit</span>
@@ -86,11 +87,11 @@ export default function MarketingNav() {
               Log In
             </Link>
             <Link
-              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
+              href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
               className="inline-flex items-center gap-1.5 bg-emerald-500 text-white font-semibold text-sm px-4 py-2 rounded-md hover:bg-emerald-600 transition-colors duration-150 shadow-sm"
             >
               Create Pack
-              <span aria-hidden="true">→</span>
+              <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
 
@@ -129,11 +130,11 @@ export default function MarketingNav() {
               Log In
             </Link>
             <Link
-              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
+              href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
               className="block text-center py-2.5 bg-emerald-500 text-white font-semibold text-sm rounded-md hover:bg-emerald-600 transition-colors"
               onClick={() => setMobileOpen(false)}
             >
-              Create Pack →
+              Create Pack &rarr;
             </Link>
           </div>
         </div>
