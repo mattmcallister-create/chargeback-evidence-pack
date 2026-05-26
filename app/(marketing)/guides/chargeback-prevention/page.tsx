@@ -243,27 +243,49 @@ export default function ChargebackPreventionPage() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is the most effective way to prevent chargebacks?</h3>
-              <p className="text-gray-700">The most effective chargeback prevention combines multiple layers: clear billing descriptors so customers recognize charges, proactive communication including shipping notifications and delivery confirmations, responsive customer service with easy refund policies, and fraud screening tools like AVS, CVV verification, and 3D Secure authentication.</p>
+        <section className="section bg-white px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is the most effective way to prevent chargebacks?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  The most effective chargeback prevention combines multiple layers: clear billing descriptors so customers recognize charges, proactive communication including shipping notifications and delivery confirmations, responsive customer service with easy refund policies, and fraud screening tools like AVS, CVV verification, and 3D Secure authentication.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is chargeback prevention?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Chargeback prevention refers to the strategies, tools, and processes merchants use to reduce the number of payment disputes filed by cardholders. It includes fraud detection, clear billing practices, responsive customer service, and use of network tools like Visa Compelling Evidence 3.0 and chargeback alert services.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What chargeback ratio is considered too high?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Visa flags merchants who exceed a 0.9% chargeback ratio (disputes to transactions) or 100 disputes per month for their Visa Dispute Monitoring Program (VDMP). Mastercard has similar thresholds through its Excessive Chargeback Merchant program. Exceeding these thresholds can lead to fines, increased processing fees, or account termination.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Can chargebacks be prevented entirely?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  No business can prevent 100% of chargebacks. Some disputes involve genuine fraud or legitimate customer complaints. However, merchants can reduce chargeback rates by 50&ndash;80% through proper prevention strategies, keeping their ratio well below card network thresholds.
+                </div>
+              </details>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is chargeback prevention?</h3>
-              <p className="text-gray-700">Chargeback prevention refers to the strategies, tools, and processes merchants use to reduce the number of payment disputes filed by cardholders. It includes fraud detection, clear billing practices, responsive customer service, and use of network tools like Visa Compelling Evidence 3.0 and chargeback alert services.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What chargeback ratio is considered too high?</h3>
-              <p className="text-gray-700">Visa flags merchants who exceed a 0.9% chargeback ratio (disputes to transactions) or 100 disputes per month for their Visa Dispute Monitoring Program (VDMP). Mastercard has similar thresholds through its Excessive Chargeback Merchant program. Exceeding these thresholds can lead to fines, increased processing fees, or account termination.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Can chargebacks be prevented entirely?</h3>
-              <p className="text-gray-700">No business can prevent 100% of chargebacks. Some disputes involve genuine fraud or legitimate customer complaints. However, merchants can reduce chargeback rates by 50&ndash;80% through proper prevention strategies, keeping their ratio well below card network thresholds.</p>
-            </div>
-          </div>
-        </section>
+          </section>
 
         <section className="bg-brand-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">When Prevention Fails, Win the Dispute</h2>
