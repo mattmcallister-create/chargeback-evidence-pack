@@ -21,6 +21,12 @@ export const metadata: Metadata = {
     'chargeback evidence',
     'dispute resolution',
     'merchant protection',
+    'chargeback rebuttal letter',
+    'chargeback evidence template',
+    'how to win a chargeback',
+    'chargeback response deadline',
+    'chargeback prevention',
+    'dispute evidence compilation',
   ],
   robots: {
     index: true,
@@ -45,6 +51,10 @@ export const metadata: Metadata = {
         google: '1vKCDAzJ928Zqdb-lBV2A8Ypookr_d9T02zlNTN0SU0',
   },
   applicationName: 'ChargebackKit',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -60,10 +70,7 @@ export default function RootLayout({
     logo: `${siteUrl}/logo.png`,
     description:
       'Chargeback response platform for merchants. Win disputes faster with automated evidence compilation.',
-    sameAs: [
-      'https://twitter.com/chargebackkit',
-      'https://linkedin.com/company/chargebackkit',
-    ],
+
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Support',
@@ -82,7 +89,7 @@ export default function RootLayout({
       'Chargeback response platform for merchants. Win disputes faster with automated evidence compilation.',
     offers: {
       '@type': 'Offer',
-      price: '0',
+      price: '39',
       priceCurrency: 'USD',
       url: `${siteUrl}/pricing`,
     },
