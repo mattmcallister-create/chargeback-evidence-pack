@@ -112,13 +112,47 @@ export default function ShopifyChargebackResponsePage() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How do I respond to a chargeback on Shopify?</h3><p className="text-gray-700">Go to Orders in your Shopify admin, find the disputed order, review the reason code, gather evidence (delivery proof, customer communication, order details), and submit through the dispute management section before the deadline.</p></div>
-            <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How much does a Shopify chargeback cost?</h3><p className="text-gray-700">Shopify charges a $15 chargeback fee per dispute through Shopify Payments, in addition to the held transaction amount. The fee is generally not refunded even if you win.</p></div>
-            <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How long do I have to respond?</h3><p className="text-gray-700">Visa: 30 days, Mastercard: 45 days, American Express: 20 days. The exact deadline is shown in your Shopify admin.</p></div>
-            <div><h3 className="text-lg font-semibold text-gray-900 mb-2">Can I prevent chargebacks on Shopify?</h3><p className="text-gray-700">Yes. Use clear billing descriptors, enable fraud analysis tools, require signature for high-value orders, send shipping notifications, make refund policies prominent, and respond quickly to customer inquiries.</p></div>
+        <section className="section bg-white px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How do I respond to a chargeback on Shopify?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Go to Orders in your Shopify admin, find the disputed order, review the reason code, gather evidence (delivery proof, customer communication, order details), and submit through the dispute management section before the deadline.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How much does a Shopify chargeback cost?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Shopify charges a $15 chargeback fee per dispute through Shopify Payments, in addition to the held transaction amount. The fee is generally not refunded even if you win.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How long do I have to respond?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Visa: 30 days, Mastercard: 45 days, American Express: 20 days. The exact deadline is shown in your Shopify admin.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Can I prevent chargebacks on Shopify?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Yes. Use clear billing descriptors, enable fraud analysis tools, require signature for high-value orders, send shipping notifications, make refund policies prominent, and respond quickly to customer inquiries.
+                </div>
+              </details>
+            </div>
           </div>
         </section>
 
