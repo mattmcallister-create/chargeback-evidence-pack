@@ -8,8 +8,43 @@ const navLinks = [
   { label: 'How It Works', href: '/how-it-works/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'FAQ', href: '/faq/' },
-  { label: 'Guides', href: '/stripe-chargeback-evidence' },
+  { label: 'Guides', href: '/guides' },
 ]
+
+function ShieldLogo() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="text-emerald-400"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"
+        fill="currentColor"
+        opacity="0.15"
+      />
+      <path
+        d="M12 2L3 7v5c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M9 12l2 2 4-4"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 export default function MarketingNav() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -25,6 +60,7 @@ export default function MarketingNav() {
             className="flex items-center gap-2 shrink-0"
             aria-label="ChargebackKit — Home"
           >
+            <ShieldLogo />
             <span className="text-white font-bold text-lg tracking-tight">ChargebackKit</span>
           </Link>
 
@@ -51,7 +87,7 @@ export default function MarketingNav() {
             </Link>
             <Link
               href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
-              className="inline-flex items-center gap-1.5 bg-white text-brand-900 font-semibold text-sm px-4 py-2 rounded-md hover:bg-brand-50 transition-colors duration-150 shadow-sm"
+              className="inline-flex items-center gap-1.5 bg-emerald-500 text-white font-semibold text-sm px-4 py-2 rounded-md hover:bg-emerald-600 transition-colors duration-150 shadow-sm"
             >
               Create Pack
               <span aria-hidden="true">→</span>
@@ -94,7 +130,7 @@ export default function MarketingNav() {
             </Link>
             <Link
               href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
-              className="block text-center py-2.5 bg-white text-brand-900 font-semibold text-sm rounded-md hover:bg-brand-50 transition-colors"
+              className="block text-center py-2.5 bg-emerald-500 text-white font-semibold text-sm rounded-md hover:bg-emerald-600 transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               Create Pack →
