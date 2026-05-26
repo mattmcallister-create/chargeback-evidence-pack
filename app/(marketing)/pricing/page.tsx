@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Check, Shield, Download, FileText, Clock, ChevronDown } from 'lucide-react'
+import { ArrowRight, Check, Shield, Download, FileText, Clock } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Evidence Pack Pricing \u2014 Starting at $19 | ChargebackKit',
@@ -326,15 +326,15 @@ export default function PricingPage() {
           <div className="space-y-4">
             {pricingFaqs.map(({ q, a }) => (
               <details key={q} className="group bg-slate-50 rounded-lg border border-slate-200">
-                <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
-                  {q}
-                  <span className="shrink-0 ml-4 text-slate-400 group-open:rotate-180 transition-transform">
-                    &darr;
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>{q}</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">
+                    ↓
                   </span>
                 </summary>
-                <div className="px-5 pb-4 text-sm text-slate-600 leading-relaxed border-t border-slate-200 pt-3">
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
                   {a}
-                  {q.includes('refund') && (
+                  {q.toLowerCase().includes('refund') && (
                     <Link href="/refund/" className="ml-1 text-brand-700 underline hover:text-brand-800">
                       Read full policy.
                     </Link>

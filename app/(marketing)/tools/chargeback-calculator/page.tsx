@@ -128,21 +128,20 @@ export default function ChargebackCalculatorPage() {
       <ChargebackCalculator />
 
       {/* FAQ */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-brand-50">
+      <section className="section bg-white px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-brand-900 text-center mb-12">
-            Understanding Chargeback Costs
-          </h2>
-          <div className="space-y-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Understanding Chargeback Costs</h2>
+          <div className="space-y-4">
             {faqSchema.mainEntity.map((item, i) => (
-              <div key={i} className="bg-white rounded-xl border border-brand-100 p-6">
-                <h3 className="text-lg font-semibold text-brand-900 mb-3">
-                  {item.name}
-                </h3>
-                <p className="text-brand-600 leading-relaxed">
+              <details key={i} className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>{item.name}</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
                   {item.acceptedAnswer.text}
-                </p>
-              </div>
+                </div>
+              </details>
             ))}
           </div>
         </div>

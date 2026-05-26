@@ -177,23 +177,40 @@ export default function StripeChargebackEvidencePage() {
         </section>
 
         {/* FAQ Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What evidence does Stripe require for chargebacks?</h3>
-              <p className="text-gray-700">Stripe requires evidence such as transaction records, delivery proof, customer communication logs, terms of service/refund policy, product description records, IP/device information, and any other documentation proving the legitimacy of the transaction.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How long do I have to respond to a Stripe chargeback?</h3>
-              <p className="text-gray-700">The response deadline depends on the card network. Visa typically allows 30 days, Mastercard 45 days, and American Express 20 days. Your Stripe dashboard will show the specific deadline for your dispute.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Can I include screenshots as evidence in Stripe chargebacks?</h3>
-              <p className="text-gray-700">Yes, screenshots of customer communication, delivery confirmations, and transaction records are accepted evidence. They should be clear, unedited, and directly relevant to the dispute.</p>
-            </div>
+      <section className="section bg-white px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <details key="What evidence does Stripe require for chargebacks?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>What evidence does Stripe require for chargebacks?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Stripe requires evidence such as transaction records, delivery proof, customer communication logs, terms of service/refund policy, product description records, IP/device information, and any other documentation proving the legitimacy of the transaction.
+              </div>
+            </details>
+            <details key="How long do I have to respond to a Stripe chargeback?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>How long do I have to respond to a Stripe chargeback?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                The response deadline depends on the card network. Visa typically allows 30 days, Mastercard 45 days, and American Express 20 days. Your Stripe dashboard will show the specific deadline for your dispute.
+              </div>
+            </details>
+            <details key="Can I include screenshots as evidence in Stripe chargebacks?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>Can I include screenshots as evidence in Stripe chargebacks?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Yes, screenshots of customer communication, delivery confirmations, and transaction records are accepted evidence. They should be clear, unedited, and directly relevant to the dispute.
+              </div>
+            </details>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* CTA Section */}
         <section className="bg-blue-50 rounded-lg p-8 text-center">

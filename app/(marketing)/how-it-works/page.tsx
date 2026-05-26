@@ -246,15 +246,23 @@ export default function HowItWorksPage() {
       </section>
 
       {/* FAQ */}
-      <section className="section bg-slate-50 px-4 sm:px-6 lg:px-8">
+      <section className="section bg-white px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">Frequently asked questions</h2>
-          <div className="space-y-6">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently asked questions</h2>
+          <div className="space-y-4">
             {howItWorksFaqs.map(({ q, a }) => (
-              <div key={q} className="bg-white rounded-lg p-6 border border-slate-200">
-                <h3 className="font-semibold text-slate-900 mb-2">{q}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">{a}</p>
-              </div>
+              <details key={q} className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>{q}</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  {a}
+                  {q.toLowerCase().includes('refund') && (
+                    <span>{' '}<Link href="/refund/" className="text-brand-700 underline hover:text-brand-800">Read the full Refund Policy.</Link></span>
+                  )}
+                </div>
+              </details>
             ))}
           </div>
         </div>

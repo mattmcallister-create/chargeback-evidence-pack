@@ -159,23 +159,40 @@ export default function ChargebackEvidenceChecklistPage() {
           <Link href="/guides/chargeback-response-deadlines" className="text-blue-600 hover:underline font-semibold">View Card Network Deadlines &rarr;</Link>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is chargeback evidence and why do I need a checklist?</h3>
-              <p className="text-gray-700">Chargeback evidence is documentation that proves a transaction was legitimate. A checklist ensures you gather all necessary documents before submitting your response, preventing delays and missed deadlines.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Is the evidence the same for all chargeback types?</h3>
-              <p className="text-gray-700">Some evidence applies to all disputes (like transaction records), but specific types vary by dispute category. A Product Not Received dispute requires delivery proof, while a fraud dispute requires identity verification.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How do I organize evidence for submission?</h3>
-              <p className="text-gray-700">Use a clear folder structure, name files by date and type, and create a summary document that references each piece of evidence.</p>
-            </div>
+      <section className="section bg-white px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <details key="What is chargeback evidence and why do I need a checklist?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>What is chargeback evidence and why do I need a checklist?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Chargeback evidence is documentation that proves a transaction was legitimate. A checklist ensures you gather all necessary documents before submitting your response, preventing delays and missed deadlines.
+              </div>
+            </details>
+            <details key="Is the evidence the same for all chargeback types?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>Is the evidence the same for all chargeback types?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Some evidence applies to all disputes (like transaction records), but specific types vary by dispute category. A Product Not Received dispute requires delivery proof, while a fraud dispute requires identity verification.
+              </div>
+            </details>
+            <details key="How do I organize evidence for submission?" className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>How do I organize evidence for submission?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Use a clear folder structure, name files by date and type, and create a summary document that references each piece of evidence.
+              </div>
+            </details>
           </div>
-        </section>
+        </div>
+      </section>
 
         <section className="bg-blue-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Automate Your Checklist</h2>

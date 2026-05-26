@@ -184,28 +184,63 @@ export default function MastercardReasonCode4853Page() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is Mastercard reason code 4853?</h3>
-              <p className="text-gray-700">Mastercard reason code 4853 is the broad Cardholder Dispute category covering nearly every non-fraud chargeback: goods not received, not as described, cancelled recurring transactions, defective merchandise, counterfeit goods, and addendum disputes. It consolidated legacy codes 4841, 4850, 4855, and 4859.</p>
+              <section className="section bg-white px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is Mastercard reason code 4853?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Mastercard reason code 4853 is the broad Cardholder Dispute category covering nearly every non-fraud chargeback: goods not received, not as described, cancelled recurring transactions, defective merchandise, counterfeit goods, and addendum disputes. It consolidated legacy codes 4841, 4850, 4855, and 4859.
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How long do I have to respond to a Mastercard 4853 chargeback?</h3>
-              <p className="text-gray-700">You have 45 days to respond. This is a strict deadline with no extensions. Missing it results in automatic loss of funds even if you have strong evidence.</p>
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How long do I have to respond to a Mastercard 4853 chargeback?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  You have 45 days to respond. This is a strict deadline with no extensions. Missing it results in automatic loss of funds even if you have strong evidence.
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What are the sub-types of Mastercard reason code 4853?</h3>
-              <p className="text-gray-700">The main sub-types are: Goods or Services Not Provided (formerly 4855), Not as Described or Defective, Cancelled Recurring Transaction (formerly 4841), Digital Goods under $25, Counterfeit Merchandise, and Addendum/No-Show Disputes (formerly 4859). Each requires different evidence.</p>
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What are the sub-types of Mastercard reason code 4853?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  The main sub-types are: Goods or Services Not Provided (formerly 4855), Not as Described or Defective, Cancelled Recurring Transaction (formerly 4841), Digital Goods under $25, Counterfeit Merchandise, and Addendum/No-Show Disputes (formerly 4859). Each requires different evidence.
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What evidence do I need for a Mastercard 4853 dispute?</h3>
-              <p className="text-gray-700">Evidence depends on the sub-type. Delivery disputes need tracking proof. Quality disputes need product documentation. Recurring disputes need subscription terms and proof no cancellation was received. Digital goods disputes need delivery controls and terms acceptance proof.</p>
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What evidence do I need for a Mastercard 4853 dispute?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Evidence depends on the sub-type. Delivery disputes need tracking proof. Quality disputes need product documentation. Recurring disputes need subscription terms and proof no cancellation was received. Digital goods disputes need delivery controls and terms acceptance proof.
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is the difference between Mastercard 4853 and Visa 13.1?</h3>
-              <p className="text-gray-700">Visa 13.1 specifically covers merchandise not received, while Mastercard 4853 is a broader umbrella covering multiple dispute types. Mastercard gives 45 days to respond versus Visa&apos;s 30 days. Evidence requirements are similar for comparable sub-types.</p>
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is the difference between Mastercard 4853 and Visa 13.1?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Visa 13.1 specifically covers merchandise not received, while Mastercard 4853 is a broader umbrella covering multiple dispute types. Mastercard gives 45 days to respond versus Visa&apos;s 30 days. Evidence requirements are similar for comparable sub-types.
+                </div>
+              </details>
             </div>
           </div>
         </section>

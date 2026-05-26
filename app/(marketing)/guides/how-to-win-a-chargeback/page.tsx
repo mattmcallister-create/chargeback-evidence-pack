@@ -238,27 +238,49 @@ export default function HowToWinChargebackPage() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is the average chargeback win rate for merchants?</h3>
-              <p className="text-gray-700">The average merchant chargeback win rate is approximately 45%. However, merchants who submit well-organized evidence that directly addresses the reason code can achieve win rates of 60-80% depending on the dispute type.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How do I fight a chargeback on Stripe?</h3>
-              <p className="text-gray-700">Go to your Stripe Dashboard, find the dispute, review the reason code, gather evidence that directly addresses the claim, organize it into a clear submission package, and upload it before the deadline. Stripe submits your evidence to the card network on your behalf.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Is it worth fighting a chargeback?</h3>
-              <p className="text-gray-700">Yes, if the disputed amount exceeds your cost of goods and you have evidence to support your case. Beyond recovering revenue, fighting chargebacks protects your chargeback ratio, which affects your ability to process payments.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What evidence do I need to win a chargeback?</h3>
-              <p className="text-gray-700">The evidence depends on the reason code. Fraud disputes need AVS/CVV data and device fingerprints. Product not received claims need delivery tracking. Subscription disputes need proof of consent and usage logs.</p>
-            </div>
+              <section className="section bg-white px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>What is the average chargeback win rate for merchants?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                The average merchant chargeback win rate is approximately 45%. However, merchants who submit well-organized evidence that directly addresses the reason code can achieve win rates of 60-80% depending on the dispute type.
+              </div>
+            </details>
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>How do I fight a chargeback on Stripe?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Go to your Stripe Dashboard, find the dispute, review the reason code, gather evidence that directly addresses the claim, organize it into a clear submission package, and upload it before the deadline. Stripe submits your evidence to the card network on your behalf.
+              </div>
+            </details>
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>Is it worth fighting a chargeback?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                Yes, if the disputed amount exceeds your cost of goods and you have evidence to support your case. Beyond recovering revenue, fighting chargebacks protects your chargeback ratio, which affects your ability to process payments.
+              </div>
+            </details>
+            <details className="group bg-slate-50 rounded-lg border border-slate-200">
+              <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                <span>What evidence do I need to win a chargeback?</span>
+                <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+              </summary>
+              <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                The evidence depends on the reason code. Fraud disputes need AVS/CVV data and device fingerprints. Product not received claims need delivery tracking. Subscription disputes need proof of consent and usage logs.
+              </div>
+            </details>
           </div>
-        </section>
+        </div>
+      </section>
 
         <section className="bg-brand-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Build a Winning Evidence Pack in 30 Minutes</h2>

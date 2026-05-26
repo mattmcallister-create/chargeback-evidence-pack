@@ -203,27 +203,49 @@ export default function ChargebackRebuttalLetterPage() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is a chargeback rebuttal letter?</h3>
-              <p className="text-gray-700">A chargeback rebuttal letter is a formal document submitted by a merchant to the acquiring bank that summarizes the case against a chargeback and references all supporting evidence. It serves as the cover letter for your representment package.</p>
+        <section className="section bg-white px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+              <div className="space-y-4">
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is a chargeback rebuttal letter?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  A chargeback rebuttal letter is a formal document submitted by a merchant to the acquiring bank that summarizes the case against a chargeback and references all supporting evidence. It serves as the cover letter for your representment package.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How long should a chargeback rebuttal letter be?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  A chargeback rebuttal letter should be one page whenever possible. For complex cases requiring more supporting evidence, it may extend to two pages, but conciseness is critical. Banks review hundreds of disputes and favor clear, well-organized letters.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What should I include in a chargeback rebuttal letter?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Include the chargeback reason code, transaction details (amount, date, order ID), acquirer reference number, a point-by-point refutation of the claim, references to attached evidence exhibits, and a professional closing statement.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Can I use a template for my chargeback rebuttal letter?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Templates provide a starting structure, but every rebuttal letter should be customized for the specific dispute. Generic letters that do not address the exact reason code and transaction details are significantly less effective.
+                </div>
+              </details>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How long should a chargeback rebuttal letter be?</h3>
-              <p className="text-gray-700">A chargeback rebuttal letter should be one page whenever possible. For complex cases requiring more supporting evidence, it may extend to two pages, but conciseness is critical. Banks review hundreds of disputes and favor clear, well-organized letters.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What should I include in a chargeback rebuttal letter?</h3>
-              <p className="text-gray-700">Include the chargeback reason code, transaction details (amount, date, order ID), acquirer reference number, a point-by-point refutation of the claim, references to attached evidence exhibits, and a professional closing statement.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Can I use a template for my chargeback rebuttal letter?</h3>
-              <p className="text-gray-700">Templates provide a starting structure, but every rebuttal letter should be customized for the specific dispute. Generic letters that do not address the exact reason code and transaction details are significantly less effective.</p>
-            </div>
-          </div>
-        </section>
+          </section>
 
         <section className="bg-brand-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Skip the Blank Page</h2>

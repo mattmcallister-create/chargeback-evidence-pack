@@ -164,16 +164,58 @@ export default function SaasChargebackPreventionPage() {
         </div>
       </section>
 
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-        <div className="space-y-6">
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">Why do SaaS companies get so many chargebacks?</h3><p className="text-gray-700">SaaS companies face high chargeback rates because of recurring billing, free trial conversions, forgotten subscriptions, and the intangible nature of software services. Customers often dispute charges they do not recognize on their statements, especially after free trials auto-convert to paid plans.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">How can I prevent chargebacks on SaaS subscriptions?</h3><p className="text-gray-700">Key prevention strategies include: using clear billing descriptors that match your brand name, sending pre-billing reminder emails before each charge, making cancellation easy and obvious, requiring explicit opt-in for trial-to-paid conversions, and logging all user activity as proof of service usage.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">What evidence do I need to fight a SaaS chargeback?</h3><p className="text-gray-700">For SaaS chargebacks, you need: user login/activity logs showing the customer used the service, the signup record with accepted terms of service, billing history showing prior successful payments, cancellation policy, pre-billing notification emails, and IP address records from account creation and usage.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">What is friendly fraud in SaaS?</h3><p className="text-gray-700">Friendly fraud in SaaS occurs when a legitimate subscriber disputes a charge instead of canceling through proper channels. This often happens with forgotten subscriptions, post-trial charges, or when users want a refund but contact their bank instead of the SaaS company. It accounts for up to 75% of all SaaS chargebacks.</p></div>
-          <div><h3 className="text-lg font-semibold text-gray-900 mb-2">Should I offer refunds to prevent SaaS chargebacks?</h3><p className="text-gray-700">Yes, proactively offering refunds is almost always better than fighting chargebacks. A refund costs you the transaction amount, but a chargeback costs the transaction amount plus fees ($15-$25) and damages your chargeback ratio. Implement a generous refund policy and make it easy for customers to request refunds directly.</p></div>
-        </div>
-      </section>
+        <section className="section bg-white px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Why do SaaS companies get so many chargebacks?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  SaaS companies face high chargeback rates because of recurring billing, free trial conversions, forgotten subscriptions, and the intangible nature of software services. Customers often dispute charges they do not recognize on their statements, especially after free trials auto-convert to paid plans.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How can I prevent chargebacks on SaaS subscriptions?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Key prevention strategies include: using clear billing descriptors that match your brand name, sending pre-billing reminder emails before each charge, making cancellation easy and obvious, requiring explicit opt-in for trial-to-paid conversions, and logging all user activity as proof of service usage.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What evidence do I need to fight a SaaS chargeback?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  For SaaS chargebacks, you need: user login/activity logs showing the customer used the service, the signup record with accepted terms of service, billing history showing prior successful payments, cancellation policy, pre-billing notification emails, and IP address records from account creation and usage.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is friendly fraud in SaaS?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Friendly fraud in SaaS occurs when a legitimate subscriber disputes a charge instead of canceling through proper channels. This often happens with forgotten subscriptions, post-trial charges, or when users want a refund but contact their bank instead of the SaaS company. It accounts for up to 75% of all SaaS chargebacks.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Should I offer refunds to prevent SaaS chargebacks?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Yes, proactively offering refunds is almost always better than fighting chargebacks. A refund costs you the transaction amount, but a chargeback costs the transaction amount plus fees ($15-$25) and damages your chargeback ratio. Implement a generous refund policy and make it easy for customers to request refunds directly.
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
 
       <section className="bg-brand-50 rounded-lg p-8 text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Fight Your SaaS Chargeback with Professional Evidence</h2>
