@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+—import type { Metadata } from 'next';
 import Link from 'next/link';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
@@ -68,7 +68,16 @@ export default function ChargebackPreventionPage() {
         }}
       />
       <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold mb-6 text-gray-900">
+        
+          {/* Breadcrumb */}
+          <nav className="mb-8 text-sm">
+            <Link href="/guides" className="text-brand-700 hover:text-brand-800 font-medium">
+              Guides
+            </Link>
+            <span className="mx-2 text-slate-400">/</span>
+            <span className="text-slate-600">Chargeback Prevention</span>
+          </nav>
+          <h1 className="text-4xl font-bold mb-6 text-gray-900">
           Chargeback Prevention: 12 Proven Strategies for Merchants
         </h1>
 
@@ -99,51 +108,51 @@ export default function ChargebackPreventionPage() {
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 text-gray-900">12 Proven Prevention Strategies</h2>
           <div className="space-y-6">
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">1. Use Clear Billing Descriptors</h3>
               <p className="text-gray-700">The most common reason customers file chargebacks is not recognizing a charge on their statement. Set your billing descriptor to your business name or website URL &mdash; not a parent company name, abbreviation, or payment processor name that customers will not recognize.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">2. Require AVS and CVV Verification</h3>
               <p className="text-gray-700">Address Verification Service (AVS) and Card Verification Value (CVV) checks confirm the buyer has physical possession of the card. Decline transactions where AVS returns a mismatch on both street address and ZIP code. Always require CVV for card-not-present transactions.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">3. Implement 3D Secure Authentication</h3>
               <p className="text-gray-700">3D Secure (Verified by Visa, Mastercard SecureCode) adds an authentication step where the cardholder verifies their identity with the issuing bank. This shifts fraud liability from the merchant to the issuer and provides strong evidence the cardholder authorized the transaction.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">4. Send Order Confirmation Emails Immediately</h3>
               <p className="text-gray-700">Send a detailed order confirmation within minutes of purchase that includes the order total, itemized list, billing descriptor name, expected delivery date, and customer service contact information. This gives customers a reference point before they see the charge on their statement.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">5. Provide Tracking and Delivery Confirmation</h3>
               <p className="text-gray-700">Ship with tracking and require delivery confirmation (signature for high-value items). Send the tracking number to the customer proactively. Delivery proof is the strongest evidence against &quot;product not received&quot; disputes, which account for a significant portion of all chargebacks.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">6. Make Your Refund Policy Visible and Simple</h3>
               <p className="text-gray-700">Display your refund policy prominently at checkout and require customers to acknowledge it before completing their purchase. A customer who can easily get a refund is far less likely to file a chargeback. Make the refund process simpler than filing a dispute with their bank.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">7. Offer Responsive Customer Service</h3>
               <p className="text-gray-700">Many chargebacks happen because customers cannot reach the merchant. Provide multiple contact channels (email, chat, phone) and respond within 24 hours. A customer who gets a fast, helpful response is unlikely to escalate to a bank dispute.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">8. Use Fraud Screening Tools</h3>
               <p className="text-gray-700">Deploy fraud detection that analyzes device fingerprinting, IP geolocation, velocity checks (multiple orders from the same card in a short period), and behavioral patterns. Flag suspicious orders for manual review rather than auto-approving everything.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">9. Be Transparent About Subscription Billing</h3>
               <p className="text-gray-700">For recurring charges, send reminder emails before each billing cycle. Clearly state the billing amount, next charge date, and how to cancel. Subscription chargebacks are among the most common &mdash; proactive communication prevents most of them.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">10. Use Chargeback Alert Services</h3>
               <p className="text-gray-700">Services like Ethoca and Verifi CDRN notify you when a customer initiates a dispute, giving you a window to issue a refund before it becomes a formal chargeback. This keeps the dispute off your chargeback ratio while resolving the customer&apos;s concern.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">11. Match Product Descriptions to Reality</h3>
               <p className="text-gray-700">Ensure product photos, descriptions, and specifications accurately represent what the customer will receive. &quot;Not as described&quot; chargebacks often result from misleading or exaggerated product listings. Include measurements, materials, and multiple photos from different angles.</p>
             </div>
-            <div className="border-l-4 border-blue-500 pl-6 py-3">
+            <div className="border-l-4 border-brand-800 pl-6 py-3">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">12. Document Everything</h3>
               <p className="text-gray-700">Keep records of all customer interactions, delivery confirmations, signed terms of service, IP addresses, device data, and refund policy acknowledgments. If a chargeback does occur, thorough documentation is the foundation of a successful representment.</p>
             </div>
@@ -256,17 +265,17 @@ export default function ChargebackPreventionPage() {
           </div>
         </section>
 
-        <section className="bg-blue-50 rounded-lg p-8 text-center">
+        <section className="bg-brand-50 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">When Prevention Fails, Win the Dispute</h2>
           <p className="text-gray-700 mb-6">Even with the best prevention, some chargebacks are unavoidable. ChargebackKit builds a complete evidence package tailored to your specific dispute type, so you can fight back and recover revenue.</p>
-          <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
+          <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="inline-block bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-emerald-600 transition-colors">
             Build My Evidence Pack &mdash; $39
           </a>
         </section>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Resources</h3>
-          <ul className="space-y-2 text-blue-600">
+          <ul className="space-y-2 text-brand-700">
             <li><Link href="/guides/how-to-win-a-chargeback" className="hover:underline">How to Win a Chargeback as a Merchant</Link></li>
             <li><Link href="/guides/chargeback-rebuttal-letter" className="hover:underline">Chargeback Rebuttal Letter: How to Write One That Wins</Link></li>
             <li><Link href="/chargeback-evidence-checklist" className="hover:underline">Chargeback Evidence Checklist: Complete Guide by Dispute Type</Link></li>
