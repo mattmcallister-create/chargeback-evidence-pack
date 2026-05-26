@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: next build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # Skip puppeteer's Chromium download during install — not needed for next build.
+      PUPPETEER_SKIP_DOWNLOAD: 'true'
+      # Stub NEXT_PUBLIC_* envs so the build doesn't fail on undefined references.
+      NEXT_PUBLIC_SITE_URL: https://chargebackkit.app
+      NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
+      NEXT_PUBLIC_POSTHOG_KEY: placeholder-posthog-key
+      NEXT_PUBLIC_POSTHOG_HOST: https://us.i.posthog.com
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build Next.js app
+        run: npm run build
