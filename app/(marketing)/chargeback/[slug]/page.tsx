@@ -48,7 +48,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
     ],
     seoTitle: 'Fraudulent Chargeback Evidence Pack — Dispute Unauthorized Claims | ChargebackKit',
     seoDescription:
-      'Build a submission-ready evidence pack for fraudulent chargebacks. AVS/CVV proof, device match, delivery confirmation — assembled the way Stripe expects. $39, no subscription.',
+      'Build a submission-ready evidence pack for fraudulent chargebacks. AVS/CVV proof, device match, delivery confirmation — assembled the way Stripe expects. Starting at $19. Volume packs available.',
   },
   'subscription-cancelled': {
     slug: 'subscription-cancelled',
@@ -73,7 +73,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
     ],
     seoTitle: 'Subscription Chargeback Evidence Pack — Dispute Cancelled Recurring Claims | ChargebackKit',
     seoDescription:
-      'Submission-ready evidence pack for subscription chargebacks. Signup proof, terms, usage logs, and billing history — assembled for Stripe in 30 minutes. $39, no subscription.',
+      'Submission-ready evidence pack for subscription chargebacks. Signup proof, terms, usage logs, and billing history — assembled for Stripe in 30 minutes. Starting at $19. Volume packs available.',
   },
   'product-not-received': {
     slug: 'product-not-received',
@@ -98,7 +98,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
     ],
     seoTitle: 'Product Not Received Chargeback Evidence Pack — Prove Delivery | ChargebackKit',
     seoDescription:
-      'Build a chargeback evidence pack for "product not received" disputes. Tracking, delivery proof, digital access logs — structured for Stripe submission. $39, no subscription.',
+      'Build a chargeback evidence pack for "product not received" disputes. Tracking, delivery proof, digital access logs — structured for Stripe submission. Starting at $19. Volume packs available.',
   },
   'product-not-as-described': {
     slug: 'product-not-as-described',
@@ -123,7 +123,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
     ],
     seoTitle: 'Product Not as Described Chargeback Evidence Pack — Stripe Submission | ChargebackKit',
     seoDescription:
-      'Assemble an evidence pack for "product not as described" chargebacks. Listing proof, return policy, customer communications — submission-ready. $39, no subscription.',
+      'Assemble an evidence pack for "product not as described" chargebacks. Listing proof, return policy, customer communications — submission-ready. Starting at $19. Volume packs available.',
   },
   'duplicate-charge': {
     slug: 'duplicate-charge',
@@ -148,7 +148,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
     ],
     seoTitle: 'Duplicate Charge Chargeback Evidence Pack — Prove Separate Transactions | ChargebackKit',
     seoDescription:
-      'Evidence pack for duplicate chargeback disputes. Side-by-side transaction proof, distinct order IDs, session logs — Stripe submission-ready. $39, no subscription.',
+      'Evidence pack for duplicate chargeback disputes. Side-by-side transaction proof, distinct order IDs, session logs — Stripe submission-ready. Starting at $19. Volume packs available.',
   },
   'credit-not-processed': {
     slug: 'credit-not-processed',
@@ -173,7 +173,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
     ],
     seoTitle: 'Credit Not Processed Chargeback Evidence Pack — Refund Dispute | ChargebackKit',
     seoDescription:
-      'Evidence pack for "credit not processed" chargebacks. Stripe credit notes, return policy, refund history — submission-ready in 30 minutes. $39, no subscription.',
+      'Evidence pack for "credit not processed" chargebacks. Stripe credit notes, return policy, refund history — submission-ready in 30 minutes. Starting at $19. Volume packs available.',
   },
 }
 
@@ -221,10 +221,10 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
             <Link
-              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
+              href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
               className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
             >
-              Build My {data.label} Pack — $39
+              Build My {data.label} Pack — $19
               <ArrowRight size={18} />
             </Link>
             <Link
@@ -235,7 +235,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
             </Link>
           </div>
           <p className="text-sm text-slate-400">
-            $39 · No subscription · 72-hour access to your pack
+            $19 per pack · Volume discounts available · 72-hour access
           </p>
         </div>
       </section>
@@ -343,14 +343,14 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
             Submission-grade. Category-specific. Built the way card networks want to see it.
           </p>
           <Link
-            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
+            href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors shadow-lg"
           >
-            Build My Evidence Pack — $39
+            Build My Evidence Pack — $19
             <ArrowRight size={18} />
           </Link>
           <p className="mt-4 text-sm text-slate-400">
-            $39 · Instant download · 72-hour access to your pack
+            $19 per pack · Volume discounts available · 72-hour access
           </p>
         </div>
       </section>
