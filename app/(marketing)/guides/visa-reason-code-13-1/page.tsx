@@ -240,28 +240,55 @@ export default function VisaReasonCode131Page() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-gray-900">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is Visa reason code 13.1?</h3>
-              <p className="text-gray-700">Visa reason code 13.1 covers disputes where the cardholder claims they never received the merchandise or services they purchased. It replaced the legacy reason code 30 under Visa Claims Resolution (VCR). This is one of the most common non-fraud chargeback reason codes.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">How long do I have to respond to a Visa 13.1 chargeback?</h3>
-              <p className="text-gray-700">Merchants typically have 30 days from receipt of the chargeback to submit compelling evidence. The cardholder has up to 120 days from the transaction date or expected delivery date to file, with an absolute limit of 540 days from the transaction processing date.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What evidence do I need to win a Visa 13.1 dispute?</h3>
-              <p className="text-gray-700">The strongest evidence includes carrier tracking showing delivery to the cardholder address, signed delivery confirmation, GPS delivery verification, proof the item was shipped to the AVS-verified address, and any post-delivery communication from the customer confirming receipt or usage.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Can I win a Visa 13.1 chargeback without proof of delivery?</h3>
-              <p className="text-gray-700">Winning without delivery proof is very difficult. If you shipped a digital product, you need server logs showing the customer accessed or downloaded the product. For physical goods, signed delivery confirmation or GPS-verified delivery photos are your strongest evidence.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">What is the difference between Visa reason codes 13.1 and 13.2?</h3>
-              <p className="text-gray-700">Visa 13.1 covers merchandise or services not received at all, while 13.2 covers merchandise received but not as described or defective. The evidence requirements differ significantly: 13.1 requires delivery proof, while 13.2 requires evidence that the product matched its description.</p>
+        <section className="section bg-white px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-4">
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is Visa reason code 13.1?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Visa reason code 13.1 covers disputes where the cardholder claims they never received the merchandise or services they purchased. It replaced the legacy reason code 30 under Visa Claims Resolution (VCR). This is one of the most common non-fraud chargeback reason codes.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>How long do I have to respond to a Visa 13.1 chargeback?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Merchants typically have 30 days from receipt of the chargeback to submit compelling evidence. The cardholder has up to 120 days from the transaction date or expected delivery date to file, with an absolute limit of 540 days from the transaction processing date.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What evidence do I need to win a Visa 13.1 dispute?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  The strongest evidence includes carrier tracking showing delivery to the cardholder address, signed delivery confirmation, GPS delivery verification, proof the item was shipped to the AVS-verified address, and any post-delivery communication from the customer confirming receipt or usage.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>Can I win a Visa 13.1 chargeback without proof of delivery?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Winning without delivery proof is very difficult. If you shipped a digital product, you need server logs showing the customer accessed or downloaded the product. For physical goods, signed delivery confirmation or GPS-verified delivery photos are your strongest evidence.
+                </div>
+              </details>
+              <details className="group bg-slate-50 rounded-lg border border-slate-200">
+                <summary className="flex items-start justify-between gap-4 px-5 py-4 cursor-pointer list-none font-semibold text-slate-900 text-sm">
+                  <span>What is the difference between Visa reason codes 13.1 and 13.2?</span>
+                  <span className="shrink-0 text-slate-400 mt-0.5 group-open:rotate-180 transition-transform text-base leading-none">&darr;</span>
+                </summary>
+                <div className="px-5 pb-4 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-200">
+                  Visa 13.1 covers merchandise or services not received at all, while 13.2 covers merchandise received but not as described or defective. The evidence requirements differ significantly: 13.1 requires delivery proof, while 13.2 requires evidence that the product matched its description.
+                </div>
+              </details>
             </div>
           </div>
         </section>
