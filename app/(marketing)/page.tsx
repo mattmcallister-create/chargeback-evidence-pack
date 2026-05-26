@@ -1,18 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, FileText, CheckCircle, Clock, Download, Shield, AlertCircle } from 'lucide-react'
+import { ArrowRight, FileText, CheckCircle, Clock, Download, Shield, AlertCircle, Zap, Star } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Submit Chargeback Evidence That Card Networks Accept',
   description:
-    'Stop submitting weak chargeback evidence. Build a submission-ready, category-specific evidence pack in 30 minutes — $39, no subscription.',
+    'Stop submitting weak chargeback evidence. Build a submission-ready, category-specific evidence pack in 30 minutes — starting at $19, no subscription.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Submit Chargeback Evidence That Card Networks Accept',
     description:
-      'Stop submitting weak chargeback evidence. Build a submission-ready, category-specific evidence pack in 30 minutes — $39, no subscription.',
+      'Stop submitting weak chargeback evidence. Build a submission-ready, category-specific evidence pack in 30 minutes — starting at $19, no subscription.',
     url: '/',
   },
 }
@@ -53,12 +53,55 @@ const objections = [
     a: 'ChargebackKit tells you exactly what\'s needed for your dispute type and what you can include even if some evidence is partial or missing.',
   },
   {
-    q: 'Is $39 worth it for a smaller dispute?',
+    q: 'Is $19 worth it for a smaller dispute?',
     a: 'If the disputed amount exceeds your cost of goods, a correctly formatted submission often recovers more than it costs. A chargeback consultant charges $300–$500 for the same work.',
   },
   {
     q: 'Why not just use ChatGPT?',
     a: 'ChatGPT doesn\'t know Stripe\'s evidence format, your specific reason code requirements, or which exhibit fields carry the most weight for your dispute type. ChargebackKit does.',
+  },
+]
+
+const pricingTiers = [
+  {
+    name: 'Single Pack',
+    subtitle: 'One-off dispute',
+    price: 19,
+    badge: null,
+    features: ['1 case credit', 'Full PDF response pack', '7-day re-download access'],
+    href: 'https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02',
+    cta: 'Buy Single Pack',
+    highlighted: false,
+  },
+  {
+    name: '5-Pack',
+    subtitle: 'Regular disputes',
+    price: 79,
+    badge: 'Most popular',
+    features: ['5 case credits', 'Full PDF response pack', '30-day re-download access', 'Credits never expire'],
+    href: 'https://buy.stripe.com/00w5kE2JvdTE5Tp05r3Nm03',
+    cta: 'Buy 5-Pack',
+    highlighted: true,
+  },
+  {
+    name: '10-Pack',
+    subtitle: 'Growing business',
+    price: 129,
+    badge: 'Best value',
+    features: ['10 case credits', 'Full PDF response pack', '30-day re-download access', 'Credits never expire'],
+    href: 'https://buy.stripe.com/14A00k97TbLw2Hd3hD3Nm04',
+    cta: 'Buy 10-Pack',
+    highlighted: false,
+  },
+  {
+    name: '25-Pack',
+    subtitle: 'High volume',
+    price: 269,
+    badge: null,
+    features: ['25 case credits', 'Full PDF response pack', '30-day re-download access', 'Credits never expire', 'Priority support'],
+    href: 'https://buy.stripe.com/3cIdRa97TbLwa9FdWh3Nm05',
+    cta: 'Buy 25-Pack',
+    highlighted: false,
   },
 ]
 
@@ -71,7 +114,7 @@ const organizationSchema = {
     'ChargebackKit builds submission-ready, dispute-category-specific chargeback evidence packs for Stripe merchants.',
   offers: {
     '@type': 'Offer',
-    price: '39.00',
+    price: '19.00',
     priceCurrency: 'USD',
     priceValidUntil: '2027-12-31',
   },
@@ -119,7 +162,7 @@ const faqSchema = {
       name: 'How much does ChargebackKit cost?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'ChargebackKit costs 39 dollars per evidence pack with no subscription required. This is a fraction of the 300 to 500 dollars that chargeback consultants typically charge for the same work, and there are no monthly fees or commitments.',
+        text: 'ChargebackKit starts at 19 dollars per evidence pack with no subscription required. Volume packs are available: 5-pack for 79 dollars, 10-pack for 129 dollars, and 25-pack for 269 dollars. Credits never expire. This is a fraction of the 300 to 500 dollars that chargeback consultants typically charge.',
       },
     },
     {
@@ -160,10 +203,10 @@ export default function HomePage() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
             <Link
-              href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
+              href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
               className="inline-flex items-center gap-2 bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-emerald-600 transition-colors shadow-lg"
             >
-              Build My Evidence Pack — $39
+              Build My Evidence Pack — $19
               <ArrowRight size={18} />
             </Link>
             <Link
@@ -176,7 +219,7 @@ export default function HomePage() {
 
           {/* Trust line */}
           <p className="text-sm text-slate-400">
-            $39 · No subscription · 72-hour access to your pack
+            Starting at $19 · No subscription · Credits never expire
           </p>
           <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.479 9.883c-1.626-.604-2.512-1.067-2.512-1.803 0-.622.511-.977 1.423-.977 1.667 0 3.379.642 4.558 1.22l.666-4.111c-.935-.446-2.847-1.177-5.49-1.177-1.87 0-3.425.489-4.536 1.401-1.155.96-1.757 2.344-1.757 4.025 0 3.049 1.865 4.358 4.906 5.46 1.958.702 2.613 1.204 2.613 1.976 0 .754-.648 1.184-1.81 1.184-1.469 0-3.89-.717-5.488-1.65l-.674 4.157c1.364.777 3.892 1.564 6.514 1.564 1.976 0 3.624-.467 4.736-1.35 1.244-.982 1.89-2.427 1.89-4.297 0-3.102-1.891-4.396-4.969-5.522z"/></svg>
@@ -248,20 +291,76 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── PRICING ANCHOR ───────────────────────────────────────────────── */}
-      <section className="section bg-slate-50 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+      {/* ─── PRICING ────────────────────────────────────────────────────── */}
+      <section id="pricing" className="section bg-slate-50 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              $39 per pack. No subscription.
+              Simple packs. No subscriptions.
             </h2>
-            <p className="text-lg text-slate-600">
-              One payment. One submission-ready evidence pack. No recurring charges.
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Buy credits once, use them whenever you need. 1 credit = 1 response pack download. Credits never expire.
             </p>
           </div>
 
-          {/* Comparison table */}
-          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pricingTiers.map((tier) => (
+              <div
+                key={tier.name}
+                className={`relative bg-white rounded-2xl border-2 p-6 flex flex-col ${
+                  tier.highlighted
+                    ? 'border-emerald-500 shadow-lg shadow-emerald-500/10'
+                    : 'border-slate-200'
+                }`}
+              >
+                {tier.badge && (
+                  <span
+                    className={`absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-1 rounded-full ${
+                      tier.badge === 'Most popular'
+                        ? 'bg-emerald-500 text-white'
+                        : 'bg-amber-400 text-amber-900'
+                    }`}
+                  >
+                    {tier.badge}
+                  </span>
+                )}
+                <h3 className="text-lg font-bold text-slate-900">{tier.name}</h3>
+                <p className="text-sm text-slate-500 mb-4">{tier.subtitle}</p>
+                <div className="mb-1">
+                  <span className="text-4xl font-bold text-slate-900">${tier.price}</span>
+                  <span className="text-sm text-slate-500 ml-1">one-time</span>
+                </div>
+                {tier.price > 19 && (
+                  <p className="text-xs text-emerald-600 font-medium mb-4">
+                    Save ${(tier.features[0].match(/\d+/) ? parseInt(tier.features[0].match(/\d+/)![0]) * 19 - tier.price : 0)}
+                  </p>
+                )}
+                {tier.price === 19 && <div className="mb-4" />}
+                <ul className="space-y-2 mb-6 flex-1">
+                  {tier.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
+                      <CheckCircle size={16} className="text-emerald-500 shrink-0 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={tier.href}
+                  className={`w-full text-center py-3 px-4 rounded-lg font-semibold text-sm transition-colors ${
+                    tier.highlighted
+                      ? 'bg-emerald-500 text-white hover:bg-emerald-600'
+                      : 'bg-slate-900 text-white hover:bg-slate-800'
+                  }`}
+                >
+                  {tier.cta} →
+                </Link>
+                <p className="text-xs text-slate-400 text-center mt-2">Secure checkout</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Comparison row */}
+          <div className="mt-12 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50">
@@ -288,23 +387,12 @@ export default function HomePage() {
                   <td className="px-6 py-4 font-semibold text-brand-900">
                     ChargebackKit
                   </td>
-                  <td className="px-6 py-4 font-bold text-brand-800">$39</td>
+                  <td className="px-6 py-4 font-bold text-brand-800">From $19</td>
                   <td className="px-6 py-4 text-brand-800 font-medium">30 minutes</td>
                   <td className="px-6 py-4 text-brand-800 font-medium">Submission-ready format</td>
                 </tr>
               </tbody>
             </table>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link
-              href="/pricing/"
-              className="inline-flex items-center gap-2 bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-emerald-600 transition-colors shadow-sm"
-            >
-              Build My Evidence Pack — $39
-              <ArrowRight size={18} />
-            </Link>
-            <p className="mt-3 text-sm text-slate-500">Secure checkout via Stripe · No subscription</p>
           </div>
         </div>
       </section>
@@ -355,10 +443,10 @@ export default function HomePage() {
               <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center mb-4">
                 <CheckCircle size={20} className="text-brand-800" strokeWidth={1.5} />
               </div>
-              <h3 className="font-semibold text-slate-900 mb-2">One payment, no subscription</h3>
+              <h3 className="font-semibold text-slate-900 mb-2">No subscription — just packs</h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                $39 per pack. No monthly fees. No recurring charges. Buy when you have a dispute
-                that needs a response.
+                Starting at $19 per pack. No monthly fees. No recurring charges. Buy credits when you have disputes
+                that need a response. Credits never expire.
               </p>
             </div>
 
@@ -444,14 +532,14 @@ export default function HomePage() {
             Submission-grade. Category-specific. Built the way card networks want to see it.
           </p>
           <Link
-            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
+            href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
             className="inline-flex items-center gap-2 bg-emerald-500 text-white font-bold text-base px-8 py-4 rounded-lg hover:bg-emerald-600 transition-colors shadow-lg"
           >
-            Build My Evidence Pack — $39
+            Build My Evidence Pack — $19
             <ArrowRight size={18} />
           </Link>
           <p className="mt-4 text-sm text-slate-400">
-            $39 · Instant download · 72-hour access to your pack
+            Starting at $19 · Credits never expire · Secure checkout via Stripe
           </p>
         </div>
       </section>
