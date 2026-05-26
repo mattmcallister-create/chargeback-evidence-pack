@@ -53,8 +53,8 @@ export default function TermsPage() {
 
           <h2>4. Payment Terms</h2>
           <p>
-            Access to a completed evidence pack requires a one-time payment of $39 USD per pack,
-            or $99 USD for a 3-pack bundle. All payments are processed via Stripe. There is no
+            Access to a completed evidence pack requires a one-time payment of $19 USD per pack,
+            or $79/$129/$269 USD for a volume packs (5-Pack, 10-Pack, 25-Pack). All payments are processed via Stripe. There is no
             subscription, no recurring billing, and no free tier. Your obligation to pay arises
             when you initiate checkout.
           </p>
