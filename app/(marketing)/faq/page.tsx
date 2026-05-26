@@ -48,7 +48,7 @@ const faqGroups = [
     faqs: [
       {
         q: 'How much does a pack cost?',
-        a: '$39 per pack. No subscription.',
+        a: 'Evidence packs start at $19. Volume packs available: 5-Pack ($79), 10-Pack ($129), and 25-Pack ($269). No subscription required.',
       },
       {
         q: 'Is there a subscription?',
@@ -56,7 +56,7 @@ const faqGroups = [
       },
       {
         q: 'Are there multi-pack options?',
-        a: 'A 3-pack bundle is available for $99 — for merchants handling multiple simultaneous disputes. The bundle is not a subscription. It provides three separate pack builds.',
+        a: 'Yes. Volume pricing is available: 5-Pack for $79, 10-Pack for $129, and 25-Pack for $269 — for merchants handling multiple simultaneous disputes. These are one-time purchases, not subscriptions.',
       },
       {
         q: 'How is payment processed?',
@@ -209,9 +209,9 @@ export default function FAQPage() {
           <h2 className="text-2xl font-bold text-white mb-4">
             Ready to build your evidence pack?
           </h2>
-          <p className="text-slate-300 mb-6">$39. No subscription. Submission-ready in 30 minutes.</p>
+          <p className="text-slate-300 mb-6">$19. No subscription. Submission-ready in 30 minutes.</p>
           <Link
-            href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00"
+            href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02"
             className="inline-flex items-center gap-2 bg-white text-brand-900 font-bold text-base px-8 py-4 rounded-lg hover:bg-brand-50 transition-colors"
           >
             Create Your Pack
