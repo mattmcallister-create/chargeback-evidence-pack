@@ -258,7 +258,7 @@ export default function PayPalDisputeResponsePage() {
       <section className="bg-brand-50 rounded-lg p-8 text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Build Your PayPal Dispute Evidence Pack</h2>
         <p className="text-gray-700 mb-6">ChargebackKit generates a complete, organized evidence package for your PayPal dispute. Rebuttal letters, evidence summaries, and everything you need to win — ready in minutes.</p>
-        <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="inline-block bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-emerald-600 transition-colors">Get Your Evidence Pack — $39</a>
+        <a href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02" className="inline-block bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-emerald-600 transition-colors">Get Your Evidence Pack — $39</a>
       </section>
 
       <div className="mt-12 pt-8 border-t border-gray-200">
