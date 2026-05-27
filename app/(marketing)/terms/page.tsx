@@ -70,7 +70,7 @@ export default function TermsPage() {
           <p>
             Files you upload during pack creation are used solely to generate your evidence pack.
             They are not stored, shared, or used for any other purpose. Your pack and all
-            associated uploaded files are permanently deleted 72 hours after pack creation.
+            associated uploaded files are permanently deleted after your access window closes (7 days for single packs, 30 days for volume packs).
             It is your responsibility to download your pack before that window closes.
           </p>
 
