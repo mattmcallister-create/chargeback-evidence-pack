@@ -1,4 +1,4 @@
-// lib/analytics/posthog.ts
+// lib/analytics/posthog.tsx
 // PostHog client + provider for ChargebackKit.
 // Loaded once at the root layout. Safe to import in client and server
 // components - the server import is a no-op.
