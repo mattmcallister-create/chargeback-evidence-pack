@@ -210,10 +210,10 @@ export default function HomePage() {
               <ArrowRight size={18} />
             </Link>
             <Link
-              href="/how-it-works/"
+              href="/preview"
               className="inline-flex items-center gap-2 text-slate-300 border border-white/20 font-medium text-base px-8 py-4 rounded-lg hover:bg-white/5 hover:border-white/40 transition-colors"
             >
-              See how it works
+              See a sample pack
             </Link>
           </div>
 
@@ -286,6 +286,13 @@ export default function HomePage() {
               className="text-sm text-brand-700 font-medium hover:text-brand-800 underline underline-offset-2"
             >
               See the full walkthrough →
+            </Link>
+            <span className="mx-2 text-slate-300">·</span>
+            <Link
+              href="/preview"
+              className="text-sm text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2"
+            >
+              See a sample evidence pack →
             </Link>
           </div>
         </div>
@@ -393,6 +400,15 @@ export default function HomePage() {
                 </tr>
               </tbody>
             </table>
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              href="/preview"
+              className="inline-flex items-center gap-2 text-sm text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2"
+            >
+              See exactly what you get before you buy →
+            </Link>
           </div>
         </div>
       </section>
@@ -542,6 +558,14 @@ export default function HomePage() {
           </Link>
           <p className="mt-4 text-sm text-slate-400">
             Starting at $19 · Credits never expire · Secure checkout via Stripe
+          </p>
+          <p className="mt-3">
+            <Link
+              href="/preview"
+              className="text-sm text-slate-400 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              Or see a sample pack first →
+            </Link>
           </p>
         </div>
       </section>
