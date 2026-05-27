@@ -115,6 +115,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/alternatives/chatgpt`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/alternatives/chargeflow`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
         {
             url: `${baseUrl}/chargeback-evidence-checklist`,
             lastModified: today,
