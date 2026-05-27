@@ -4,6 +4,7 @@ const productLinks = [
   { label: 'How It Works', href: '/how-it-works/' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Cost Calculator', href: '/tools/chargeback-calculator/' },
+  { label: 'Templates', href: '/templates' },
   { label: 'FAQ', href: '/faq/' },
 ]
 
