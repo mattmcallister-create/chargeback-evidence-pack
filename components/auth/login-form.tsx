@@ -2,6 +2,7 @@
 
 import { createBrowserClient } from '@supabase/ssr';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export function LoginForm({ redirectTo }: { redirectTo?: string }) {
   const [email, setEmail] = useState('');
@@ -60,7 +61,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
         </p>
         <button
           onClick={() => setMagicLinkSent(false)}
-          className="mt-4 text-sm text-blue-600 hover:text-blue-500"
+          className="mt-4 text-sm text-emerald-600 hover:text-emerald-500"
         >
           Use a different email
         </button>
@@ -83,16 +84,24 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
               placeholder="you@example.com"
             />
           </div>
 
           {mode === 'password' && (
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <Link
+                  href="/reset-password"
+                  className="text-xs font-medium text-emerald-600 hover:text-emerald-500"
+                >
+                  Forgot password?
+                </Link>
+              </div>
               <input
                 id="password"
                 type="password"
@@ -100,7 +109,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none"
               />
             </div>
           )}
@@ -110,7 +119,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {loading ? 'Signing in...' : mode === 'password' ? 'Sign in' : 'Send magic link'}
           </button>
