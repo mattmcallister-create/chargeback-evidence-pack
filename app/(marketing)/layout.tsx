@@ -1,5 +1,6 @@
 import MarketingNav from '@/components/marketing/nav'
 import MarketingFooter from '@/components/marketing/footer'
+import { StickyCTA } from '@/components/marketing/sticky-cta'
 
 export default function MarketingLayout({
   children,
@@ -11,6 +12,7 @@ export default function MarketingLayout({
       <MarketingNav />
       <main className="flex-1">{children}</main>
       <MarketingFooter />
+      <StickyCTA />
     </div>
   )
 }
