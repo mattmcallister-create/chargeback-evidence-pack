@@ -9,6 +9,7 @@ import posthog from 'posthog-js';
 import { PostHogProvider as PHProvider } from 'posthog-js/react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, Suspense } from 'react';
+import { captureUTMParams, getUTMProperties } from './utm';
 
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
@@ -26,6 +27,12 @@ export function initPostHog() {
     person_profiles: 'identified_only',
   });
   initialized = true;
+
+  // Capture UTM params on first load and register as super properties
+  const utms = captureUTMParams();
+  if (utms) {
+    posthog.register(utms);
+  }
 }
 
 function PageviewTracker() {
@@ -34,7 +41,9 @@ function PageviewTracker() {
   useEffect(() => {
     if (!pathname || !initialized) return;
     const url = window.location.origin + pathname + (searchParams?.toString() ? '?' + searchParams.toString() : '');
-    posthog.capture('$pageview', { $current_url: url });
+    // Include UTM properties in every pageview for attribution
+    const utmProps = getUTMProperties();
+    posthog.capture('$pageview', { $current_url: url, ...utmProps });
   }, [pathname, searchParams]);
   return null;
 }
@@ -61,7 +70,10 @@ export function track<T extends Record<string, unknown>>(event: string, props?: 
 // Identify a user once they sign in. Call from your auth callback.
 export function identify(userId: string, traits?: Record<string, unknown>) {
   if (typeof window === 'undefined' || !initialized) return;
-  posthog.identify(userId, traits as any);
+  // Merge UTM properties into user traits for first-touch attribution
+  const utmTraits = getUTMProperties();
+  const mergedTraits = { ...utmTraits, ...traits };
+  posthog.identify(userId, mergedTraits as any);
 }
 
 // Reset on logout to avoid cross-user contamination.
