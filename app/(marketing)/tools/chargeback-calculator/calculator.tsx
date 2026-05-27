@@ -14,6 +14,7 @@ import {
   Zap,
   BarChart3,
   Target,
+  type LucideIcon,
 } from 'lucide-react'
 
 /* ─── INDUSTRY PRESETS ────────────────────────────────────────────── */
@@ -199,7 +200,7 @@ function StatCard(props: {
   label: string
   value: string
   sublabel?: string
-  icon: React.ComponentType<{ size?: number; className?: string }>
+  icon: LucideIcon
   accent?: boolean
   negative?: boolean
 }) {
