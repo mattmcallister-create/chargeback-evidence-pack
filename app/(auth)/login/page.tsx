@@ -8,6 +8,7 @@ const APP_NAME = 'ChargebackKit';
 export const metadata = {
   title: `Sign In — ${APP_NAME}`,
   description: `Sign in to your ${APP_NAME} account to manage your chargeback evidence packs.`,
+  robots: { index: false, follow: false },
 };
 
 export default async function LoginPage({
