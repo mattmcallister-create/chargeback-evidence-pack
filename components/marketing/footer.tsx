@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 const productLinks = [
   { label: 'How It Works', href: '/how-it-works/' },
+  { label: 'Sample Evidence Pack', href: '/preview' },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Cost Calculator', href: '/tools/chargeback-calculator/' },
   { label: 'Templates', href: '/templates' },
