@@ -90,6 +90,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.8,
         },
+    {
+      url: `${baseUrl}/paypal-chargeback-evidence`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/shopify-chargeback-evidence`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/square-chargeback-evidence`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
         {
             url: `${baseUrl}/chargeback-evidence-checklist`,
             lastModified: today,
