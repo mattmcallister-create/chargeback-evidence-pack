@@ -127,6 +127,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/alternatives/stripe-smart-disputes`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
         {
             url: `${baseUrl}/chargeback-evidence-checklist`,
             lastModified: today,
