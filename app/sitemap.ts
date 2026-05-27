@@ -108,6 +108,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // Alternatives
+    {
+      url: `${baseUrl}/alternatives/joinchargeback`,
+      lastModified: today,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
         {
             url: `${baseUrl}/chargeback-evidence-checklist`,
             lastModified: today,
