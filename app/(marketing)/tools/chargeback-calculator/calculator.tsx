@@ -184,7 +184,7 @@ function RangeInput(props: {
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full h-2 rounded-full appearance-none cursor-pointer"
+        className="w-full h-2 sm:h-2 rounded-full appearance-none cursor-pointer touch-slider"
         style={{
           background: 'linear-gradient(to right, #10b981 0%, #10b981 ' + pct + '%, #e2e8f0 ' + pct + '%, #e2e8f0 100%)',
         }}
@@ -221,7 +221,7 @@ function StatCard(props: {
         </div>
         <div>
           <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">{label}</p>
-          <p className={'text-2xl font-bold tabular-nums mt-1 ' + valueColor}>{value}</p>
+          <p className={'text-xl sm:text-2xl font-bold tabular-nums mt-1 ' + valueColor}>{value}</p>
           {sublabel && <p className="text-xs text-slate-400 mt-1">{sublabel}</p>}
         </div>
       </div>
@@ -284,7 +284,7 @@ function ThresholdMeter(props: {
           style={{ left: pct + '%' }}
         />
       </div>
-      <div className="flex justify-between mt-1 text-[10px] text-slate-400">
+      <div className="flex justify-between mt-1 text-[11px] sm:text-[10px] text-slate-400">
         <span>0%</span>
         <span>{thresholds.safe}% safe</span>
         <span>{thresholds.warning}% warning</span>
@@ -568,7 +568,7 @@ export default function ChargebackCalculator() {
               </div>
 
               {/* Top-line stats */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <StatCard
                   label={timeframe === 'annual' ? 'Total annual cost' : 'Total monthly cost'}
                   value={fmt(calc.totalCost)}
@@ -611,7 +611,7 @@ export default function ChargebackCalculator() {
                   Projected impact based on structured evidence improving win rates
                 </p>
 
-                <div className="grid grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                   <div>
                     <p className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-2">Current (without)</p>
                     <div className="space-y-3">
@@ -656,7 +656,7 @@ export default function ChargebackCalculator() {
                   <p className="text-sm text-emerald-700 font-medium mb-1">
                     {timeframe === 'annual' ? 'Annual' : 'Monthly'} savings with ChargebackKit
                   </p>
-                  <p className="text-4xl font-bold text-emerald-700 tabular-nums">{fmt(calc.netSavings)}</p>
+                  <p className="text-3xl sm:text-4xl font-bold text-emerald-700 tabular-nums">{fmt(calc.netSavings)}</p>
                   <p className="text-sm text-emerald-600 mt-1">
                     {calc.roi > 0 ? Math.round(calc.roi) + '% return on investment' : 'Adjust your inputs to see potential savings'}
                   </p>
@@ -680,7 +680,7 @@ export default function ChargebackCalculator() {
               </div>
 
               {/* Additional metrics */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <StatCard label="Cost per dispute" value={fmt(calc.costPerChargeback)} icon={Package} />
                 <StatCard label="Cost per transaction" value={'$' + calc.costPerTransaction.toFixed(2)} icon={Users} />
                 <StatCard
