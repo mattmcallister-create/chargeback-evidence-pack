@@ -41,7 +41,7 @@ export default function PrivacyPage() {
           <p>
             Files you upload during pack creation (shipping records, screenshots, communications,
             policies) are processed solely to generate your evidence pack. They are stored
-            temporarily — for no longer than 72 hours after pack creation — and then permanently
+            temporarily — for no longer than up to 30 days after pack creation (7 days for single packs, 30 days for volume packs) — and then permanently
             deleted. We do not use uploaded files for any purpose other than generating your pack.
           </p>
 
@@ -74,9 +74,9 @@ export default function PrivacyPage() {
           <h2>3. File Retention and Deletion</h2>
           <p>
             This is our most important data commitment: all files you upload and your compiled
-            evidence pack are permanently deleted 72 hours after pack creation. We do not
+            evidence pack are permanently deleted after your access window closes (7 days for single packs, 30 days for volume packs). We do not
             archive, back up, or retain uploaded files beyond this window. If you need your
-            pack after 72 hours, you will need to build a new one.
+            pack after your access window closes (7 days for single packs, 30 days for volume packs), you will need to build a new one.
           </p>
 
           <h2>4. Payment Data</h2>
@@ -97,7 +97,7 @@ export default function PrivacyPage() {
           <h2>6. Data Security</h2>
           <p>
             We use encryption in transit (HTTPS/TLS) for all data. Uploaded files are stored
-            in encrypted storage during the 72-hour window. Access to file storage is
+            in encrypted storage during the access window (up to 30 days). Access to file storage is
             restricted to the generation process only. We maintain access logs for security
             monitoring.
           </p>
@@ -106,8 +106,7 @@ export default function PrivacyPage() {
           <p>
             Depending on your location, you may have the right to access, correct, or delete
             personal data we hold about you. To exercise these rights, contact us at the
-            address below. Note: because uploaded files are automatically deleted after 72
-            hours, there is typically no file data to retrieve after that window.
+            address below. Note: because uploaded files are automatically deleted after the access window (7 days for single packs, 30 days for volume packs), there is typically no file data to retrieve after that window.
           </p>
 
           <h2>8. Third-Party Services</h2>
