@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     );
 
     // --- Build checkout session params ---
-    const metadata: CheckoutMetadata = {
+    const metadata: Record<string, string> = {
       user_id: user.id,
       purchase_mode: priceConfig.mode,
       credits: String(priceConfig.credits),
