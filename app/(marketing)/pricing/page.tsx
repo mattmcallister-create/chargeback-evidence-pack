@@ -82,8 +82,8 @@ const included = [
   },
   {
     icon: Download,
-    title: '72-hour access to your pack',
-    desc: 'Download and re-download your completed evidence pack anytime within 72 hours of creation.',
+    title: '7 to 30 days access to your pack',
+    desc: 'Download and re-download your completed evidence pack -- 7 days for single packs, 30 days for volume packs.',
   },
   {
     icon: Clock,
@@ -108,7 +108,7 @@ const pricingFaqs = [
   },
   {
     q: 'Can I regenerate my pack if I need to make changes?',
-    a: 'Your pack is accessible for 72 hours after creation. Within that window, you can download it as many times as needed. If you need a new pack for a different dispute, that is a separate purchase.',
+    a: 'Your pack is accessible for 7 days (single packs) or 30 days (volume packs) after creation. Within that window, you can download it as many times as needed. If you need a new pack for a different dispute, that is a separate purchase.',
   },
   {
     q: 'What is your refund policy?',
