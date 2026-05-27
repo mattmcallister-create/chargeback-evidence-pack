@@ -228,10 +228,10 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
               <ArrowRight size={18} />
             </Link>
             <Link
-              href="/how-it-works/"
+              href="/preview"
               className="inline-flex items-center gap-2 text-slate-300 border border-white/20 font-medium text-base px-8 py-4 rounded-lg hover:bg-white/5 hover:border-white/40 transition-colors"
             >
-              See how it works
+              See a sample pack
             </Link>
           </div>
           <p className="text-sm text-slate-400">
@@ -351,6 +351,14 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
           </Link>
           <p className="mt-4 text-sm text-slate-400">
             $19 per pack · Volume discounts available · 72-hour access
+          </p>
+          <p className="mt-3">
+            <Link
+              href="/preview"
+              className="text-sm text-slate-400 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              Or see a sample pack first →
+            </Link>
           </p>
         </div>
       </section>
