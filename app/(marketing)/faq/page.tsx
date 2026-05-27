@@ -98,15 +98,15 @@ const faqGroups = [
     faqs: [
       {
         q: 'What happens to my uploaded files?',
-        a: 'Files you upload during pack creation are used only to generate your evidence pack. They are not stored, shared, or used for any other purpose. All uploads and your pack are deleted 72 hours after creation.',
+        a: 'Files you upload during pack creation are used only to generate your evidence pack. They are not stored, shared, or used for any other purpose. All uploads and your pack are deleted after your access window closes (7 days for single packs, 30 days for volume packs).',
       },
       {
         q: 'How long do I have to download my pack?',
-        a: 'Your pack is available to download for 72 hours after creation. Download it before that window closes — files are permanently deleted after 72 hours.',
+        a: 'Your pack is available to download for 7 days (single packs) or 30 days (volume packs) after creation. Download it before that window closes — files are permanently deleted afterward.',
       },
       {
-        q: 'Can I regenerate my pack after the 72-hour window?',
-        a: 'Once the 72-hour window closes, the pack and all associated files are deleted. If you need a new pack, that is a separate purchase.',
+        q: 'Can I regenerate my pack after the access window closes?',
+        a: 'Once your access window closes (7 days for single packs, 30 days for volume packs), the pack and all associated files are deleted. If you need a new pack, that is a separate purchase.',
       },
       {
         q: 'What is your refund policy?',
