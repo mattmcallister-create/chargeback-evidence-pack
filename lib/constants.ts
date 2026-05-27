@@ -10,7 +10,7 @@ export const ROUTES = {
   // Public
   HOME: '/',
   LOGIN: '/login',
-  SIGNUP: 'https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00',
+  SIGNUP: 'https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02',
   PRICING: '/pricing',
 
   // Protected
