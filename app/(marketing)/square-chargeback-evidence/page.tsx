@@ -118,6 +118,11 @@ export default function SquareChargebackEvidencePage() {
             Build My Evidence Pack &mdash; $19
             <ArrowRight size={18} />
           </Link>
+          <p className="mt-4">
+            <Link href="/preview" className="text-sm text-slate-300 hover:text-white underline underline-offset-2 transition-colors">
+              See a sample evidence pack &rarr;
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -260,6 +265,11 @@ export default function SquareChargebackEvidencePage() {
           <p className="mt-4 text-sm text-slate-400">
             Secure checkout via Stripe &middot; No subscription &middot;{' '}
             <Link href="/pricing/" className="underline hover:text-white transition-colors">Volume discounts available</Link>
+          </p>
+          <p className="mt-3">
+            <Link href="/preview" className="text-sm text-slate-300 hover:text-white underline underline-offset-2 transition-colors">
+              Or see a sample pack first &rarr;
+            </Link>
           </p>
         </div>
       </section>
