@@ -156,6 +156,14 @@ export default function HowItWorksPage() {
             Create Your First Pack
             <ArrowRight size={18} />
           </Link>
+          <p className="mt-4">
+            <Link
+              href="/preview"
+              className="text-sm text-slate-400 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              See a sample evidence pack →
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -283,8 +291,8 @@ export default function HowItWorksPage() {
             <ArrowRight size={18} />
           </Link>
           <p className="mt-4 text-sm text-slate-400">
-            <Link href="/pricing/" className="underline hover:text-white transition-colors">
-              See what&apos;s included →
+            <Link href="/preview" className="underline hover:text-white transition-colors">
+              See a sample pack first →
             </Link>
           </p>
         </div>
