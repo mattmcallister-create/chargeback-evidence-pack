@@ -187,6 +187,14 @@ export default function PricingPage() {
           <p className="text-xl text-slate-300 mb-2">
             No subscription. No recurring charges. Volume discounts up to 43% off.
           </p>
+          <p className="mt-4">
+            <Link
+              href="/preview"
+              className="text-sm text-slate-400 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              See a sample evidence pack before you buy →
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -364,6 +372,14 @@ export default function PricingPage() {
           </Link>
           <p className="mt-4 text-sm text-slate-400">
             Secure checkout via Stripe &middot; No subscription &middot; Volume discounts available
+          </p>
+          <p className="mt-3">
+            <Link
+              href="/preview"
+              className="text-sm text-slate-400 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              Or see a sample pack first →
+            </Link>
           </p>
         </div>
       </section>
