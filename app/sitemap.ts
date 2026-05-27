@@ -14,6 +14,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
         'credit-not-processed',
     ];
 
+    // Template slugs for all 35 template pages
+    const templateSlugs = [
+        // Gateway-specific response letters
+        'paypal-dispute-response-letter',
+        'shopify-payments-dispute-response',
+        'square-dispute-response-letter',
+        'stripe-chargeback-response-letter',
+        // Gateway-specific evidence checklists
+        'paypal-evidence-checklist',
+        'shopify-evidence-checklist',
+        'square-evidence-checklist',
+        'stripe-evidence-checklist',
+        // Reason-code evidence checklists
+        'credit-not-processed-evidence-checklist',
+        'duplicate-charge-evidence-checklist',
+        'fraud-evidence-checklist',
+        'item-not-received-evidence-checklist',
+        'not-as-described-evidence-checklist',
+        'services-not-rendered-evidence-checklist',
+        'subscription-cancellation-evidence-checklist',
+        'unauthorized-transaction-evidence-checklist',
+        // Reason-code response letters
+        'credit-not-processed-response-letter',
+        'duplicate-charge-response-letter',
+        'fraud-chargeback-response-letter',
+        'item-not-received-response-letter',
+        'not-as-described-response-letter',
+        'services-not-rendered-response-letter',
+        'subscription-cancellation-response-letter',
+        'unauthorized-transaction-response-letter',
+        // Industry playbooks
+        'digital-goods-chargeback-playbook',
+        'ecommerce-chargeback-playbook',
+        'high-risk-merchant-chargeback-playbook',
+        'marketplace-chargeback-playbook',
+        'retail-pos-chargeback-playbook',
+        'saas-chargeback-playbook',
+        'services-business-chargeback-playbook',
+        'travel-hospitality-chargeback-playbook',
+        // Card network playbooks
+        'amex-chargeback-playbook',
+        'mastercard-chargeback-playbook',
+        'visa-chargeback-playbook',
+    ];
+
     const routes: MetadataRoute.Sitemap = [
         {
             url: `${baseUrl}/`,
@@ -58,21 +103,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'weekly',
             priority: 0.9,
         },
-        // Original guide pages
+        // Guide pages
         {
-            url: `${baseUrl}/guides/how-to-win-a-chargeback`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/guides/chargeback-prevention`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/guides/chargeback-rebuttal-letter`,
+            url: `${baseUrl}/guides/chargeback-prevention-strategies`,
             lastModified: today,
             changeFrequency: 'monthly',
             priority: 0.8,
@@ -83,50 +116,69 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.8,
         },
-        // Reason code pages
         {
-            url: `${baseUrl}/guides/visa-reason-code-13-1`,
+            url: `${baseUrl}/guides/compelling-evidence-3`,
             lastModified: today,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
-            url: `${baseUrl}/guides/mastercard-reason-code-4853`,
+            url: `${baseUrl}/guides/visa-chargeback-reason-codes`,
             lastModified: today,
             changeFrequency: 'monthly',
             priority: 0.8,
+        },
+        // Reason code pages
+        {
+            url: `${baseUrl}/reason-codes/visa-10-4`,
+            lastModified: today,
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/reason-codes/mastercard-4837`,
+            lastModified: today,
+            changeFrequency: 'monthly',
+            priority: 0.7,
         },
         // Processor-specific pages
         {
-            url: `${baseUrl}/guides/shopify-chargeback-response`,
+            url: `${baseUrl}/processors/stripe-chargebacks`,
             lastModified: today,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
-            url: `${baseUrl}/guides/paypal-dispute-response`,
+            url: `${baseUrl}/processors/paypal-disputes`,
             lastModified: today,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
         {
-            url: `${baseUrl}/guides/square-chargeback-response`,
+            url: `${baseUrl}/processors/square-chargebacks`,
             lastModified: today,
             changeFrequency: 'monthly',
             priority: 0.8,
         },
-        // Industry-specific pages
+        // Industry pages
         {
-            url: `${baseUrl}/guides/saas-chargeback-prevention`,
+            url: `${baseUrl}/industries/ecommerce-chargebacks`,
             lastModified: today,
             changeFrequency: 'monthly',
-            priority: 0.8,
+            priority: 0.7,
         },
         {
-            url: `${baseUrl}/guides/friendly-fraud-prevention`,
+            url: `${baseUrl}/industries/saas-chargebacks`,
             lastModified: today,
             changeFrequency: 'monthly',
-            priority: 0.8,
+            priority: 0.7,
+        },
+        // Templates hub
+        {
+            url: `${baseUrl}/templates`,
+            lastModified: today,
+            changeFrequency: 'weekly',
+            priority: 0.9,
         },
         // Legal pages
         {
@@ -142,14 +194,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.3,
         },
         {
-            url: `${baseUrl}/refund`,
+            url: `${baseUrl}/refund-policy`,
             lastModified: today,
             changeFrequency: 'yearly',
             priority: 0.3,
         },
     ];
 
-    // Dynamic chargeback category pages
     const categoryRoutes: MetadataRoute.Sitemap = chargebackCategories.map((slug) => ({
         url: `${baseUrl}/chargeback/${slug}`,
         lastModified: today,
@@ -157,5 +208,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
     }));
 
-    return [...routes, ...categoryRoutes];
+    const templateRoutes: MetadataRoute.Sitemap = templateSlugs.map((slug) => ({
+        url: `${baseUrl}/templates/${slug}`,
+        lastModified: today,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
+    return [...routes, ...categoryRoutes, ...templateRoutes];
 }
