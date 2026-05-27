@@ -209,6 +209,20 @@ export default function HomePage() {
               Build My Evidence Pack — $19
               <ArrowRight size={18} />
             </Link>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <Shield className="h-4 w-4" aria-hidden="true" />
+              Card-network compliant
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle className="h-4 w-4" aria-hidden="true" />
+              Instant PDF delivery
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Star className="h-4 w-4" aria-hidden="true" />
+              One-time payment
+            </span>
+          </div>
             <Link
               href="/preview"
               className="inline-flex items-center gap-2 text-slate-300 border border-white/20 font-medium text-base px-8 py-4 rounded-lg hover:bg-white/5 hover:border-white/40 transition-colors"
@@ -224,6 +238,34 @@ export default function HomePage() {
           <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.479 9.883c-1.626-.604-2.512-1.067-2.512-1.803 0-.622.511-.977 1.423-.977 1.667 0 3.379.642 4.558 1.22l.666-4.111c-.935-.446-2.847-1.177-5.49-1.177-1.87 0-3.425.489-4.536 1.401-1.155.96-1.757 2.344-1.757 4.025 0 3.049 1.865 4.358 4.906 5.46 1.958.702 2.613 1.204 2.613 1.976 0 .754-.648 1.184-1.81 1.184-1.469 0-3.89-.717-5.488-1.65l-.674 4.157c1.364.777 3.892 1.564 6.514 1.564 1.976 0 3.624-.467 4.736-1.35 1.244-.982 1.89-2.427 1.89-4.297 0-3.102-1.891-4.396-4.969-5.522z"/></svg>
             <span>Secure checkout via Stripe · PCI-compliant</span>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ─── SOCIAL PROOF METRICS BAR ─────────────────────────────────── */}
+      <section className="border-y border-gray-100 bg-white" aria-label="Key benefits">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-gray-600">
+            <span className="flex items-center gap-2">
+              <Shield className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+              6 dispute categories
+            </span>
+            <span className="hidden sm:inline text-gray-300" aria-hidden="true">|</span>
+            <span className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+              30-minute turnaround
+            </span>
+            <span className="hidden sm:inline text-gray-300" aria-hidden="true">|</span>
+            <span className="flex items-center gap-2">
+              <Zap className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+              From $19 per pack
+            </span>
+            <span className="hidden sm:inline text-gray-300" aria-hidden="true">|</span>
+            <span className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+              No subscription required
+            </span>
           </div>
         </div>
       </section>
@@ -294,6 +336,68 @@ export default function HomePage() {
             >
               See a sample evidence pack →
             </Link>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ─── WHAT'S INSIDE ────────────────────────────────────────────── */}
+      <section className="py-20 bg-gray-50" aria-labelledby="whats-inside-heading">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="text-center mb-12">
+            <h2 id="whats-inside-heading" className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              What&apos;s inside your evidence pack
+            </h2>
+            <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+              Every pack is built to the exact format card networks require&mdash;so your
+              rebuttal lands with maximum impact.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Cover page */}
+            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
+                <FileText className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+              </div>
+              <h3 className="text-base font-semibold text-gray-900">Cover page</h3>
+              <p className="mt-2 text-sm text-gray-600">
+                Professional cover sheet with merchant details, dispute reference, and card-network-specific formatting.
+              </p>
+            </div>
+
+            {/* Rebuttal narrative */}
+            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
+                <AlertCircle className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+              </div>
+              <h3 className="text-base font-semibold text-gray-900">Rebuttal narrative</h3>
+              <p className="mt-2 text-sm text-gray-600">
+                A structured argument tailored to your dispute category, citing the evidence that matters most to issuers.
+              </p>
+            </div>
+
+            {/* Labeled exhibits */}
+            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
+                <Download className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+              </div>
+              <h3 className="text-base font-semibold text-gray-900">Labeled exhibits</h3>
+              <p className="mt-2 text-sm text-gray-600">
+                Your uploaded evidence organized, labeled, and cross-referenced so reviewers can follow along instantly.
+              </p>
+            </div>
+
+            {/* Evidence checklist */}
+            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
+                <CheckCircle className="h-5 w-5 text-emerald-600" aria-hidden="true" />
+              </div>
+              <h3 className="text-base font-semibold text-gray-900">Evidence checklist</h3>
+              <p className="mt-2 text-sm text-gray-600">
+                Category-specific checklist ensuring you include every document the card network expects to see.
+              </p>
+            </div>
           </div>
         </div>
       </section>
