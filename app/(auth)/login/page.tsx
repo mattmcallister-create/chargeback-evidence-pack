@@ -61,7 +61,7 @@ export default async function LoginPage({
 
         <p className="mt-6 text-center text-sm text-gray-500">
           Don&apos;t have an account?{' '}
-          <a href="https://buy.stripe.com/eVq8wQ83Pg1M95B3hD3Nm00" className="font-medium text-blue-600 hover:text-blue-500">
+          <a href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02" className="font-medium text-blue-600 hover:text-blue-500">
             Get started
           </a>
         </p>
