@@ -245,7 +245,7 @@ export default function HowItWorksPage() {
               <p className="text-sm text-slate-600 leading-relaxed">
                 Files you upload during pack creation are used only to generate your evidence pack.
                 They are not stored, shared, or used for any other purpose. Your pack and all
-                associated uploads are deleted 72 hours after creation. Download your PDF before
+                associated uploads are deleted after your access window closes (7 days for single packs, 30 days for volume packs). Download your PDF before
                 that window closes.
               </p>
             </div>
