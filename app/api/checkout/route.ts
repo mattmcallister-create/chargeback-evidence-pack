@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { stripe } from '@/lib/stripe';
+import type Stripe from 'stripe';
 import { getOrCreateStripeCustomerId } from '@/lib/billing/entitlements';
 import {
   getPriceConfigById,
@@ -87,7 +88,7 @@ export async function POST(request: NextRequest) {
       price_label: priceConfig.label,
     };
 
-    const sessionParams: Parameters<typeof stripe.checkout.sessions.create>[0] = {
+    const sessionParams: Stripe.Checkout.SessionCreateParams = {
       customer: stripeCustomerId,
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: CHECKOUT_SUCCESS_URL,
