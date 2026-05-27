@@ -253,6 +253,11 @@ export default function ChargebackRebuttalLetterPage() {
           <a href="https://buy.stripe.com/5kQaEY83P3f02Hdf0l3Nm02" className="inline-block bg-emerald-500 text-white font-semibold py-3 px-8 rounded-lg hover:bg-emerald-600 transition-colors">
             Build My Evidence Pack &mdash; $19
           </a>
+          <p className="mt-4">
+            <Link href="/preview" className="text-sm text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2">
+              Or see a sample pack first &rarr;
+            </Link>
+          </p>
         </section>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
@@ -261,6 +266,7 @@ export default function ChargebackRebuttalLetterPage() {
             <li><Link href="/stripe-chargeback-evidence" className="hover:underline">Stripe Chargeback Evidence: What to Submit &amp; How</Link></li>
             <li><Link href="/chargeback-evidence-checklist" className="hover:underline">Chargeback Evidence Checklist: Complete Guide by Dispute Type</Link></li>
             <li><Link href="/guides/chargeback-response-deadlines" className="hover:underline">Chargeback Response Deadlines: Complete Guide by Card Network</Link></li>
+            <li><Link href="/preview" className="hover:underline">Preview a Sample Evidence Pack</Link></li>
           </ul>
         </div>
       </div>
