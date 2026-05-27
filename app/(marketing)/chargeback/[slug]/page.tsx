@@ -235,7 +235,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
             </Link>
           </div>
           <p className="text-sm text-slate-400">
-            $19 per pack · Volume discounts available · 72-hour access
+            $19 per pack · Volume discounts available · 7-day access
           </p>
         </div>
       </section>
@@ -334,7 +334,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
         <div className="max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 text-slate-300 text-sm mb-4">
             <Clock size={16} strokeWidth={1.5} />
-            <span>30 minutes · 72-hour download access</span>
+            <span>30 minutes · 7-day download access</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Ready to build your {data.label.toLowerCase()} evidence pack?
@@ -350,7 +350,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
             <ArrowRight size={18} />
           </Link>
           <p className="mt-4 text-sm text-slate-400">
-            $19 per pack · Volume discounts available · 72-hour access
+            $19 per pack · Volume discounts available · 7-day access
           </p>
           <p className="mt-3">
             <Link
