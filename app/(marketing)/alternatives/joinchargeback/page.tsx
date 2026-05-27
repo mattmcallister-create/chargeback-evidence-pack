@@ -113,6 +113,9 @@ export default function JoinChargebackAlternativePage() {
           <p className="mt-3 text-sm text-slate-600">
             Secure checkout via Stripe &middot; No subscription &middot; No account required
           </p>
+          <Link href="/preview" className="inline-block mt-3 text-sm text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2">
+            See a sample evidence pack &rarr;
+          </Link>
         </div>
 
         <section className="mb-12">
@@ -221,6 +224,11 @@ export default function JoinChargebackAlternativePage() {
           >
             Build My Evidence Pack &mdash; $19
           </a>
+          <p className="mt-4">
+            <Link href="/preview" className="text-sm text-emerald-600 font-medium hover:text-emerald-700 underline underline-offset-2">
+              Or see a sample pack first &rarr;
+            </Link>
+          </p>
         </section>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
@@ -231,6 +239,7 @@ export default function JoinChargebackAlternativePage() {
             <li><Link href="/guides/chargeback-rebuttal-letter" className="hover:underline">Chargeback Rebuttal Letter: How to Write One That Wins</Link></li>
             <li><Link href="/chargeback-evidence-checklist" className="hover:underline">Chargeback Evidence Checklist by Dispute Type</Link></li>
             <li><Link href="/pricing" className="hover:underline">Evidence Pack Pricing</Link></li>
+            <li><Link href="/preview" className="hover:underline">Preview a Sample Evidence Pack</Link></li>
           </ul>
         </div>
       </div>
