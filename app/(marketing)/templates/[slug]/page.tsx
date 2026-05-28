@@ -52,7 +52,7 @@ export async function generateMetadata({
   const t = await getTemplate(params.slug)
   if (!t) return { title: 'Template Not Found' }
   return {
-    title: `${t.title} | ChargebackKit`,
+    title: `${t.title}`,
     description: t.description,
     alternates: { canonical: `https://chargebackkit.app/templates/${t.slug}` },
     openGraph: {

@@ -5,14 +5,14 @@ import { ArrowRight, Shield, AlertTriangle, Clock, FileText, CheckCircle } from 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app'
 
 export const metadata: Metadata = {
-  title: 'PayPal Chargeback Evidence: What to Submit & How to Win | ChargebackKit',
+  title: 'PayPal Chargeback Evidence: What to Submit & How to Win',
   description:
     'Learn what PayPal requires for dispute evidence and how to submit a winning response. Covers PayPal Resolution Center, INR claims, SNAD disputes, and unauthorized transaction chargebacks.',
   alternates: {
     canonical: `${siteUrl}/paypal-chargeback-evidence`,
   },
   openGraph: {
-    title: 'PayPal Chargeback Evidence: What to Submit & How to Win | ChargebackKit',
+    title: 'PayPal Chargeback Evidence: What to Submit & How to Win',
     description:
       'Complete guide to PayPal chargeback evidence. Covers Resolution Center disputes, INR claims, SNAD disputes, and unauthorized transactions.',
     url: `${siteUrl}/paypal-chargeback-evidence`,

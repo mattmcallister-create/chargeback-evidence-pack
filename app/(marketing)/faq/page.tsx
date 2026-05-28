@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     canonical: '/faq/',
   },
   openGraph: {
-    title: 'Frequently Asked Questions | ChargebackKit',
+    title: 'Frequently Asked Questions',
     description:
       'Common questions about pricing, dispute categories, evidence requirements, and how ChargebackKit works.',
     url: '/faq/',

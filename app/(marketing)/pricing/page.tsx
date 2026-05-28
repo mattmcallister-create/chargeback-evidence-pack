@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { ArrowRight, Check, Shield, Download, FileText, Clock } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Evidence Pack Pricing \u2014 Starting at $19 | ChargebackKit',
+  title: 'Evidence Pack Pricing \u2014 Starting at $19',
   description:
     'ChargebackKit pricing: single packs from $19, volume discounts up to 45% off. No subscription. One payment, submission-ready evidence pack for your dispute type.',
   alternates: {
     canonical: '/pricing/',
   },
   openGraph: {
-    title: 'Evidence Pack Pricing \u2014 Starting at $19 | ChargebackKit',
+    title: 'Evidence Pack Pricing \u2014 Starting at $19',
     description:
       'ChargebackKit pricing: single packs from $19, volume packs available. No subscription required.',
     url: '/pricing/',

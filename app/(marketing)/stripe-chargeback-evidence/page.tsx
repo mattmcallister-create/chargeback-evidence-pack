@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Stripe Chargeback Evidence: What to Submit & How | ChargebackKit',
+  title: 'Stripe Chargeback Evidence: What to Submit & How',
   description:
     'Learn what Stripe requires for chargeback evidence and how to submit a winning response. Includes evidence checklist, common mistakes, and step-by-step guide.',
   alternates: {
     canonical: `${siteUrl}/stripe-chargeback-evidence`,
   },
   openGraph: {
-    title: 'Stripe Chargeback Evidence: What to Submit & How | ChargebackKit',
+    title: 'Stripe Chargeback Evidence: What to Submit & How',
     description:
       'Learn what Stripe requires for chargeback evidence and how to submit a winning response.',
     url: `${siteUrl}/stripe-chargeback-evidence`,

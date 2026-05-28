@@ -7,7 +7,7 @@ import { DISPUTE_CATEGORIES } from '@/lib/constants';
 import type { Pack, Exhibit } from '@/lib/database/types';
 
 export const metadata = {
-  title: 'Dispute Pack | ChargebackKit',
+  title: 'Dispute Pack',
 };
 
 function getCategoryLabel(categoryId: string): string {

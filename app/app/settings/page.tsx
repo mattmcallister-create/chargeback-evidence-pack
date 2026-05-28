@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { User, CreditCard, ExternalLink } from 'lucide-react';
 
 export const metadata = {
-  title: 'Settings | ChargebackKit',
+  title: 'Settings',
 };
 
 export default async function SettingsPage() {

@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Chargeback Response Deadlines by Card Network (2025-2026) | ChargebackKit',
+  title: 'Chargeback Response Deadlines by Card Network (2025-2026)',
   description:
     'Complete guide to chargeback response deadlines for Visa, Mastercard, American Express, and Discover. Includes timelines, consequences of missing deadlines, and best practices.',
   alternates: {
     canonical: `${siteUrl}/guides/chargeback-response-deadlines`,
   },
   openGraph: {
-    title: 'Chargeback Response Deadlines by Card Network (2025-2026) | ChargebackKit',
+    title: 'Chargeback Response Deadlines by Card Network (2025-2026)',
     description: 'Complete guide to chargeback response deadlines for Visa, Mastercard, American Express, and Discover.',
     url: `${siteUrl}/guides/chargeback-response-deadlines`,
     type: 'article',

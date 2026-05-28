@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { createClient } from '@supabase/supabase-js';
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard | ChargebackKit',
+  title: 'Admin Dashboard',
   robots: 'noindex, nofollow',
 };
 

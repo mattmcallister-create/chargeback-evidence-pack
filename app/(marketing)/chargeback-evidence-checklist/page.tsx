@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Chargeback Evidence Checklist: Complete Guide by Dispute Type | ChargebackKit',
+  title: 'Chargeback Evidence Checklist: Complete Guide by Dispute Type',
   description:
     'Complete chargeback evidence checklist covering all dispute types including fraud, product not received, subscriptions, and product not as described.',
   alternates: {
     canonical: `${siteUrl}/chargeback-evidence-checklist`,
   },
   openGraph: {
-    title: 'Chargeback Evidence Checklist: Complete Guide by Dispute Type | ChargebackKit',
+    title: 'Chargeback Evidence Checklist: Complete Guide by Dispute Type',
     description: 'Complete checklist of evidence needed for all chargeback dispute types.',
     url: `${siteUrl}/chargeback-evidence-checklist`,
     type: 'article',

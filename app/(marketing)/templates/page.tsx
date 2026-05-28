@@ -5,7 +5,7 @@ import { supabaseAdmin } from '@/lib/supabase-admin'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Chargeback Response Templates &amp; Evidence Checklists | ChargebackKit',
+  title: 'Chargeback Response Templates &amp; Evidence Checklists',
   description:
     'Free chargeback response letter templates, evidence checklists, and dispute playbooks for Stripe, PayPal, Shopify, and Square. Win more disputes with structured evidence.',
   alternates: { canonical: 'https://chargebackkit.app/templates' },

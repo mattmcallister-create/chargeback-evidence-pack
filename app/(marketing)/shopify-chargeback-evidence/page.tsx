@@ -5,14 +5,14 @@ import { ArrowRight, Shield, CheckCircle } from 'lucide-react'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app'
 
 export const metadata: Metadata = {
-  title: 'Shopify Chargeback Evidence: What to Submit & How to Win | ChargebackKit',
+  title: 'Shopify Chargeback Evidence: What to Submit & How to Win',
   description:
     'Learn what Shopify Payments requires for chargeback evidence. Covers Shopify dispute flow, evidence types, inquiry vs chargeback, and how to respond through the Shopify admin.',
   alternates: {
     canonical: `${siteUrl}/shopify-chargeback-evidence`,
   },
   openGraph: {
-    title: 'Shopify Chargeback Evidence: What to Submit & How to Win | ChargebackKit',
+    title: 'Shopify Chargeback Evidence: What to Submit & How to Win',
     description:
       'Complete guide to Shopify Payments chargeback evidence. Inquiry vs chargeback, evidence types, and how to respond.',
     url: `${siteUrl}/shopify-chargeback-evidence`,

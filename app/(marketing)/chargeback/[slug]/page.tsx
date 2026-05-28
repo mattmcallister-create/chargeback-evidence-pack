@@ -46,7 +46,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
       'Match results (AVS/CVV) carry more weight than narrative. Lead with the data.',
       'If the device fingerprint matches a prior successful transaction, include it as Exhibit A.',
     ],
-    seoTitle: 'Fraudulent Chargeback Evidence Pack — Dispute Unauthorized Claims | ChargebackKit',
+    seoTitle: 'Fraudulent Chargeback Evidence Pack — Dispute Unauthorized Claims',
     seoDescription:
       'Build a submission-ready evidence pack for fraudulent chargebacks. AVS/CVV proof, device match, delivery confirmation — assembled the way Stripe expects. Starting at $19. Volume packs available.',
   },
@@ -71,7 +71,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
       'If the customer used the product AFTER the disputed charge, include login timestamps — that alone often wins the dispute.',
       'Cite Stripe\'s requirement that merchants notify customers of upcoming renewals if the subscription is annual or > $50/month.',
     ],
-    seoTitle: 'Subscription Chargeback Evidence Pack — Dispute Cancelled Recurring Claims | ChargebackKit',
+    seoTitle: 'Subscription Chargeback Evidence Pack — Dispute Cancelled Recurring Claims',
     seoDescription:
       'Submission-ready evidence pack for subscription chargebacks. Signup proof, terms, usage logs, and billing history — assembled for Stripe in 30 minutes. Starting at $19. Volume packs available.',
   },
@@ -96,7 +96,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
       'For digital goods, an access/download log with the customer IP is the equivalent of a signed delivery.',
       'If the tracking shows "delivered" to the cardholder\'s billing address, highlight that match in your narrative.',
     ],
-    seoTitle: 'Product Not Received Chargeback Evidence Pack — Prove Delivery | ChargebackKit',
+    seoTitle: 'Product Not Received Chargeback Evidence Pack — Prove Delivery',
     seoDescription:
       'Build a chargeback evidence pack for "product not received" disputes. Tracking, delivery proof, digital access logs — structured for Stripe submission. Starting at $19. Volume packs available.',
   },
@@ -121,7 +121,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
       'Archive your product listing at the time of sale — Wayback Machine snapshots work as third-party evidence.',
       'Address the specific claim in the customer\'s dispute. Generic rebuttals lose.',
     ],
-    seoTitle: 'Product Not as Described Chargeback Evidence Pack — Stripe Submission | ChargebackKit',
+    seoTitle: 'Product Not as Described Chargeback Evidence Pack — Stripe Submission',
     seoDescription:
       'Assemble an evidence pack for "product not as described" chargebacks. Listing proof, return policy, customer communications — submission-ready. Starting at $19. Volume packs available.',
   },
@@ -146,7 +146,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
       'Different line items or product SKUs on each order is the fastest win.',
       'Include a 60-day transaction history to show this customer normally places multiple orders.',
     ],
-    seoTitle: 'Duplicate Charge Chargeback Evidence Pack — Prove Separate Transactions | ChargebackKit',
+    seoTitle: 'Duplicate Charge Chargeback Evidence Pack — Prove Separate Transactions',
     seoDescription:
       'Evidence pack for duplicate chargeback disputes. Side-by-side transaction proof, distinct order IDs, session logs — Stripe submission-ready. Starting at $19. Volume packs available.',
   },
@@ -171,7 +171,7 @@ const CATEGORIES: Record<Slug, CategoryContent> = {
       'Refunds can take 5–10 business days to clear. If the customer filed prematurely, explain the timing.',
       'Attach your return policy with the exact clause that governs the request highlighted.',
     ],
-    seoTitle: 'Credit Not Processed Chargeback Evidence Pack — Refund Dispute | ChargebackKit',
+    seoTitle: 'Credit Not Processed Chargeback Evidence Pack — Refund Dispute',
     seoDescription:
       'Evidence pack for "credit not processed" chargebacks. Stripe credit notes, return policy, refund history — submission-ready in 30 minutes. Starting at $19. Volume packs available.',
   },
@@ -184,7 +184,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const data = CATEGORIES[params.slug as Slug]
   if (!data) {
-    return { title: 'Chargeback Evidence Pack | ChargebackKit' }
+    return { title: 'Chargeback Evidence Pack' }
   }
   return {
     title: data.seoTitle,

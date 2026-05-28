@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { ArrowRight, Lock, Eye, FileText, CheckCircle, Shield } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Sample Evidence Pack Preview | ChargebackKit',
+  title: 'Sample Evidence Pack Preview',
   description:
     'See exactly what a ChargebackKit evidence pack looks like before you buy. Interactive preview of cover page, rebuttal narrative, evidence checklist, and labeled exhibits.',
   alternates: {
     canonical: '/preview/',
   },
   openGraph: {
-    title: 'Sample Evidence Pack Preview | ChargebackKit',
+    title: 'Sample Evidence Pack Preview',
     description:
       'See exactly what a ChargebackKit evidence pack looks like before you buy.',
     url: '/preview/',

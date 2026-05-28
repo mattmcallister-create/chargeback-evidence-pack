@@ -5,14 +5,14 @@ import { ArrowRight, Shield, CheckCircle } from 'lucide-react'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app'
 
 export const metadata: Metadata = {
-  title: 'Square Chargeback Evidence: What to Submit & How to Win | ChargebackKit',
+  title: 'Square Chargeback Evidence: What to Submit & How to Win',
   description:
     'Learn what Square requires for chargeback evidence. Covers Square dispute flow, evidence types for in-person and online payments, and how to respond through the Square Dashboard.',
   alternates: {
     canonical: `${siteUrl}/square-chargeback-evidence`,
   },
   openGraph: {
-    title: 'Square Chargeback Evidence: What to Submit & How to Win | ChargebackKit',
+    title: 'Square Chargeback Evidence: What to Submit & How to Win',
     description:
       'Complete guide to Square chargeback evidence for both in-person and online transactions.',
     url: `${siteUrl}/square-chargeback-evidence`,

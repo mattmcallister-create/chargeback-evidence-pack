@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'How to Win a Chargeback as a Merchant (2026 Guide) | ChargebackKit',
+  title: 'How to Win a Chargeback as a Merchant (2026 Guide)',
   description:
     'Step-by-step guide for merchants on how to win chargeback disputes. Learn which evidence wins, how to structure your response, and the mistakes that cost you money.',
   alternates: {
     canonical: `${siteUrl}/guides/how-to-win-a-chargeback`,
   },
   openGraph: {
-    title: 'How to Win a Chargeback as a Merchant (2026 Guide) | ChargebackKit',
+    title: 'How to Win a Chargeback as a Merchant (2026 Guide)',
     description:
       'Step-by-step guide for merchants on how to win chargeback disputes. Evidence, structure, and strategy.',
     url: `${siteUrl}/guides/how-to-win-a-chargeback`,

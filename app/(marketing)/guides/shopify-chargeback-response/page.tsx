@@ -4,11 +4,11 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Shopify Chargeback Response: Complete Guide to Winning Disputes | ChargebackKit',
+  title: 'Shopify Chargeback Response: Complete Guide to Winning Disputes',
   description: 'Step-by-step guide to responding to Shopify chargebacks. Learn evidence requirements, response deadlines, fees, and how to win disputes on Shopify Payments.',
   alternates: { canonical: `${siteUrl}/guides/shopify-chargeback-response` },
   openGraph: {
-    title: 'Shopify Chargeback Response Guide | ChargebackKit',
+    title: 'Shopify Chargeback Response Guide',
     description: 'Everything Shopify merchants need to fight and win chargebacks on Shopify Payments.',
     url: `${siteUrl}/guides/shopify-chargeback-response`,
     type: 'article',

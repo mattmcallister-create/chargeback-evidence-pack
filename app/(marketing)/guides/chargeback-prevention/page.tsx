@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Chargeback Prevention: 12 Proven Strategies for Merchants | ChargebackKit',
+  title: 'Chargeback Prevention: 12 Proven Strategies for Merchants',
   description:
     'Reduce chargebacks with proven prevention strategies. Learn fraud screening, clear billing descriptors, proactive customer service, and tools that stop disputes before they start.',
   alternates: {
     canonical: `${siteUrl}/guides/chargeback-prevention`,
   },
   openGraph: {
-    title: 'Chargeback Prevention: 12 Proven Strategies for Merchants | ChargebackKit',
+    title: 'Chargeback Prevention: 12 Proven Strategies for Merchants',
     description:
       'Reduce chargebacks with proven prevention strategies. Fraud screening, billing descriptors, and tools that stop disputes before they start.',
     url: `${siteUrl}/guides/chargeback-prevention`,

@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import type { Deadline } from '@/lib/database/types';
 
 export const metadata = {
-  title: 'Deadlines | ChargebackKit',
+  title: 'Deadlines',
 };
 
 const URGENCY_STYLES = {

@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Chargeback Rebuttal Letter: How to Write One That Wins | ChargebackKit',
+  title: 'Chargeback Rebuttal Letter: How to Write One That Wins',
   description:
     'Learn how to write a chargeback rebuttal letter that wins disputes. Includes structure, key components, tips by dispute type, and common mistakes to avoid.',
   alternates: {
     canonical: `${siteUrl}/guides/chargeback-rebuttal-letter`,
   },
   openGraph: {
-    title: 'Chargeback Rebuttal Letter: How to Write One That Wins | ChargebackKit',
+    title: 'Chargeback Rebuttal Letter: How to Write One That Wins',
     description:
       'Learn how to write a chargeback rebuttal letter that wins disputes. Structure, components, and tips by dispute type.',
     url: `${siteUrl}/guides/chargeback-rebuttal-letter`,

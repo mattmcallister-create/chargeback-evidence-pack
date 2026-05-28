@@ -4,14 +4,14 @@ import Link from 'next/link';
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://chargebackkit.app';
 
 export const metadata: Metadata = {
-  title: 'Mastercard Reason Code 4853: Complete Cardholder Dispute Guide | ChargebackKit',
+  title: 'Mastercard Reason Code 4853: Complete Cardholder Dispute Guide',
   description:
     'Complete guide to Mastercard chargeback reason code 4853 (Cardholder Dispute). Learn sub-types, evidence requirements, the 45-day response deadline, and how to win.',
   alternates: {
     canonical: `${siteUrl}/guides/mastercard-reason-code-4853`,
   },
   openGraph: {
-    title: 'Mastercard Reason Code 4853: Cardholder Dispute Guide | ChargebackKit',
+    title: 'Mastercard Reason Code 4853: Cardholder Dispute Guide',
     description: 'Step-by-step guide to responding to Mastercard 4853 chargebacks with the right evidence.',
     url: `${siteUrl}/guides/mastercard-reason-code-4853`,
     type: 'article',
