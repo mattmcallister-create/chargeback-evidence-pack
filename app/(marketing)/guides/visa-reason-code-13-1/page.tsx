@@ -23,6 +23,12 @@ export default function VisaReasonCode131Page() {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    dateModified: '2026-05-30',
+    author: {
+      '@type': 'Organization',
+      name: 'ChargebackKit',
+      url: 'https://chargebackkit.app',
+    },
     mainEntity: [
       {
         '@type': 'Question',
@@ -72,6 +78,12 @@ export default function VisaReasonCode131Page() {
     '@type': 'HowTo',
     name: 'How to Respond to Visa Reason Code 13.1 Chargebacks',
     description: 'Step-by-step process for fighting a Visa 13.1 merchandise not received chargeback with compelling evidence.',
+    dateModified: '2026-05-30',
+    author: {
+      '@type': 'Organization',
+      name: 'ChargebackKit',
+      url: 'https://chargebackkit.app',
+    },
     step: [
       {
         '@type': 'HowToStep',
