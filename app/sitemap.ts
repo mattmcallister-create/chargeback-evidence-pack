@@ -164,48 +164,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/reason-codes/visa-10-4`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/reason-codes/mastercard-4837`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/processors/stripe-chargebacks`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/processors/paypal-disputes`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/processors/square-chargebacks`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/industries/ecommerce-chargebacks`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/industries/saas-chargebacks`,
-            lastModified: today,
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
             url: `${baseUrl}/templates`,
             lastModified: today,
             changeFrequency: 'weekly',
@@ -219,12 +177,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: `${baseUrl}/privacy`,
-            lastModified: today,
-            changeFrequency: 'yearly',
-            priority: 0.3,
-        },
-        {
-            url: `${baseUrl}/refund-policy`,
             lastModified: today,
             changeFrequency: 'yearly',
             priority: 0.3,
